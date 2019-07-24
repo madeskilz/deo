@@ -1,100 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-    <link rel="icon" href="<?=base_url("favicon.ico")?>" type="image/ico" />
-    <link rel="stylesheet" type="text/css" href="<?=base_url("/assets/css/bootstrap.css")?>" />
-    <link rel="stylesheet" type="text/css" href="<?=base_url("/assets/css/animate.css")?>" />
-    <link rel="stylesheet" type="text/css" href="<?=base_url("/assets/css/owl.carousel.css")?>" />
-    <link rel="stylesheet" type="text/css" href="<?=base_url("/assets/css/styles.css")?>" />
-    <link rel="stylesheet" type="text/css" href="<?=base_url("/assets/css/meanmenu.css")?>" />
-    <link rel="stylesheet" type="text/css" href="<?=base_url("/assets/css/font-awesome.min.css")?>" />
-    <link rel="stylesheet" href="//cdn.linearicons.com/free/1.0.0/icon-font.min.css">
-    <script src="<?=base_url("/assets/js/libs/modernizr.custom.js")?>"></script>
-    <title>Deo Gratias Polytechnic</title>
+    <!-- Meta information -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"><!-- Mobile Specific Metas -->
+
+    <!-- Title -->
+    <title><?= (isset($title)) ? $title : "Welcome Home" ?> | Deo Gratias Polytechnic, Agbor</title>
+
+    <!-- favicon icon -->
+    <link rel="shortcut icon" href="<?= base_url("assets/logo/pp.jpg") ?>">
+
+    <!-- CSS Stylesheet -->
+    <link href="<?= base_url("assets/css/bootstrap.css") ?>" rel="stylesheet"><!-- bootstrap css -->
+    <link href="<?= base_url("assets/css/owl.carousel.css") ?>" rel="stylesheet"><!-- carousel Slider -->
+    <link href="<?= base_url("assets/css/font-awesome.css") ?>" rel="stylesheet"><!-- font awesome -->
+    <link href="<?= base_url("assets/css/loader.css") ?>" rel="stylesheet"><!--  loader css -->
+    <link href="<?= base_url("assets/css/jquery.selectbox.css") ?>" rel="stylesheet">
+    <link href="<?= base_url("assets/css/jquery.fancybox.css") ?>" rel="stylesheet">
+    <link href="<?= base_url("assets/css/docs.css") ?>" rel="stylesheet"><!--  template structure css -->
+
+    <link href="https://fonts.googleapis.com/css?family=Arima+Madurai:100,200,300,400,500,700,800,900%7CPT+Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        .logo_d {
+            display: flex;
+            max-width: 400px;
+        }
+
+@media screen and (min-width:560px) and (max-width:768px) {
+    .logo_d {
+        display: flex;
+        max-width: 200px !important;
+    }
+
+    .navbar-header {
+        width: 120px !important;
+    }
+}
+
+@media screen and (width:1024px){
+    .logo_d {
+        display: flex;
+        max-width: 200px !important;
+    }
+    .poly_name {
+        display: none !important;
+    }
+}
+    </style>
 </head>
 
 <body>
-    <div class="main-wrapper">
-        <!--Begin header ưrapper-->
-        <div class="header-wrapper header-position">
-            <header id="header" class="container-header type2">
-                <div class="top-nav">
-                    <div class="container">
-                        <div class="row">
-                            <div class="top-right col-md-9 col-sm-12 col-xs-12 pull-right">
-                                <ul class="list-inline">
-                                    <li class="hidden-xs">
-                                        <a href="mailto:Student@sayidan.edu">
-                                            <span class="icon mail-icon"></span>
-                                            <span class="text">admissions@deogratiaspoly.edu.ng</span>
-                                        </a>
-                                    </li>
-                                    <li class="hidden-xs">
-                                        <a href="tel:+2349019584559">
-                                            <span class="icon phone-icon"></span>
-                                            <span class="text">+234 901 958 4559</span>
-                                        </a>
-                                    </li>
-                                    <li class="top-search">
-                                        <form class="navbar-form search no-margin no-padding">
-                                            <input type="text" name="q" class="form-control input-search" placeholder="search..." autocomplete="off">
-                                            <button type="submit" class="lnr lnr-magnifier"></button>
-                                        </form>
-                                    </li>
-                                    <li class="login">
-                                        <a href="login-page.html">Log In</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="header-middle">
-                    <div class="container">
-                        <div class="logo hidden-sm hidden-xs">
-                            <a href="#"> <img src="<?=base_url("assets/logo/pp.jpg")?>" alt="logo" class="img-responsive" style="width:50%;" /></a>
-                        </div>
-                        <div class="menu">
-                            <nav>
-                                <ul class="nav navbar-nav">
-                                    <li>
-                                        <a href="<?=base_url("about")?>">ABOUT US</a>
-                                    </li>
-                                    <li>
-                                        <a href="<?=base_url("about")?>">COURSES</a>
-                                    </li>
-                                    <li>
-                                        <a href="programs-events.html">OTHER PROGRAMS</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="Student-story.html">STUDENTS STORY</a>
-                                    </li>
-                                    <li>
-                                        <a href="<?=base_url("about")?>">OND</a>
-                                    </li>
-                                    <li>
-                                        <a href="career-opportunity.html">HND</a>
-                                    </li>
-                                    <li>
-                                        <a href="<?=base_url("contact")?>">CONTACT US</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                        <div class="area-mobile-content visible-sm visible-xs">
-                            <div class="logo-mobile">
-                                <a href="#"> <img src="images/logo-small.png" alt="logo"></a>
-                            </div>
-                            <div class="mobile-menu ">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </header>
+    <div class="wapper">
+        <div id="loader-wrapper">
+            <div id="loader"></div>
+            <div class="loader-section section-left"></div>
+            <div class="loader-section section-right"></div>
         </div>
-        <!--End header wrapper-->
-        <!--Begin content wrapper-->
-        <div class="content-wrapper">
+        <div class="quck-nav style2">
+            <div class="contact-no"><a href="#"><i class="fa fa-map-marker"></i>55, Obi Ikechukwu Road, Agbor, Delta State, NG</a></div>
+            <div class="contact-no"><a href="#"><i class="fa fa-phone"></i>+234 901 958 4559</a></div>
+            <div class="contact-no"><a href="#"><i class="fa fa-globe"></i>deogratiaspoly.edu.ng</a></div>
+            <div class="quck-right">
+                <div class="right-link"><a href="#"><i class="fa fa-headphones"></i>Online Support</a></div>
+                <div class="right-link"><a href="<?= base_url("login") ?>"><i class="fa  fa-sign-in"></i>Login</a></div>
+            </div>
+        </div>
+        <header id="header" class="style2">
+            <nav id="nav-main">
+                <div class="navbar navbar-inverse">
+                    <div class="navbar-header">
+                        <a href="<?= base_url() ?>" class="navbar-brand logo_d">
+                            <img src="<?= base_url("assets/logo/pp.jpg") ?>" style='width:50px;height:auto;' alt="">
+                            <h2 style="color:#9f5714;margin-top:10px;margin-left:10px;" class="poly_name hidden-sm hidden-xs">Deo Gratias Polytechnic</h2>
+                        </a>
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="<?= ($active == "home") ? "active" : "" ?>">
+                                <a href="<?= base_url() ?>">Home </a>
+                            </li>
+                            <li class="sub-menu <?= ($active == "about") ? "active" : "" ?>">
+                                <a href="<?= base_url("about") ?>">About Us</a>
+                                <ul>
+                                    <li><a href="<?= base_url("core-values") ?>">Core Values</a></li>
+                                    <li><a href="<?= base_url("prospects") ?>">Prospects</a></li>
+                                    <li><a href="<?= base_url("structure") ?>">Structure</a></li>
+                                    <li><a href="<?= base_url("committee") ?>">Committee</a></li>
+                                    <li><a href="<?= base_url("facilities") ?>">Facilities</a></li>
+                                    <li><a href="<?= base_url("gallery") ?>">Gallery</a></li>
+                                    <li><a href="<?= base_url("events") ?>">News & Events</a></li>
+                                </ul>
+                            </li>
+                            <li class="sub-menu <?= ($active == "admission") ? "active" : "" ?>">
+                                <a href="#">Admission</a>
+                                <ul>
+                                    <li><a href="<?= base_url("admission-requirements") ?>">Requirements</a></li>
+                                    <li><a href="<?= base_url("admission-nd") ?>">National Diploma</a></li>
+                                    <li><a style="font-size:14px;" href="<?= base_url("admission-hnd") ?>">Higher National Diploma</a></li>
+                                </ul>
+                            </li>
+                            <li class="sub-menu <?= ($active == "application") ? "active" : "" ?>">
+                                <a href="#">Application</a>
+                                <ul>
+                                    <li><a href="<?= base_url("application-procedure") ?>">Application Procedure</a></li>
+                                    <li><a href="<?= base_url("application-form") ?>">Application Form</a></li>
+                                    <li><a href="<?= base_url("login") ?>">Login</a></li>
+                                </ul>
+                            </li>
+                            <?php $schools = $this->db->get('schools')->result(); ?>
+                            <li class="mega-menu sub-menu <?= ($active == "schools") ? "active" : "" ?>">
+                                <a href="courses-list.html">Schools</a>
+                                <div class="menu-view">
+                                    <div class="row">
+                                        <?php foreach ($schools as $school) : ?>
+                                            <div class="col-sm-4">
+                                                <div class="menu-title"><?= $school->name ?></div>
+                                                <?php
+                                                $this->db->where('school_id', $school->id);
+                                                $depts = $this->db->get('departments')->result(); ?>
+                                                <ul>
+                                                    <?php foreach ($depts as $dept) : ?>
+                                                        <li><a href="<?= base_url("prospects") ?>"><?= $dept->name ?></a></li>
+                                                    <?php endforeach; ?>
+                                                </ul>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="<?= ($active == "campus") ? "active" : "" ?>">
+                                <a href="<?= base_url("campus-life") ?>">Campus Life</a>
+                            </li>
+                            <li class="<?= ($active == "contact") ? "active" : "" ?>"><a href="<?= base_url("contact") ?>">Contact Us </a></li>
+                            <li class="<?= ($active == "rector") ? "active" : "" ?>">
+                                <a href="<?= base_url("rectors-desk") ?>">Rectors Desk</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>

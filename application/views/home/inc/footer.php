@@ -1,101 +1,94 @@
-</div>
-<!--End content wrapper-->
-<!--Begin footer wrapper-->
-<div class="footer-wrapper type2">
-    <footer class="foooter-container">
+<footer id="footer" class="style2">
+    <div class="footer-top">
         <div class="container">
-            <div class="footer-middle">
-                <div class="row">
-                    <div class="col-md-4 col-sm-12 col-xs-12 animated footer-col">
-                        <div class="contact-footer">
-                            <div class="logo-footer">
-                                <a href="homepage-1.html"><img src="images/logo-footer.png" alt=""></a>
-                            </div>
-                            <div class="contact-desc">
-                                <p class="text-light">Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare.</p>
-                            </div>
-                            <div class="contact-phone-email">
-                                <span class="contact-phone"><a href="#">+10872229</a> | <a href="#">+10872228 </a> </span>
-                                <span class="contact-email"><a href="#">Student@sayidan.edu</a></span>
-                            </div>
-                        </div>
+            <div class="">
+                <div class="col-sm-6 col-md-4 row">
+                    <div class="footer-logo col-sm-4"><a href="#"><img src="<?= base_url("assets/logo/pp.jpg") ?>" style="width:100px;" alt=""></a></div>
+                    <div class="footer-text col-sm-8">
+                        <p>Deo Gratias Polytechnic is founded on the principles of the fear of and trust in God, the dream was envisioned several years ago but consumated in 2019 with the approval granted by the Delta State Ministry of Higher Education.</p>
                     </div>
-                    <div class="col-md-5 col-sm-12  col-xs-12 animated footer-col">
-                        <div class="links-footer">
-                            <div class="row">
-                                <div class="col-sm-4 col-xs-12">
-                                    <h6 class="heading-bold">DASHBOARD</h6>
-                                    <ul class="list-unstyled no-margin">
-                                        <li><a href="register-page.html">REGISTER</a></li>
-                                        <li><a href="career-opportunity.html">CAREER</a></li>
-                                        <li><a href="Student-story.html">STORY</a></li>
-                                        <li><a href="Student-directory.html">DIRECTORY</a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="col-sm-4 col-xs-12">
-                                    <h6 class="heading-bold">ABOUT US</h6>
-                                    <ul class="list-unstyled no-margin">
-                                        <li><a href="event-single.html">EVENTS</a></li>
-                                        <li><a href="galery.html">GALLERY</a></li>
-                                        <li><a href="homepage-1.html">HOMEPAGE V1</a></li>
-                                        <li><a href="homepage-2.html">HOMEPAGE V2</a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="col-sm-4 col-xs-12">
-                                    <h6 class="heading-bold">SUPPORT</h6>
-                                    <ul class="list-unstyled no-margin">
-                                        <li><a href="job-detail.html">FAQ</a></li>
-                                        <li><a href="about-us.html#contacts">CONTACT US</a></li>
-                                        <li><a href="blog.html">ORGANIZER</a></li>
-                                        <li><a href="blog-single-fullwith.html">SOCIAL</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-12 col-xs-12 animated footer-col">
-                        <div class="links-social">
-                            <div class="login-dashboard">
-                                <a href="login-page.html" class="bg-color-theme text-center text-regular">Login Dashboard</a>
-                            </div>
-                            <ul class="list-inline text-center">
-                                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                            </ul>
+                    <div class="footer-text col-md-12">
+                        <div class="read-more">
+                            <a href="<?= base_url("about") ?>">Read More</a>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="footer-bottom text-center">
-                <p class="copyright text-light">&copy; <?= date("Y")?> Student Association of the Deo Gratias Polytechnic</p>
+                <div class="col-sm-6 col-md-4">
+                    <h5>Shortcuts</h5>
+                    <ul class="footer-link">
+                        <li><a href="<?= base_url("about") ?>">About Us</a></li>
+                        <li><a href="<?= base_url("admission-requirements") ?>">Admission Requirements</a></li>
+                        <li><a href="<?= base_url("campus-life") ?>">Campus Life</a></li>
+                        <li><a href="<?= base_url("contact") ?>">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <h5>Contact Us</h5>
+                    <div class="contact-view">
+                        <div class="contact-slide">
+                            <p><i class="fa fa-location-arrow"></i>55, Obi Ikechukwu Road, Agbor Obi<br />Junction, Agbor, Delta State, Nigeria.</p>
+                        </div>
+                        <div class="contact-slide">
+                            <p><i class="fa fa-phone"></i>+234 901 958 4559</p>
+                        </div>
+                        <!-- <div class="contact-slide">
+                            <p><i class="fa fa-fax"></i>(08) 8971 7450</p>
+                        </div> -->
+                        <div class="contact-slide">
+                            <p><i class="fa fa-envelope"></i><a href="mailto:info@deogratiaspoly.edu.ng">info@deogratiaspoly.edu.ng</a></p>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </div>
-    </footer>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="copy-right">
+                        <p>Copyright © <span class="year">2019</span> Deo Gratias Polytechnic All Rights Reserved</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="social-media">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-skype"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<div class="top-arrow" id="goTop">
+    <div class="arrow"><i class="fa fa-angle-up"></i></div>
 </div>
-<!--End footer wrapper-->
+<div class="search-blcok">
+    <div class="close-icon">
+        <i class="fa fa-close"></i>
+    </div>
+    <div class="input-box">
+        <input type="text" placeholder="Enter Keyword">
+        <div class="note">Input your search keywords and press Enter.</div>
+    </div>
 </div>
-
-<script src="<?=base_url("/assets/js/libs/jquery-2.2.4.min.js")?>"></script>
-<script src="<?=base_url("/assets/js/libs/bootstrap.min.js")?>"></script>
-<script src="<?=base_url("/assets/js/libs/owl.carousel.min.js")?>"></script>
-<script src="<?=base_url("/assets/js/libs/jquery.meanmenu.js")?>"></script>
-<script src="<?=base_url("/assets/js/libs/jquery.syotimer.js")?>"></script>
-<script src="<?=base_url("/assets/js/libs/parallax.min.js")?>"></script>
-<script src="<?=base_url("/assets/js/libs/jquery.waypoints.min.js")?>"></script>
-<script src="<?=base_url("/assets/js/custom/main.js")?>"></script>
-<script>
-    jQuery(document).ready(function() {
-        $('#time').syotimer({
-            year: 2019,
-            month: 12,
-            day: 7,
-            hour: 7,
-            minute: 7,
-        });
-    });
-</script>
+</div>
+<script type="text/javascript" src="<?= base_url("assets/js/jquery-1.12.4.min.js") ?>"></script>
+<script type="text/javascript" src="<?= base_url("assets/js/bootstrap.js") ?>"></script>
+<script type="text/javascript" src="<?= base_url("assets/js/owl.carousel.js") ?>"></script>
+<script type="text/javascript" src="<?= base_url("assets/js/jquery.form-validator.min.js") ?>"></script>
+<script type="text/javascript" src="<?= base_url("assets/js/jquery.selectbox-0.2.js") ?>"></script>
+<script type="text/javascript" src="<?= base_url("assets/js/placeholder.js") ?>"></script>
+<script type="text/javascript" src="<?= base_url("assets/js/coustem.js") ?>"></script>
+<script type="text/javascript" src="<?= base_url("assets/js/jquery.fancybox.pack.js")?>"></script>
+<script type="text/javascript" src="<?= base_url("assets/js/jquery.filterizr.js")?>"></script>
+<?php $this->load->view("home/inc/application_script") ?>
 </body>
+
 </html>
