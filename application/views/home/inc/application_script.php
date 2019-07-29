@@ -1,11 +1,18 @@
 <script>
     function loadname(img, previewName) {
-            $("#image_err").text("");
+        $("#image_err").text("");
         var isIE = (navigator.appName == "Microsoft Internet Explorer");
         var path = img.value;
         var ext = path.substring(path.lastIndexOf('.') + 1).toLowerCase();
 
         if (ext == "gif" || ext == "jpeg" || ext == "jpg" || ext == "png" || ext == "webp") {
+            var f = img.files[0];
+            var filesize = f.size;
+            if (filesize > 25000) {
+                $("#image_err").text("Image size too large");
+                img.value = "";
+                return false;
+            }
             if (isIE) {
                 $('#' + previewName).attr('src', path);
             } else {
@@ -20,11 +27,11 @@
 
         } else {
             $("#image_err").text("Error Wrong Image Type");
-            document.getElementById("image").value = "";
+            img.value = "";
         }
     }
     $("#school,#program").on("change", () => {
-            $("#dept_err").show();
+        $("#dept_err").show();
         let curVal = $("#school").val();
         let pVal = $("#program").val();
         if (pVal == "" || curVal == "") {
@@ -52,6 +59,37 @@
                     $("#department").append(o);
                 })
                 $("#dept_err").hide();
+            },
+            error: (e) => {
+                alert(e)
+            }
+        })
+    })
+    $("#state").on("change", () => {
+        let curVal = $("#state").val();
+        if (curVal == "") {
+            $('#lga').find('option').remove();
+            var o = new Option("Select", "");
+            $(o).html("Select");
+            $("#lga").append(o);
+            return false;
+        }
+        $.ajax({
+            url: "<?= base_url() ?>" + 'ajax/get_lga',
+            method: 'POST',
+            data: {
+                'sid': curVal
+            },
+            success: response => {
+                $('#lga').find('option').remove();
+                var o = new Option("Select", "");
+                $(o).html("Select");
+                $("#lga").append(o);
+                response.forEach(loc => {
+                    var o = new Option(loc.local_name, loc.local_id);
+                    $(o).html(loc.local_name);
+                    $("#lga").append(o);
+                })
             },
             error: (e) => {
                 alert(e)

@@ -13,13 +13,11 @@ class Auth extends CI_Controller
     {
         redirect("auth/login");
     }
-    public function login()
-    {
+    private function isLoggedIn(){
         if ($this->session->userdata("logged_in")){
             $active = $this->session->userdata("active");
             $level = $this->session->userdata("level");
             if ($active == 1) {
-                die($level);
                 //1 = admin
                 //2 = lecturer/staff
                 //3 = returning-student
@@ -30,11 +28,19 @@ class Auth extends CI_Controller
                     redirect('staff');
                 } elseif ($level === '3') {
                     redirect('returning');
-                }else {
+                }elseif ($level === '4') {
                     redirect('prospective');
+                } else{
+                    redirect('applicant');
                 }
             }
         }
+    }
+    public function login()
+    {
+        if ($this->uri->uri_string() == 'auth/login')
+            show_404();
+        $this->isLoggedIn();
         if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
             $this->auth();
         }
@@ -42,10 +48,10 @@ class Auth extends CI_Controller
         $p["active"] = "login";
         $this->load->view('home/login', $p);
     }
-    function auth()
+    private function auth()
     {
-        $email    = $this->input->post('email', TRUE);
-        $password = md5($this->input->post('password', TRUE));
+        $email    = cleanit($this->input->post('email'));
+        $password = md5(cleanit($this->input->post('password')));
         $validate = $this->login_model->validate($email, $password);
         if ($validate->num_rows() > 0) {
             $data  = $validate->row_array();
@@ -65,6 +71,7 @@ class Auth extends CI_Controller
                 //2 = lecturer/staff
                 //3 = returning-student
                 //4 = prospective-students
+                //5 = applicant
                 $this->session->set_userdata($sesdata);
                 if ($level === '1') {
                     redirect('admin');
@@ -72,8 +79,10 @@ class Auth extends CI_Controller
                     redirect('staff');
                 } elseif ($level === '3') {
                     redirect('returning');
-                } else{
+                } elseif ($level === '4') {
                     redirect('prospective');
+                } else{
+                    redirect('applicant');
                 }
             }else {
                 echo $this->session->set_flashdata('msg', 'Account Suspended');

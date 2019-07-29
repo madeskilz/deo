@@ -25,6 +25,17 @@
                 </div>
                 <form method="post">
                     <div class="row">
+                        <h4 class="col-md-12" style="font-weight:600;">Jamb Information</h4>
+                        <div class="input-box col-md-6">
+                            <label>Registration Number</label>
+                            <input type="text" placeholder="Registeration Number" name="jamb_reg_no" required>
+                        </div>
+                        <div class="input-box col-md-6">
+                            <label>Score</label>
+                            <input type="text" placeholder="Score" name="jamb_score" required>
+                        </div>
+                    </div>
+                    <div class="row">
                         <h4 class="col-md-4" style="font-weight:600;">Academic Information</h4>
                         <div class="col-md-4 pull-right text-center">
                             <img src="<?= base_url("assets/images/user-blank.png") ?>" id="passport" style="width:150px;" name="image" />
@@ -34,7 +45,7 @@
                         <div class="col-md-8 row">
                             <div class="input-box col-md-4">
                                 <label>Programme</label>
-                                <select class="form-control" required id="program">
+                                <select class="form-control" required id="program" name="program">
                                     <option value="">Select</option>
                                     <?php foreach ($programs as $program) : ?>
                                         <option value="<?= $program->id ?>"><?= $program->name ?></option>
@@ -60,8 +71,8 @@
                         </div>
                         <div class="input-box col-md-4">
                             <label>Passport</label>
-                            <input type="file" placeholder="Upload File" accept="image/*" onchange="loadname(this,'passport')" id="image" required>
-                            <small style="color:#f34;" id="image_err"></small>
+                            <input name="image" type="file" placeholder="Upload File" accept="image/*" onchange="loadname(this,'passport')" id="image" required>
+                            <small style="color:#f34;" id="image_err">max size: 25kb; format: .png, .jpg, .jpeg, .gif</small>
                         </div>
                     </div>
                     <div class="row">
@@ -117,25 +128,32 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="input-box col-md-4">
+                        <div class="input-box col-md-6">
+                            <label>Address</label>
+                            <textarea class="form-control" name="address" required></textarea>
+                        </div>
+                        <div class="input-box col-md-6">
                             <label>Country of Birth</label>
                             <select class="form-control" name="country" required>
                                 <option value="">Select</option>
                                 <option value="Nigeria">Nigeria</option>
                             </select>
                         </div>
-                        <div class="input-box col-md-4">
+                    </div>
+                    <div class="row">
+                        <div class="input-box col-md-6">
                             <label>State of Origin</label>
-                            <select class="form-control" name="state" required>
+                            <select class="form-control" name="state" id="state" required>
                                 <option value="">Select</option>
-                                <option value="Ogun">Ogun</option>
+                                <?php foreach ($states as $state) : ?>
+                                    <option value="<?= $state->id ?>"><?= $state->name ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
-                        <div class="input-box col-md-4">
+                        <div class="input-box col-md-6">
                             <label>Local Government</label>
-                            <select class="form-control" name="lga" required>
+                            <select class="form-control" name="lga" id="lga" required>
                                 <option value="">Select</option>
-                                <option value="Abeokuta">Abeokuta</option>
                             </select>
                         </div>
                     </div>

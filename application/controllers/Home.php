@@ -3,26 +3,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Home extends CI_Controller
 {
-
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html
-	 */
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->helper('url');
+		$this->load->model('login_model');
 	}
 	public function index()
 	{
@@ -66,13 +51,13 @@ class Home extends CI_Controller
 	public function contact()
 	{
 		$p["title"] = "Contact Us";
-		$p["active"] = "contact";
+		$p["active"] = "support";
 		$this->load->view('home/contact', $p);
 	}
 	public function rector()
 	{
 		$p["title"] = "Rectors Desk";
-		$p["active"] = "rector";
+		$p["active"] = "media";
 		$this->load->view('home/rector', $p);
 	}
 	public function campus()
@@ -107,35 +92,86 @@ class Home extends CI_Controller
 	}
 	public function application()
 	{
-        if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
-            $this->apply();
-        }
+		$this->isLoggedIn();
+		if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
+			$this->apply();
+		}
 		$p["active"] = "application";
 		$p["title"] = "Application Form";
 		$p["programs"] = $this->db->get('programs')->result();
 		$p["schools"] = $this->db->get('schools')->result();
+		$p["states"] = $this->db->get('states')->result();
 		$this->load->view('home/application', $p);
 	}
-	function apply(){
+	private function isLoggedIn()
+	{
+		if ($this->session->userdata("logged_in")) {
+			$active = $this->session->userdata("active");
+			$level = $this->session->userdata("level");
+			if ($active == 1) {
+				//1 = admin
+				//2 = lecturer/staff
+				//3 = returning-student
+				//4 = prospective-students
+				if ($level === '1') {
+					redirect('admin');
+				} elseif ($level === '2') {
+					redirect('staff');
+				} elseif ($level === '3') {
+					redirect('returning');
+				} elseif ($level === '4') {
+					redirect('prospective');
+				} else {
+					redirect('applicant');
+				}
+			}
+		}
+	}
+	private function apply()
+	{
 		$data = array();
 		$login_data = array();
 		$data['firstname'] = cleanit($this->input->post('firstname'));
 		$data['lastname'] = cleanit($this->input->post('lastname'));
 		$data['middlename'] = cleanit($this->input->post('middlename'));
+		$data['jamb_reg_no'] = cleanit($this->input->post('jamb_reg_no'));
+		$data['jamb_score'] = cleanit($this->input->post('jamb_score'));
+		$data['address'] = cleanit($this->input->post('address'));
 		$data['department'] = cleanit($this->input->post('department'));
-
-		//upload image passport check for size
-		$login_data['email'] = cleanit($this->input->post('email'));
-		$login_data['password'] = md5(cleanit($this->input->post('password')));
-		//first createlogin
-
-
+		$program = cleanit($this->input->post('program'));
+		$school = cleanit($this->input->post('school'));
+		$upload_data = array();
+		if (isset($_FILES) && $_FILES['image']['name'] != '') :
+			$imagename = rand(1, 1999) . $data['lastname'];
+			$path = './studentfiles/images/';
+			$config['upload_path'] = $path;
+			$config['allowed_types'] = 'gif|jpg|png|webp|jpeg';
+			$config['file_name'] = $imagename;
+			if (!is_dir($path)) {
+				mkdir($path, 0777);
+			}
+			$this->load->library('upload', $config);
+			if (!$this->upload->do_upload('image')) {
+				$this->session->set_flashdata('error_msg', $this->upload->display_errors());
+				redirect("application-form");
+			} else {
+				$upload_data = $this->upload->data();
+			}
+		endif;
+		if (count($upload_data) > 0) :
+			$data["image"] = ($upload_data['file_name']);
+		endif;
+		$login_data['user_email'] = cleanit($this->input->post('email'));
+		$login_data['user_password'] = md5(cleanit($this->input->post('password')));
+		$result = $this->login_model->create_account($login_data);
+		if ($result > 0) {
+			$data['user_id'] = $result;
+		} else {
+			redirect("application-form");
+		}
 		$data['title'] = cleanit($this->input->post('title'));
 		$data['dateofbirth'] = cleanit($this->input->post('dateofbirth'));
 		$data['phone'] = cleanit($this->input->post('phone'));
-		//after create login return user_id
-		$data['user_id'] = ""; //returned user_id
-		$data['image'] = ""; //created image name
 		$data['alt_contact_rel'] = cleanit($this->input->post('alt_contact_rel'));
 		$data['alt_contact_phone'] = cleanit($this->input->post('alt_contact_phone'));
 		$data['alt_contact_name'] = cleanit($this->input->post('alt_contact_name'));
@@ -144,9 +180,28 @@ class Home extends CI_Controller
 		$data['country'] = cleanit($this->input->post('country'));
 		$data['state'] = cleanit($this->input->post('state'));
 		$data['lga'] = cleanit($this->input->post('lga'));
-		$data['admission_no'] = ""; //generate admission number
-		$data['admission_status'] = cleanit($this->input->post('processing'));
-		var_dump($data);
-		exit;
+		$data['admission_no'] = "AP/" . date("Y") . "/"
+			. sprintf("%04d", $data['user_id']);
+		$data['admission_status'] = 'processing';
+		$add_student = $this->login_model->applicant($data);
+		if ($add_student > 0) {
+			$this->db->where("user_id", $data["user_id"]);
+			$user_data = $this->db->get('users', 1);
+			$user_id  = $user_data['user_id'];
+			$email = $user_data['user_email'];
+			$level = $user_data['user_level'];
+			$active  = $user_data['active'];
+			$sesdata = array(
+				'user_id'  => $user_id,
+				'email'     => $email,
+				'level'     => $level,
+				'active'     => $active,
+				'logged_in' => TRUE
+			);
+			$this->session->set_userdata($sesdata);
+			redirect('applicant');
+		} else {
+			redirect("application-form");
+		}
 	}
 }

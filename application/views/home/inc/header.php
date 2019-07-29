@@ -33,26 +33,27 @@
             max-width: 400px;
         }
 
-@media screen and (min-width:560px) and (max-width:768px) {
-    .logo_d {
-        display: flex;
-        max-width: 200px !important;
-    }
+        @media screen and (min-width:560px) and (max-width:768px) {
+            .logo_d {
+                display: flex;
+                max-width: 200px !important;
+            }
 
-    .navbar-header {
-        width: 120px !important;
-    }
-}
+            .navbar-header {
+                width: 120px !important;
+            }
+        }
 
-@media screen and (width:1024px){
-    .logo_d {
-        display: flex;
-        max-width: 200px !important;
-    }
-    .poly_name {
-        display: none !important;
-    }
-}
+        @media screen and (width:1024px) {
+            .logo_d {
+                display: flex;
+                max-width: 200px !important;
+            }
+
+            .poly_name {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 
@@ -78,7 +79,7 @@
                     <div class="navbar-header">
                         <a href="<?= base_url() ?>" class="navbar-brand logo_d">
                             <img src="<?= base_url("assets/logo/pp.jpg") ?>" style='width:50px;height:auto;' alt="">
-                            <h2 style="color:#9f5714;margin-top:10px;margin-left:10px;" class="poly_name hidden-sm hidden-xs">Deo Gratias Polytechnic</h2>
+                            <h2 style="color:#4ea1a7;margin-top:10px;margin-left:10px;" class="poly_name hidden-sm hidden-xs">Deo Gratias Polytechnic</h2>
                         </a>
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                             <span class="icon-bar"></span>
@@ -100,7 +101,6 @@
                                     <li><a href="<?= base_url("committee") ?>">Committee</a></li>
                                     <li><a href="<?= base_url("facilities") ?>">Facilities</a></li>
                                     <li><a href="<?= base_url("gallery") ?>">Gallery</a></li>
-                                    <li><a href="<?= base_url("events") ?>">News & Events</a></li>
                                 </ul>
                             </li>
                             <li class="sub-menu <?= ($active == "admission") ? "active" : "" ?>">
@@ -109,14 +109,6 @@
                                     <li><a href="<?= base_url("admission-requirements") ?>">Requirements</a></li>
                                     <li><a href="<?= base_url("admission-nd") ?>">National Diploma</a></li>
                                     <li><a style="font-size:14px;" href="<?= base_url("admission-hnd") ?>">Higher National Diploma</a></li>
-                                </ul>
-                            </li>
-                            <li class="sub-menu <?= ($active == "application") ? "active" : "" ?>">
-                                <a href="#">Application</a>
-                                <ul>
-                                    <li><a href="<?= base_url("application-procedure") ?>">Application Procedure</a></li>
-                                    <li><a href="<?= base_url("application-form") ?>">Application Form</a></li>
-                                    <li><a href="<?= base_url("login") ?>">Login</a></li>
                                 </ul>
                             </li>
                             <?php $schools = $this->db->get('schools')->result(); ?>
@@ -140,12 +132,37 @@
                                     </div>
                                 </div>
                             </li>
+                            <li class="sub-menu <?= ($active == "application") ? "active" : "" ?>">
+                                <a href="#">Application</a>
+                                <ul>
+                                    <li><a href="<?= base_url("application-procedure") ?>">Application Procedure</a></li>
+                                    <li><a href="<?= base_url("application-form") ?>">Application Form</a></li>
+                                    <li><a href="<?= base_url("login") ?>">Login</a></li>
+                                </ul>
+                            </li>
                             <li class="<?= ($active == "campus") ? "active" : "" ?>">
                                 <a href="<?= base_url("campus-life") ?>">Campus Life</a>
                             </li>
-                            <li class="<?= ($active == "contact") ? "active" : "" ?>"><a href="<?= base_url("contact") ?>">Contact Us </a></li>
-                            <li class="<?= ($active == "rector") ? "active" : "" ?>">
-                                <a href="<?= base_url("rectors-desk") ?>">Rectors Desk</a>
+                            <li class="sub-menu <?= ($active == "students") ? "active" : "" ?>">
+                                <a href="#">Students</a>
+                                <ul>
+                                    <li><a href="<?= base_url("login") ?>">Returning Student</a></li>
+                                    <li><a href="<?= base_url("login") ?>">Prospective Student</a></li>
+                                    <li><a href="<?= base_url("login") ?>">Alumni</a></li>
+                                </ul>
+                            </li>
+                            <li class="sub-menu <?= ($active == "support") ? "active" : "" ?>">
+                                <a href="#">Support</a>
+                                <ul>
+                                    <li><a href="<?= base_url("contact") ?>">Contact Us </a></li>
+                                </ul>
+                            </li>
+                            <li class="sub-menu <?= ($active == "media") ? "active" : "" ?>">
+                                <a href="#">Media</a>
+                                <ul>
+                                    <li><a href="<?= base_url("rectors-desk") ?>">Rectors Desk</a></li>
+                                    <li><a href="<?= base_url("events") ?>">News & Events</a></li>
+                                </ul>
                             </li>
                         </ul>
                     </div>

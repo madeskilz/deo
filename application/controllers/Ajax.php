@@ -17,7 +17,7 @@ class Ajax extends CI_Controller
     }
 
 
-    // Fetch dept by school
+    // Fetch dept by school and programme
     function get_dept()
     {
         if ($this->input->is_ajax_request()) {
@@ -26,6 +26,21 @@ class Ajax extends CI_Controller
             $this->db->where("program", $pid);
             $this->db->where("school_id", $sid);
             $dept = $this->db->get("departments")->result_array();
+            header('Content-type: text/json');
+            header('Content-type: application/json');
+            echo json_encode($dept);
+            exit;
+        } else {
+            redirect(base_url());
+        }
+    }
+    // Fetch lga by state
+    function get_lga()
+    {
+        if ($this->input->is_ajax_request()) {
+            $sid = cleanit($this->input->post('sid'));
+            $this->db->where("state_id", $sid);
+            $dept = $this->db->get("locals")->result_array();
             header('Content-type: text/json');
             header('Content-type: application/json');
             echo json_encode($dept);
