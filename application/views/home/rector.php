@@ -23,12 +23,18 @@
         </div>
         <div class="row">
             <div class="col-md-5">
-                <div class="img"><img src="<?= base_url("assets/images/team-member/member-img15.jpg") ?>" alt=""></div>
+                <div class="img"><img src="<?= base_url("assets/logo/rector_image.jpeg") ?>" alt=""></div>
             </div>
             <div class="col-md-7">
                 <h3>Welcome to Deo Gratias</h3>
                 <div class="teacher-info text-justify">
-                    <p>You are welcome to Deo Gratias polytechnic platform. I am George Odabi, Doctorate and professor. I come from a family of parents who are passionate, very passionate about education. My mother, lady Odabi, with the active support of my late father (may his soul in peace), started off with a nursery school within the staff quarters of the university of Nigeria Nsukka in 1970, I was blessed to be in the first student number 001. That seed grew to become a primary and secondary school. Having been born into and bred in that sector, I did not think of anywhere else to develop, not invest, on my return to Nigeria after a sojourn in the USA. Hence, today, we have Deo Gratias International Group of Schools in Garki, Gwarimpa, Sunnyvale and Mabushi, Games Village, Guzape, FHA all in Abuja and still counting.
+                    <p>You are welcome to Deo Gratias polytechnic platform. I am George Odabi, Doctorate and 
+                        professor. I come from a family of parents who are passionate, very passionate about 
+                        education. My mother, Lady Odabi, with the active support of my late father (may his soul 
+                        in peace), started off with a nursery school within the staff quarters of the University 
+                        of Nigeria Nsukka in 1970, I was blessed to be in the first class as student number 001. 
+                        That seed grew to become a primary and secondary school. Having been born into and bred 
+                         in that sector, I did not think of anywhere else to develop, not invest, on my return to Nigeria after a sojourn in the USA. Hence, today, we have Deo Gratias International Group of Schools in Garki, Gwarimpa, Sunnyvale and Mabushi, Games Village, Guzape, FHA all in Abuja and still counting.
                     </p>
                     <p>Being an indigene of Alisor-Agbor, it will be antithetical, if not absurd, for one of such seeds not to be planted in my home soil. And so we have a Deo Gratias school at Agbor.
                     </p>

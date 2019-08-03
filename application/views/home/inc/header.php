@@ -78,8 +78,8 @@
                 <div class="navbar navbar-inverse">
                     <div class="navbar-header">
                         <a href="<?= base_url() ?>" class="navbar-brand logo_d">
-                            <img src="<?= base_url("assets/logo/pp.jpg") ?>" style='width:50px;height:auto;' alt="">
-                            <h2 style="color:#4ea1a7;margin-top:10px;margin-left:10px;" class="poly_name hidden-sm hidden-xs">Deo Gratias Polytechnic</h2>
+                            <img src="<?= base_url("assets/logo/pp.jpg") ?>" style='width:50px;height:50px;' alt="">
+                            <h2 style="color:#4ea1a7;margin-top:5px;margin-left:10px;font-size:24px;" class="poly_name hidden-sm hidden-xs">Deo Gratias Polytechnic<br/> <span style="color:#f34;font-size:14px;float:right;">...In God we trust</span></h2>
                         </a>
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                             <span class="icon-bar"></span>

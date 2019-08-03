@@ -18,24 +18,8 @@
 <section class="container" style="padding-top:10px">
     <div class="row">
         <div class="col-md-6">
-            <h3 class="text-center"><i class="fa fa-question bg-success" style="color:#fff;width:45px;height:45px;padding:10px;border-radius:100%"></i> What To Expect</h3>
-            <p class="text-justify" style="font-size:15px;">
-                Welcome to our Campus Life section of articles, advice, tips and hints. We aim to cover most of the topics and issues that come to mind when you think about finally heading off to school. After all your hard work in applying to various polytechnics, writing essays for grants and scholarships and making endless phone calls to admissions and financial aid, shouldn’t this part be fun? ‘You’ll be taking the first big step to adulthood and separation from your family, at least for most of the year. Not only is this exciting, but it can also be a bit scary and nerve-wracking. Your first year of college presents a lot of new experiences living away from home, meeting new people and managing your own time. Prepare for life on campus by figuring out what to bring, how to handle challenging circumstances and what you can do to manage your workload.
-            </p>
-        </div>
-        <div class="col-md-6">
-            <h3 class="text-center"><i class="fa fa-graduation-cap bg-success" style="color:#fff;width:45px;height:45px;padding:10px;border-radius:100%"></i> What To Bring To School</h3>
-            <p class="text-justify" style="font-size:15px;">
-                When you go away to college for the first time, you want to make sure you're prepared. You may be living on your own for the first time, so there could be some items you wouldn't normally consider taking because someone at home, such as a parent or guardian, usually takes care of them for you. Most undergraduates reside in one of our residence halls, designed to enhance the academic experience on our sustainable campus. The cafeteria and other facilities provide the campus community with healthy, sustainable meals. Consult your college acceptance literature for any specific items your college asks you to bring.
-            </p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
             <h3 class="text-center"><i class="fa fa-users bg-success" style="color:#fff;width:45px;height:45px;padding:10px;border-radius:100%"></i> Dealing With Roomates</h3>
-            <p class="text-justify" style="font-size:15px;">
-                Having a college roommate is most people's first experience living with someone who is not related to them. It comes with both benefits and challenges. Getting along with your college roommate can enhance your college experience. You get an instant friend, someone to confide in and keep you company during your first time away from home. However, since many colleges randomly assign your first roommate, you also run the risk of being matched with someone you find challenging or don't relate to right away. Either way, here's some good advice:
-            </p>
+            
             <h5 style="font-weight:900;">Establish some rules at the beginning</h5>
             <p class="text-justify" style="font-size:15px;">
                 Make your preferences known from the start so you and your roommate are clear on what to do to avoid conflict. Establish what space is whose, when you need quiet time to study, which items you can share, what time you go to bed, if you like to sleep in on weekends and who's allowed to eat what in the refrigerator.
@@ -50,6 +34,12 @@
             <p class="text-justify" style="font-size:15px;">
                 Whenever you're dealing with the wants and needs of other people, you need to compromise. When it comes to doing chores around the room, listening to certain kinds of music, watching different TV shows and requesting privacy, compromise is key. If you give a little, your roommate will give a little. Compromising does not mean giving in to all of someone's requests; it means coming to a mutual agreement. So, utilize positive communication, and talk through the things you and your roommate differ on until you can reach a compromise.
                 Even if you find yourself in a situation where you and your roommate just don't get along, moving out should be the last resort. Dealing with roommate conflict can be an important lesson, and moving out is a hassle. However, if the situation is burdening you after three months, it may be in both your best interests to consult student housing. You can always talk to your Resident Advisor (RA) and ask for help to resolve conflict. You’ll find advice on dealing with your roommate in an open, friendly way that can guide you into at least a comfortable situation with him or her. Roommates are a fact of campus life, and while these relationships can be tricky, they can also be the basis for life-long fantastic friendships. The key to being good roommates is, as in so much of life, simple communication.
+            </p>
+        </div>
+        <div class="col-md-6">
+            <h3 class="text-center"><i class="fa fa-question bg-success" style="color:#fff;width:45px;height:45px;padding:10px;border-radius:100%"></i> What To Expect</h3>
+            <p class="text-justify" style="font-size:15px;">
+                Welcome to our Campus Life section of articles, advice, tips and hints. We aim to cover most of the topics and issues that come to mind when you think about finally heading off to school. After all your hard work in applying to various polytechnics, writing essays for grants and scholarships and making endless phone calls to admissions and financial aid, shouldn’t this part be fun? ‘You’ll be taking the first big step to adulthood and separation from your family, at least for most of the year. Not only is this exciting, but it can also be a bit scary and nerve-wracking. Your first year of college presents a lot of new experiences living away from home, meeting new people and managing your own time. Prepare for life on campus by figuring out what to bring, how to handle challenging circumstances and what you can do to manage your workload.
             </p>
         </div>
         <div class="col-md-6">

@@ -24,6 +24,17 @@ if(!function_exists('generate_token')){
 	     return $randString;
 	}
 }
+function generate_code($table = 'payments', $label = 'reference')
+{
+    do {
+        $_this =& get_instance();
+        $number = generate_token( 16);
+        $_this->db->where($label, $number);
+        $_this->db->from($table);
+        $count = $_this->db->count_all_results();
+    } while ($count >= 1);
+    return $number;
+}
 
 if (!function_exists('shaPassword')) {
 	function shaPassword($field = "", $salt = "")  {

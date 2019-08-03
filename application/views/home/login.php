@@ -23,6 +23,9 @@
                 <div class="section-title">
                     <p>Login</p>
                 </div>
+                <div class="col-md-12 row">
+                    <?php $this->load->view("err-inc/msg") ?>
+                </div>
                 <form method="post">
                     <div class="input-box">
                         <input type="email" placeholder="Email" name="email">

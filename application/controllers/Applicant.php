@@ -17,6 +17,7 @@ class Applicant extends CI_Controller
         $uid = $this->session->userdata("user_id");
         $this->db->where("user_id", $uid);
         $p['details'] = $this->db->get("applicants", 1)->row();
+        $this->db->where("user_id", $uid);
         $p['exams'] =  $this->db->get("exam")->result();
         $this->load->view('applicant/index', $p);
     }
@@ -31,8 +32,9 @@ class Applicant extends CI_Controller
         $this->db->where("user_id", $uid);
         $this->db->set(array("confirm_details" => 1));
         $this->db->update("applicants");
+        $this->db->where("user_id", $uid);
         $p['details'] = $this->db->get("applicants", 1)->row();
-        if($p['details']->uploaded_result){
+        if ($p['details']->uploaded_result == 1) {
             redirect(base_url("applicant"));
         }
         $p['subjects'] = $this->db->get("subjects")->result();
@@ -49,7 +51,6 @@ class Applicant extends CI_Controller
         $exam_data["exam_type"] = cleanit($this->input->post('exam_type'));
         $exam_data["exam_no"] = cleanit($this->input->post('exam_no'));
         $exam_data["exam_year"] = cleanit($this->input->post('exam_year'));
-        var_dump($exam_data["exam_year"]);exit;
         //subjects
         $subject = $this->input->post('subject');
         $grade = $this->input->post('grade');
@@ -88,8 +89,83 @@ class Applicant extends CI_Controller
             }
         }
         $this->db->where("user_id", $uid);
-        $this->db->set(array("uploaded_result" => 1, "exam_sitting"=>$exam_sitting));
+        $this->db->set(array("uploaded_result" => 1, "exam_sitting" => $exam_sitting));
         $this->db->update("applicants");
         redirect(base_url("applicant"));
     }
+    public function payment(){
+        $p["active"] = "payment";
+        $p["title"] = "Payment";
+        $uid = $this->session->userdata("user_id");
+        $this->db->where("user_id", $uid);
+        $p['details'] = $this->db->get("applicants", 1)->row();
+        $this->db->where("user_id", $uid);
+        $p['payments'] = $this->db->get("payments")->result();
+        $this->load->view('applicant/payment', $p);
+    }
+    public function upload(){
+        $p["active"] = "upload";
+        $p["title"] = "Upload Documents";
+        $uid = $this->session->userdata("user_id");
+        $this->db->where("user_id", $uid);
+        $p['details'] = $this->db->get("applicants", 1)->row();
+        $this->load->view('applicant/upload', $p);
+    }
+    public function upload_birth_cert(){
+        if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
+            $this->upload_birth_cert_fn();
+        }
+        $p["active"] = "upload";
+        $p["title"] = "Upload Birth Certificate";
+        $uid = $this->session->userdata("user_id");
+        $this->db->where("user_id", $uid);
+        $p['details'] = $this->db->get("applicants", 1)->row();
+        if ($p['details']->uploaded_birth_cert) redirect("applicant/upload");
+        $this->load->view('applicant/upload_birth_cert', $p);
+    }
+    public function documents(){
+        $p["active"] = "documents";
+        $p["title"] = "Documents Birth Certificate";
+        $uid = $this->session->userdata("user_id");
+        $this->db->where("user_id", $uid);
+        $p['details'] = $this->db->get("applicants", 1)->row();
+        $this->load->view('applicant/documents', $p);
+    }
+    
+	private function upload_birth_cert_fn()
+	{
+        $data = array();
+        $data["user_id"] = $this->session->userdata("user_id");
+		$upload_data = array();
+		if (isset($_FILES) && $_FILES['image']['name'] != '') :
+			$imagename = rand(1, 1999)."_birth_cert_" . $data['user_id'];
+			$path = realpath(FCPATH . 'sitefiles/applicants/birth/');
+			$config['upload_path'] = $path;
+			$config['allowed_types'] = 'gif|jpg|png|webp|jpeg';
+			$config['file_name'] = $imagename;
+			$this->load->library('upload', $config);
+			if (!$this->upload->do_upload('image')) {
+				$this->session->set_flashdata('error_msg', $this->upload->display_errors());
+				redirect("applicant/upload_birth_cert");
+			} else {
+				$upload_data = $this->upload->data();
+			}
+		endif;
+		if (count($upload_data) > 0) :
+			$data["certificate"] = ($upload_data['file_name']);
+        endif;
+        if ($this->db->insert("birth_certs", $data)) {
+            $uid = $this->session->userdata("user_id");
+            $this->db->where("user_id", $uid);
+            $this->db->set(array("uploaded_birth_cert" => 1));
+            $this->db->update("applicants");
+            $message = 'Birth certificate uploaded successfully.';
+            $this->session->set_flashdata('success_msg', $message);
+            redirect("applicant/upload");
+        } else {
+            $message = 'There was an error uploading your birth certificate.';
+            $this->session->set_flashdata('error_msg', $message);
+            redirect("applicant/upload_birth_cert");
+        }
+	}
 }

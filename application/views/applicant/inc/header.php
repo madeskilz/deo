@@ -80,6 +80,9 @@
                                     <a href="<?= base_url("applicant/result") ?>" class="nav-link"><i class="icon-list"></i> <span>O'Level Result</span></a>
                                 </li>
                             <?php endif; ?>
+                            <li style="margin:auto" class="nav-item <?= ($active == "upload") ? "active" : "" ?>">
+                                <a href="<?= base_url("applicant/upload") ?>" class="nav-link"><i class="icon-cloud-upload"></i> <span>Upload Documents</span></a>
+                            </li>
                             <li style="margin:auto" class="nav-item <?= ($active == "payment") ? "active" : "" ?>">
                                 <a href="<?= base_url("applicant/payment") ?>" class="nav-link"><i class="icon-credit-card"></i> <span>Payment</span></a>
                             </li>

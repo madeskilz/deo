@@ -1,5 +1,5 @@
 <script>
-    function loadname(img, previewName) {
+    function loadname(img, previewName, incFileSize) {
         $("#image_err").text("");
         var isIE = (navigator.appName == "Microsoft Internet Explorer");
         var path = img.value;
@@ -8,7 +8,7 @@
         if (ext == "gif" || ext == "jpeg" || ext == "jpg" || ext == "png" || ext == "webp") {
             var f = img.files[0];
             var filesize = f.size;
-            if (filesize > 25000) {
+            if (filesize > incFileSize) {
                 $("#image_err").text("Image size too large");
                 img.value = "";
                 return false;

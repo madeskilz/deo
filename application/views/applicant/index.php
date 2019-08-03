@@ -23,6 +23,9 @@
         <div class="card">
             <div class="row clearfix body">
                 <div class="col-md-12">
+                    <?php $this->load->view("err-inc/msg") ?>
+                </div>
+                <div class="col-md-12">
                     <?php if ($details->confirm_details != 1) : ?>
                         <h5 style="color:#f34;">
                             Please ensure all details are correct before proceeding
@@ -35,9 +38,9 @@
                 </div>
                 <div class="col-md-4 myImg">
                     <?php if ($details->image) : ?>
-                        <img src="<?= base_url("studentfiles/images/" . $details->image) ?>" />
+                        <img src="<?= base_url("sitefiles/applicants/images/" . $details->image) ?>" style="width:150px;" />
                     <?php else : ?>
-                        <img src="<?= base_url("assets/images/user-blank.png" . $details->image) ?>" />
+                        <img src="<?= base_url("assets/images/user-blank.png") ?>" />
                     <?php endif; ?>
                 </div>
                 <div class="col-md-8 row">
@@ -82,40 +85,44 @@
                 <?php if ($details->uploaded_result == 1) : ?>
                     <h4 class="col-md-12 text-primary">O'Level Result(s)</h4>
                     <h4 class="col-md-12">Exam Sitting: <?= $details->exam_sitting ?></h4>
-                    <?php foreach ($exams as $exam) :
+                    <?php $xx = 1;
+                    foreach ($exams as $exam) :
                         $exam_results = get_exam_result($exam->id);
                         ?>
-                        <div class="col-md-12" style="margin-top:25px;">
-                            <h4 class="text-success">First Sitting</h4>
-                            <div class="row" style="margin-top:15px;">
-                                <h5 class="col-md-4">Exam Type: <?= get_exam_type($exam->exam_type) ?></h5>
-                                <h5 class="col-md-4">Exam Number: <?= $exam->exam_no ?></h5>
-                                <h5 class="col-md-4">Exam Year: <?= neatDate($exam->exam_year) ?></h5>
+                        <div class="<?= ($details->exam_sitting == 1) ? "col-md-12" : "col-md-6" ?>">
+                            <div class="col-md-12" style="margin-top:25px;">
+                                <h4 class="text-success"><?= ($xx == 1) ? "First" : "Second" ?> Sitting</h4>
+                                <div class="row" style="margin-top:15px;">
+                                    <h5 class="col-md-4">Exam Type: <?= get_exam_type($exam->exam_type) ?></h5>
+                                    <h5 class="col-md-4">Exam Number: <?= $exam->exam_no ?></h5>
+                                    <h5 class="col-md-4">Exam Year: <?= neatDate($exam->exam_year) ?></h5>
+                                </div>
+                            </div>
+                            <div class="table-responsive col-md-12" style="margin-top:15px;">
+                                <table class="table m-b-0 table-bordered">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Subject</th>
+                                            <th>Grade</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $r = 1;
+                                        foreach ($exam_results as $res) :  ?>
+                                            <tr>
+                                                <td><?= $r . "." ?></td>
+                                                <td><?= get_subject($res->subject) ?></td>
+                                                <td><?= $res->grade ?></td>
+                                            </tr>
+                                            <?php $r++;
+                                        endforeach; ?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                        <div class="table-responsive col-md-12" style="margin-top:15px;">
-                            <table class="table m-b-0 table-bordered">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Subject</th>
-                                        <th>Grade</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $r = 1;
-                                    foreach ($exam_results as $res) :  ?>
-                                        <tr>
-                                            <td><?= $r . "." ?></td>
-                                            <td><?= get_subject($res->subject) ?></td>
-                                            <td><?= $res->grade ?></td>
-                                        </tr>
-                                        <?php $r++;
-                                    endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    <?php endforeach;
+                        <?php $xx++;
+                    endforeach;
                 endif; ?>
             </div>
         </div>

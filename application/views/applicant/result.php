@@ -20,6 +20,9 @@
             <form method="post">
                 <div class="row clearfix body">
                     <div class="col-md-12">
+                        <?php $this->load->view("err-inc/msg") ?>
+                    </div>
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label>Exam Sitting(s)</label>
                             <select class="form-control" id="sittings" name="exam_sitting" required>

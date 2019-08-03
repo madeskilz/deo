@@ -2,24 +2,24 @@
 <section class="banner style2">
     <div class="left-slider">
         <div class="item">
-            <img src="<?= base_url("assets/images/banner/index2-sliderImg1.jpg") ?>" alt="">
+            <img src="<?= base_url("assets/slider/one.jpeg") ?>" alt="">
             <div class="slide-info">
-                <h2>Education Needs Complete Solution</h2>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                <!-- <h2>Education Needs Complete Solution</h2> -->
+                <!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p> -->
             </div>
         </div>
         <div class="item">
-            <img src="<?= base_url("assets/images/banner/index2-sliderImg2.jpg") ?>" alt="">
+            <img src="<?= base_url("assets/slider/two.jpeg") ?>" alt="">
             <div class="slide-info">
-                <h2>Education Needs Complete Solution</h2>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                <!-- <h2>Education Needs Complete Solution</h2> -->
+                <!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p> -->
             </div>
         </div>
         <div class="item">
-            <img src="<?= base_url("assets/images/banner/index2-sliderImg3.jpg") ?>" alt="">
+            <img src="<?= base_url("assets/slider/tre.jpeg") ?>" alt="">
             <div class="slide-info">
-                <h2>Education Needs Complete Solution</h2>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                <!-- <h2>Education Needs Complete Solution</h2> -->
+                <!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p> -->
             </div>
         </div>
     </div>
@@ -82,10 +82,13 @@
                 </div>
             </div>
             <div class="col-md-4 col-sm-6 text-justify">
-                <p> <b>DEO GRATIAS POLYTECHNIC, AGBOR</b> is a private polytechnic, approved by the Delta State Ministry of Higher Education to operate and run all programmes as may be accredited by the national board for Technical Education (NBTE).</p>
+                <p> <b>DEO GRATIAS POLYTECHNIC, AGBOR</b> is a private polytechnic, approved by the Delta State 
+                Ministry of Higher Education to operate and run all programmes as may be accredited by the 
+                National Board for Technical Education (NBTE).</p>
             </div>
             <div class="col-md-4 col-sm-6 text-justify">
-                <p>The temporary site is strategically locate at Deo Gratias Group of Schools Premises, obi Ikechukwu Road, Agbor Obi Junction, Agbor while the permanent site on a 10 hectare land at Alisor, Agbor.</p>
+                <p>The temporary site is strategically located at Deo Gratias Group of Schools Premises, 
+                    Obi Ikechukwu Road, Agbor Obi Junction, Agbor while the permanent site on a 10 hectare land at Alisor, Agbor.</p>
                 <p> There is also a massive structure situated at Plot 124 GRA, Phase 3, Core Area, Along Ambassador Godson Echegile Street, Asaba, which will eventually be the Asaba Campus. </p>
             </div>
         </div>
@@ -144,13 +147,13 @@
     <img src="<?= base_url("assets/images/parallax/sign-upBg.jpg") ?>" alt="">
     <div class="sign-upText">
         <h3><span>Admission in progress</span>Register Now!</h3>
-        <p>This is to inform the general public, particularly interested candidates that the 2019/2020 admission into Deo Gratias Polytechnic Agbor, Delta State, has commenced. </p>
+        <p>This is to inform the general public, particularly interested candidates that the 2019/2020 admission into Deo Gratias Polytechnic, Agbor, Delta State, has commenced. </p>
         <div class="sign-btn">
             <a href="<?=base_url("application-procedure")?>">Register</a>
         </div>
     </div>
 </section>
-<section class="news-section">
+<!-- <section class="news-section">
     <div class="container">
         <div class="section-title2">
             <h2>Latest News and Events </h2>
@@ -212,7 +215,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 <section class="newsletter-block" style="background-image:url(<?= base_url("assets/images/parallax/newsletter-bg.jpg") ?>);">
     <div class="container">
         <label>SUBCRIBE WEEKLY NEWSLETTER</label>

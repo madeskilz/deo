@@ -6,8 +6,6 @@ class Home extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->helper('url');
-		$this->load->model('login_model');
 	}
 	public function index()
 	{
@@ -75,7 +73,7 @@ class Home extends CI_Controller
 	public function procedure()
 	{
 		$p["title"] = "Application Procedure";
-		$p["active"] = "admission";
+		$p["active"] = "application";
 		$this->load->view('home/procedure', $p);
 	}
 	public function nd()
@@ -92,6 +90,7 @@ class Home extends CI_Controller
 	}
 	public function application()
 	{
+		redirect(base_url());
 		$this->isLoggedIn();
 		if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
 			$this->apply();
@@ -143,13 +142,13 @@ class Home extends CI_Controller
 		$upload_data = array();
 		if (isset($_FILES) && $_FILES['image']['name'] != '') :
 			$imagename = rand(1, 1999) . $data['lastname'];
-			$path = './studentfiles/images/';
+			$path = realpath(FCPATH . 'sitefiles/applicants/images/');
 			$config['upload_path'] = $path;
 			$config['allowed_types'] = 'gif|jpg|png|webp|jpeg';
 			$config['file_name'] = $imagename;
-			if (!is_dir($path)) {
-				mkdir($path, 0777);
-			}
+			// if (!is_dir($path)) {
+			// 	mkdir($path, 0777);
+			// }
 			$this->load->library('upload', $config);
 			if (!$this->upload->do_upload('image')) {
 				$this->session->set_flashdata('error_msg', $this->upload->display_errors());
@@ -186,11 +185,11 @@ class Home extends CI_Controller
 		$add_student = $this->login_model->applicant($data);
 		if ($add_student > 0) {
 			$this->db->where("user_id", $data["user_id"]);
-			$user_data = $this->db->get('users', 1);
-			$user_id  = $user_data['user_id'];
-			$email = $user_data['user_email'];
-			$level = $user_data['user_level'];
-			$active  = $user_data['active'];
+			$user_data = $this->db->get('users', 1)->row();
+			$user_id  = $user_data->user_id;
+			$email = $user_data->user_email;
+			$level = $user_data->user_level;
+			$active  = $user_data->active;
 			$sesdata = array(
 				'user_id'  => $user_id,
 				'email'     => $email,

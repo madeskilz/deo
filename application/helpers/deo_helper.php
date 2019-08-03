@@ -26,12 +26,29 @@ if (!function_exists('get_exam_result')) {
         return $res;
     }
 }
+if(!function_exists('return_response')){
+    function return_response( $array = array()){
+        header('Content-type: text/json');
+        header('Content-type: application/json');
+        echo json_encode( $array );
+        exit;
+    }
+}
 if (!function_exists('get_exam_type')) {
     function get_exam_type($id)
     {
         $ci =& get_instance();
         $ci->db->where("id", $id);
         $res = $ci->db->get("exam_type",1)->row();
+        return $res->name;
+    }
+}
+if (!function_exists('get_payment_type')) {
+    function get_payment_type($id)
+    {
+        $ci =& get_instance();
+        $ci->db->where("id", $id);
+        $res = $ci->db->get("payment_type",1)->row();
         return $res->name;
     }
 }
