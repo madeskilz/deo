@@ -87,7 +87,7 @@ class Auth extends CI_Controller
                 redirect('login');
             }
         } else {
-            echo $this->session->set_flashdata('msg', 'Username or Password is Wrong');
+            $this->session->set_flashdata('error_msg', 'Username or Password is Wrong');
             redirect('login');
         }
     }

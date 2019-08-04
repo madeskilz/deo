@@ -69,15 +69,6 @@
 <div class="top-arrow" id="goTop">
     <div class="arrow"><i class="fa fa-angle-up"></i></div>
 </div>
-<div class="search-blcok">
-    <div class="close-icon">
-        <i class="fa fa-close"></i>
-    </div>
-    <div class="input-box">
-        <input type="text" placeholder="Enter Keyword">
-        <div class="note">Input your search keywords and press Enter.</div>
-    </div>
-</div>
 </div>
 <script type="text/javascript" src="<?= base_url("assets/js/jquery-1.12.4.min.js") ?>"></script>
 <script type="text/javascript" src="<?= base_url("assets/js/bootstrap.js") ?>"></script>
@@ -88,7 +79,12 @@
 <script type="text/javascript" src="<?= base_url("assets/js/coustem.js") ?>"></script>
 <script type="text/javascript" src="<?= base_url("assets/js/jquery.fancybox.pack.js")?>"></script>
 <script type="text/javascript" src="<?= base_url("assets/js/jquery.filterizr.js")?>"></script>
+<?php if($active === "application"):?>
 <?php $this->load->view("home/inc/application_script") ?>
+<?php endif;?>
+<?php if($active === "login"):?>
+<?php $this->load->view("home/inc/login_script") ?>
+<?php endif;?>
 </body>
 
 </html>

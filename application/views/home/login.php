@@ -23,15 +23,15 @@
                 <div class="section-title">
                     <p>Login</p>
                 </div>
-                <div class="col-md-12 row">
+                <div class="col-md-12 row" id="errorDiv">
                     <?php $this->load->view("err-inc/msg") ?>
                 </div>
-                <form method="post">
+                <form method="post" id="loginForm">
                     <div class="input-box">
-                        <input type="email" placeholder="Email" name="email">
+                        <input type="email" placeholder="Email" name="email" id="email" required>
                     </div>
                     <div class="input-box">
-                        <input type="password" placeholder="Password" name="password">
+                        <input type="password" placeholder="Password" name="password" id="password"  required>
                     </div>
                     <div class="check-slide">
                         <label class="label_check" for="checkbox-01"><input id="checkbox-01" type="checkbox"> Remember Me</label>
@@ -40,7 +40,7 @@
                         </div>
                     </div>
                     <div class="submit-slide">
-                        <input type="submit" value="Login" class="btn">
+                        <button class="btn" id="btnLogin">Login</button>
                     </div>
                 </form>
             </div>

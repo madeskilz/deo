@@ -97,9 +97,7 @@
                                 <ul>
                                     <li><a href="<?= base_url("core-values") ?>">Core Values</a></li>
                                     <li><a href="<?= base_url("prospects") ?>">Prospects</a></li>
-                                    <li><a href="<?= base_url("structure") ?>">Structure</a></li>
                                     <li><a href="<?= base_url("committee") ?>">Committee</a></li>
-                                    <li><a href="<?= base_url("facilities") ?>">Facilities</a></li>
                                     <li><a href="<?= base_url("gallery") ?>">Gallery</a></li>
                                 </ul>
                             </li>

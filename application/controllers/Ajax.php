@@ -23,34 +23,26 @@ class Ajax extends CI_Controller
     // Fetch dept by school and programme
     public function get_dept()
     {
-        if ($this->input->is_ajax_request()) {
-            $pid = cleanit($this->input->post('pid'));
-            $sid = cleanit($this->input->post('sid'));
-            $this->db->where("program", $pid);
-            $this->db->where("school_id", $sid);
-            $dept = $this->db->get("departments")->result_array();
-            header('Content-type: text/json');
-            header('Content-type: application/json');
-            echo json_encode($dept);
-            exit;
-        } else {
-            redirect(base_url());
-        }
+        $pid = cleanit($this->input->post('pid'));
+        $sid = cleanit($this->input->post('sid'));
+        $this->db->where("program", $pid);
+        $this->db->where("school_id", $sid);
+        $dept = $this->db->get("departments")->result_array();
+        header('Content-type: text/json');
+        header('Content-type: application/json');
+        echo json_encode($dept);
+        exit;
     }
     // Fetch lga by state
     public function get_lga()
     {
-        if ($this->input->is_ajax_request()) {
-            $sid = cleanit($this->input->post('sid'));
-            $this->db->where("state_id", $sid);
-            $dept = $this->db->get("locals")->result_array();
-            header('Content-type: text/json');
-            header('Content-type: application/json');
-            echo json_encode($dept);
-            exit;
-        } else {
-            redirect(base_url());
-        }
+        $sid = cleanit($this->input->post('sid'));
+        $this->db->where("state_id", $sid);
+        $dept = $this->db->get("locals")->result_array();
+        header('Content-type: text/json');
+        header('Content-type: application/json');
+        echo json_encode($dept);
+        exit;
     }
     public function pay_application_fee()
     {
@@ -78,13 +70,13 @@ class Ajax extends CI_Controller
             return_response($response);
         }
     }
-    function verifyPaystack()
+    public function verifyPaystack()
     {
         $response = array('status' => 'error');
         $paystackreference = $this->input->post('reference', true);
         $ref = $this->input->post('ref', true);
         // Get row of the transaction
-        $this->db->where("reference", $ref);//ZvKXOmg9XIUJcY54
+        $this->db->where("reference", $ref); //ZvKXOmg9XIUJcY54
         $this->db->set(array("payment_reference" => $paystackreference));
         $this->db->update("payments");
         $this->db->where("reference", $ref);
@@ -172,6 +164,38 @@ class Ajax extends CI_Controller
                 $response['message'] = "Error";
                 return_response($response);
             }
+        }
+    }
+    public function login()
+    {
+        $result = array("status"=>"error");
+        $email    = cleanit($this->input->post('email'));
+        $password = md5(cleanit($this->input->post('password')));
+        $validate = $this->login_model->validate($email, $password);
+        if ($validate->num_rows() > 0) {
+            $data  = $validate->row_array();
+            $user_id  = $data['user_id'];
+            $email = $data['user_email'];
+            $level = $data['user_level'];
+            $active  = $data['active'];
+            $sesdata = array(
+                'user_id'  => $user_id,
+                'email'     => $email,
+                'level'     => $level,
+                'active'     => $active,
+                'logged_in' => TRUE
+            );
+            if ($active == 1) {
+                $this->session->set_userdata($sesdata);
+                $result['status'] = "success";
+                return_response($result);
+            } else {
+                $result["message"] = 'Account Suspended';
+                return_response($result);
+            }
+        } else {
+            $result['message']= 'Username or Password is Wrong';
+            return_response($result);
         }
     }
 }

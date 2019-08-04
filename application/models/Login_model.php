@@ -9,10 +9,16 @@ class Login_model extends CI_Model
         $result = $this->db->get('users', 1);
         return $result;
     }
-    function create_account($data = array()){
+    function create_account($data = array())
+    {
         $data['user_level'] = 5;
         $data['active'] = 1;
         try {
+            $this->db->where("user_email", $data['user_email']);
+            $count = $this->db->get("users", 1)->num_rows();
+            if ($count > 0) {
+                return "Email is already taken";
+            }
             $this->db->insert("users", $data);
             $result = $this->db->insert_id();
         } catch (Exception $e) {
@@ -20,7 +26,8 @@ class Login_model extends CI_Model
         }
         return $result;
     }
-    function create_exam($data = array()){
+    function create_exam($data = array())
+    {
         try {
             $this->db->insert("exam", $data);
             $result = $this->db->insert_id();
@@ -29,7 +36,8 @@ class Login_model extends CI_Model
         }
         return $result;
     }
-    function create_result($data = array()){
+    function create_result($data = array())
+    {
         try {
             $this->db->insert("exam_results", $data);
             $result = $this->db->insert_id();
@@ -38,7 +46,8 @@ class Login_model extends CI_Model
         }
         return $result;
     }
-    function applicant($data = array()){
+    function applicant($data = array())
+    {
         try {
             $this->db->insert("applicants", $data);
             $result = $this->db->insert_id();
@@ -46,5 +55,16 @@ class Login_model extends CI_Model
             $result = $e->getMessage();
         }
         return $result;
+    }
+    function change_password($data = array()){
+        // var_dump($data);exit;
+        $validate = $this->validate($data["email"],md5($data["old_password"]));
+        if ($validate->num_rows() > 0) {
+            $this->db->where("user_id", $data["user_id"]);
+            $this->db->set("user_password", md5($data["new_password"]));
+            return $this->db->update("users");
+        }else{
+            return 'Error veryfing password';
+        }
     }
 }

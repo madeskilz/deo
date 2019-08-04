@@ -131,7 +131,46 @@ class Applicant extends CI_Controller
         $p['details'] = $this->db->get("applicants", 1)->row();
         $this->load->view('applicant/documents', $p);
     }
-    
+    public function password(){
+        if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
+            $this->change_password();
+        }
+        $p["active"] = "password";
+        $p["title"] = "Change Password";
+        $uid = $this->session->userdata("user_id");
+        $this->db->where("user_id", $uid);
+        $p['details'] = $this->db->get("applicants", 1)->row();
+        $this->load->view('applicant/password', $p);
+    }
+    public function edit(){
+        if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
+            $this->update_details();
+        }
+        $p["active"] = "edit";
+        $p["title"] = "Edit Details";
+        $uid = $this->session->userdata("user_id");
+        $this->db->where("user_id", $uid);
+        $p['details'] = $this->db->get("applicants", 1)->row();
+        if ($p['details']->confirm_details) redirect("applicant");
+        $this->load->view('applicant/edit', $p);
+    }
+    private function change_password(){
+        $uid = $this->session->userdata("user_id");
+        $email = $this->session->userdata("email");
+        $data = array();
+        $data["old_password"] = cleanit($this->input->post('old_password'));
+        $data["new_password"] = cleanit($this->input->post('new_password'));
+        $data["user_id"] = $uid;
+        $data["email"] = $email;
+        $result = $this->login_model->change_password($data);
+        if($result > 0){
+            $this->session->set_flashdata('success_msg', "Password successfully changed");
+			redirect("applicant");
+        }else{
+            $this->session->set_flashdata('error_msg', $result);
+			redirect("applicant/password");
+        }
+    }
 	private function upload_birth_cert_fn()
 	{
         $data = array();

@@ -25,7 +25,7 @@
                     <small style="color:#f34;">Note: All fields are required</small>
                 </div>
                 <?= form_open_multipart(base_url("application-form"), 'class="form-horizontal" ') ?>
-                <div class="col-md-12">
+                <div class="col-md-12" id="msgBox">
                     <?php $this->load->view("err-inc/msg") ?>
                 </div>
                 <div class="row">
@@ -189,15 +189,15 @@
                     </div>
                     <div class="input-box col-md-4">
                         <label>Password</label>
-                        <input type="password" placeholder="Password" name="password" required>
+                        <input type="password" placeholder="Password" name="password" id="password" required>
                     </div>
                     <div class="input-box col-md-4">
                         <label>Confirm Password</label>
-                        <input type="password" placeholder="Confirm Password" required>
+                        <input type="password" placeholder="Confirm Password" id="c_password" required>
                     </div>
                 </div>
                 <div class="submit-slide">
-                    <input type="submit" value="Submit Application" class="btn">
+                    <button class="btn" id="btnApply">Apply</button>
                 </div>
                 </form>
             </div>

@@ -9,7 +9,7 @@
     <link rel="icon" href="<?= base_url("assets/logo/pp.jpg") ?>" type="image/x-icon">
     <!-- VENDOR CSS -->
     <link rel="stylesheet" href="<?= base_url("inassets/vendor/bootstrap/css/bootstrap.min.css") ?>">
-    <link rel="stylesheet" href="<?= base_url("inassets/vendor/font-awesome/css/font-awesome.min.css") ?>">
+    <link rel="stylesheet" href="<?= base_url("assets/css/font-awesome.css") ?>">
     <link rel="stylesheet" href="<?= base_url("inassets/vendor/chartist/css/chartist.min.css") ?>">
     <link rel="stylesheet" href="<?= base_url("inassets/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.css") ?>">
     <link rel="stylesheet" href="<?= base_url("inassets/vendor/toastr/toastr.min.css") ?>">

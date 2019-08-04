@@ -90,7 +90,7 @@ class Home extends CI_Controller
 	}
 	public function application()
 	{
-		redirect(base_url());
+		//redirect(base_url());exit;
 		$this->isLoggedIn();
 		if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
 			$this->apply();
@@ -166,6 +166,7 @@ class Home extends CI_Controller
 		if ($result > 0) {
 			$data['user_id'] = $result;
 		} else {
+            $this->session->set_flashdata('error_msg', $result);
 			redirect("application-form");
 		}
 		$data['title'] = cleanit($this->input->post('title'));
