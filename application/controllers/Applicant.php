@@ -152,6 +152,9 @@ class Applicant extends CI_Controller
         $this->db->where("user_id", $uid);
         $p['details'] = $this->db->get("applicants", 1)->row();
         if ($p['details']->confirm_details) redirect("applicant");
+		$p["programs"] = $this->db->get('programs')->result();
+		$p["schools"] = $this->db->get('schools')->result();
+		$p["states"] = $this->db->get('states')->result();
         $this->load->view('applicant/edit', $p);
     }
     private function change_password(){
