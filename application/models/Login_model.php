@@ -56,15 +56,24 @@ class Login_model extends CI_Model
         }
         return $result;
     }
-    function change_password($data = array()){
+    function change_password($data = array())
+    {
         // var_dump($data);exit;
-        $validate = $this->validate($data["email"],md5($data["old_password"]));
+        $validate = $this->validate($data["email"], md5($data["old_password"]));
         if ($validate->num_rows() > 0) {
             $this->db->where("user_id", $data["user_id"]);
             $this->db->set("user_password", md5($data["new_password"]));
             return $this->db->update("users");
-        }else{
+        } else {
             return 'Error veryfing password';
         }
+    }
+    function update_applicant($data = array(), $user_id)
+    {
+        $data['confirm_details'] = 1;
+        $this->db->where("user_id", $user_id);
+        $result = $this->db->update("applicants", $data);
+        return ($result) ?
+            $result : 'Error editing your details, please contact admin if error persists.';
     }
 }

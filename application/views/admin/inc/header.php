@@ -55,7 +55,7 @@
                 <div class="navbar-right">
                     <div id="navbar-menu">
                         <ul class="nav navbar-nav">
-                            <li><a class="icon-menu d-none d-sm-none d-md-block d-lg-block"><span style="font-size:14px;">welcome, <?=$details->firstname?></span></a></li>
+                            <li><a class="icon-menu d-none d-sm-none d-md-block d-lg-block"><span style="font-size:14px;">welcome, <?=$this->session->userdata("email")?></span></a></li>
                             <li><a href="<?= base_url("logout") ?>" class="icon-menu d-sm-block d-md-block d-lg-block"><span style="font-size:20px;">Logout</span><i class="icon-login"></i></a></li>
                         </ul>
                     </div>
@@ -73,34 +73,21 @@
                     <div class="navbar-collapse align-items-center collapse" id="navbar">
                         <ul class="navbar-nav">
                             <li style="margin:auto" class="nav-item <?= ($active == "dashboard") ? "active" : "" ?>">
-                                <a href="<?= base_url("applicant") ?>" class="nav-link"><i class="icon-speedometer"></i> <span> Application Form</span></a>
+                                <a href="<?= base_url("admin") ?>" class="nav-link"><i class="icon-speedometer"></i> <span> Dashboard</span></a>
                             </li>
-                            <?php if ($details->uploaded_result != 1) : ?>
-                                <li style="margin:auto" class="nav-item <?= ($active == "result") ? "active" : "" ?>">
-                                    <a href="<?= base_url("applicant/result") ?>" class="nav-link"><i class="icon-list"></i> <span>O'Level Result</span></a>
-                                </li>
-                            <?php endif; ?>
-                            <li style="margin:auto" class="nav-item <?= ($active == "upload") ? "active" : "" ?>">
-                                <a href="<?= base_url("applicant/upload") ?>" class="nav-link"><i class="icon-cloud-upload"></i> <span>Upload Documents</span></a>
+                            <li style="margin:auto" class="dropdown nav-item <?= ($active == "upload") ? "active" : "" ?>">
+                                <a href="<?= base_url("admin/upload") ?>" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="icon-users"></i> <span>Users</span></a>
+                                <ul class="dropdown-menu animated headShake">                                    
+                                <li><a href="page-login.html">Login</a></li>
+                                <li><a href="page-register.html">Register</a></li>
+                                <li><a href="page-lockscreen.html">Lockscreen</a></li>
+                            </ul>
                             </li>
-                            <li style="margin:auto" class="nav-item <?= ($active == "payment") ? "active" : "" ?>">
-                                <a href="<?= base_url("applicant/payment") ?>" class="nav-link"><i class="icon-credit-card"></i> <span>Payment</span></a>
+                            <li style="margin:auto" class="nav-item <?= ($active == "admission") ? "active" : "" ?>">
+                                <a href="<?= base_url("admin/admission") ?>" class="nav-link"><i class="icon-note"></i> <span>Admission</span></a>
                             </li>
-                            <li style="margin:auto" class="nav-item <?= ($active == "documents") ? "active" : "" ?>">
-                                <a href="<?= base_url("applicant/documents") ?>" class="nav-link"><i class="icon-printer"></i> <span>Print Documents</span></a>
-                            </li>
-                            <?php if ($details->confirm_details != 1) : ?>
-                                <li style="margin:auto" class="nav-item <?= ($active == "edit") ? "active" : "" ?>">
-                                    <a href="<?= base_url("applicant/edit") ?>" class="nav-link"><i class="icon-user"></i> <span>Edit Profile</span></a>
-                                </li>
-                            <?php endif; ?>
-                            <?php if ($details->done_exam == 1) : ?>
-                                <li style="margin:auto" class="nav-item <?= ($active == "check_result") ? "active" : "" ?>">
-                                    <a href="<?= base_url("applicant/checkresult") ?>" class="nav-link"><i class="icon-note"></i> <span>Check Result</span></a>
-                                </li>
-                            <?php endif; ?>
                             <li style="margin:auto" class="nav-item <?= ($active == "password") ? "active" : "" ?>">
-                                <a href="<?= base_url("applicant/password") ?>" class="nav-link"><i class="icon-lock"></i> <span>Change Password</span></a>
+                                <a href="<?= base_url("admin/password") ?>" class="nav-link"><i class="icon-lock"></i> <span>Change Password</span></a>
                             </li>
                         </ul>
                     </div>

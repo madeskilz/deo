@@ -84,5 +84,5 @@ defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 ////custom
-define("SECRET_KEY", "sk_test_4f64fbfcf94fd234b457e65dc3ca1b9bdd869759");
-define("PUBLIC_KEY", "pk_test_8a4a9e8c54b1507ae562521875e51e570097632b");
+define("SECRET_KEY", "sk_live_783bb9711afd16adf645e27295930c31c256e15a");
+define("PUBLIC_KEY", "pk_live_969c1a7b9568c069b31679f76e53128516a73618");

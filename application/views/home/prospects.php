@@ -20,8 +20,7 @@
     <section class="about-goals">
         <div class="container">
             <div class="section-title">
-                <h2>Prospects and objectives of Academy venture</h2>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
+                <h2>Prospects of Deo Gratias Polytechnic</h2>
             </div>
             <div class="row">
                 <div class="col-sm-6">
@@ -29,12 +28,8 @@
                 </div>
                 <div class="col-sm-6">
                     <ul class="goals-point">
-                        <li>There are many variations of passages of Lorem Ipsum available many variations of passages of Lorem Ipsum available</li>
-                        <li>If you are going to use a passage of Lorem Ipsum, you</li>
-                        <li>All the Lorem Ipsum generators on the Internet many variations of passages of Lorem Ipsum available</li>
-                        <li>There are many variations of passages of Lorem Ipsum available</li>
-                        <li>If you are going to use a passage of Lorem Ipsum, you many variations of passages of Lorem Ipsum available</li>
-                        <li>All the Lorem Ipsum generators on the Internet</li>
+                        <li>Collaboration with foreign tetiary istitutions</li>
+                        <li>Enhance achieving academic life goals</li>
                     </ul>
                 </div>
             </div>

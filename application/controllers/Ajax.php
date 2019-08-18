@@ -70,6 +70,53 @@ class Ajax extends CI_Controller
             return_response($response);
         }
     }
+
+    function interswitchWebpay()
+    {
+        if ($this->input->is_ajax_request()) {
+            if (!empty($item_left) && !empty($total)) {
+
+                //do the normal datainit, and insert to payments table 
+                if ($this->product->insert_batch('orders', $data)) {
+                    // Remove the product quantity Item
+                    $this->product->set_field('product_variation', 'quantity', "quantity-{$product['qty']}", array('id' => $product['options']['variation_id']));
+                    unset($data); // Fore data leaching...
+                    // check the payment method, if Interswitch (2) compile the array session
+                    $token = simple_crypt($txn_ref, 'e');
+                    $amt = $total * 100;
+                    if ((int) $payment_method == 2) {
+                        $redirect_url =  base_url('interswitch/response/?t=' . $token);
+                        $hash = hash('SHA512', $txn_ref . INTERSWITCH_PRODUCT_ID . INTERSWITCH_PAY_ITEM_ID . $amt . $redirect_url . INTERSWITCH_MAC_KEY);
+                        $profile = $this->product->get_row('users', 'first_name, last_name', array('id' => $buyer_id));
+                        $name = $profile->first_name . ' ' . $profile->last_name;
+                        $interswitch_session = array(
+                            'product_id'    =>  INTERSWITCH_PRODUCT_ID,
+                            'pay_item_id'   =>  INTERSWITCH_PAY_ITEM_ID,
+                            'amount'        =>  $amt,
+                            'currency'      =>  566,
+                            'site_redirect_url' => $redirect_url,
+                            'txn_ref'       =>  $txn_ref,
+                            'cust_id'       => $buyer_id,
+                            'cust_name'     => $name,
+                            'hash'          => $hash
+                        );
+                        $this->session->set_userdata(array('inter' => $interswitch_session));
+                    }
+                    // Send mail to admin
+                    $this->session->set_userdata(array('order_code' => $order_code, 'txn_ref' => $txn_ref, 'amount' => $amt));
+                    $return['status'] = 'success';
+                    echo json_encode($return);
+                    exit;
+                } else {
+                    $return['message'] = 'There was an error processing your order.';
+                    echo json_encode($return);
+                    exit;
+                }
+            }
+        } else {
+            redirect(base_url());
+        }
+    }
     public function verifyPaystack()
     {
         $response = array('status' => 'error');
@@ -146,7 +193,7 @@ class Ajax extends CI_Controller
                                 $this->db->trans_commit();
                                 $response['status'] = 'success';
                                 $response['message'] = "Transaction successful.";
-                                $this->return_response($response);
+                                return_response($response);
                             }
                         } else {
                             $response['message'] = "Transaction was unsuccessful, please contact us if debited.";
@@ -168,7 +215,7 @@ class Ajax extends CI_Controller
     }
     public function login()
     {
-        $result = array("status"=>"error");
+        $result = array("status" => "error");
         $email    = cleanit($this->input->post('email'));
         $password = md5(cleanit($this->input->post('password')));
         $validate = $this->login_model->validate($email, $password);
@@ -194,8 +241,28 @@ class Ajax extends CI_Controller
                 return_response($result);
             }
         } else {
-            $result['message']= 'Username or Password is Wrong';
+            $result['message'] = 'Username or Password is Wrong';
             return_response($result);
         }
+    }
+    public function myresult()
+    {
+        $uid = $this->session->userdata("user_id");
+        $result = array("status" => "error");
+        $this->db->where("user_id", $uid);
+        $r = $this->db->get("application_exam", 1)->row();
+        $this->db->where("user_id", $uid);
+        $p = $this->db->get("applicants", 1)->row();
+        if (!$r) {
+            $result['message'] = "Your exam score is 0";
+            return_response($result);
+        }
+        $result["status"] = "success";
+        if ((int) $r->score < 40) {
+            $result['status'] = "error";
+        }
+        $result['message'] = "Your exam score is $r->score";
+        $result['admission_status'] = $p->admission_status;
+        return_response($result);
     }
 }

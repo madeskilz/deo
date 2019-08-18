@@ -75,6 +75,7 @@
                         toastr['error'](response.message);
                         console.log(response.message);
                     }
+                    window.location.reload();
                 },
                 error: function(response) {
                     console.log(response.responseText);

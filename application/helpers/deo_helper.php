@@ -61,3 +61,30 @@ if (!function_exists('get_subject')) {
         return $res->name;
     }
 }
+if (!function_exists('get_department')) {
+    function get_department($id)
+    {
+        $ci =& get_instance();
+        $ci->db->where("id", $id);
+        $res = $ci->db->get("departments",1)->row();
+        return $res;
+    }
+}
+if (!function_exists('get_school')) {
+    function get_school($id)
+    {
+        $ci =& get_instance();
+        $ci->db->where("id", $id);
+        $res = $ci->db->get("schools",1)->row();
+        return $res;
+    }
+}
+if (!function_exists('get_program')) {
+    function get_program($id)
+    {
+        $ci =& get_instance();
+        $ci->db->where("id", $id);
+        $res = $ci->db->get("programs",1)->row();
+        return $res;
+    }
+}

@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col-lg-6 col-md-8 col-sm-12">
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:;"><i class="icon-home"></i></a></li>
+                        <li class="breadcrumb-item"><a href="<?=base_url("applicant")?>"><i class="icon-home"></i></a></li>
                         <li class="breadcrumb-item active">Upload Documents</li>
                     </ul>
                 </div>

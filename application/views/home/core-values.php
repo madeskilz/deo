@@ -26,29 +26,25 @@
                 <div class="col-sm-6 col-md-3">
                     <div class="box">
                         <i class="fa fa-trophy"></i>
-                        <h4>Integrity</h4>
-                        <p>We are committed to the meaningful integration of liberal learning and professional preparation and to learning as a life-long pursuit.</p>
+                        <h4>Honesty</h4>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <div class="box">
                         <i class="fa fa-pencil"></i>
-                        <h4>Stewardship</h4>
-                        <p>We are committed stewards of the human, fiscal, and physical resources entrusted to us.</p>
+                        <h4>Hardwork</h4>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <div class="box">
                         <i class="fa fa-book"></i>
-                        <h4>Professional Lecturers</h4>
-                        <p>It is a long established fact that a reader will be distracted by the readable content of a page </p>
+                        <h4>Dilligence</h4>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <div class="box">
                         <i class="fa fa-graduation-cap"></i>
                         <h4>Excellence</h4>
-                        <p>We value intellectual freedom, curiosity, and engagement; critical and creative inquiry; to give rise to the best standards</p>
                     </div>
                 </div>
 

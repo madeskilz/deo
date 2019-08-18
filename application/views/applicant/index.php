@@ -91,7 +91,9 @@
                         ?>
                         <div class="<?= ($details->exam_sitting == 1) ? "col-md-12" : "col-md-6" ?>">
                             <div class="col-md-12" style="margin-top:25px;">
-                                <h4 class="text-success"><?= ($xx == 1) ? "First" : "Second" ?> Sitting</h4>
+                                <?php if ($details->exam_sitting == 2) : ?>
+                                    <h4 class="text-success"><?= ($xx == 1) ? "First" : "Second" ?> Sitting</h4>
+                                <?php endif; ?>
                                 <div class="row" style="margin-top:15px;">
                                     <h5 class="col-md-4">Exam Type: <?= get_exam_type($exam->exam_type) ?></h5>
                                     <h5 class="col-md-4">Exam Number: <?= $exam->exam_no ?></h5>

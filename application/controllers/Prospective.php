@@ -1,25 +1,24 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Admin extends CI_Controller
+class Prospective extends CI_Controller
 {
     public function __construct()
     {
         parent::__construct();
-        if (!$this->session->userdata("logged_in") || $this->session->userdata('level') !== '1') {
+        if (!$this->session->userdata("logged_in") || $this->session->userdata('level') !== '4') {
             redirect(base_url("login"));
         }
     }
     public function index()
     {
-        $p["active"] = "dashboard";
-        $p["title"] = "Dashboard";
+        $p["active"] = "home";
+        $p["title"] = "Clearance Home";
         $uid = $this->session->userdata("user_id");
         $this->db->where("user_id", $uid);
-        $p['details'] = $this->db->get("applicants", 1)->row();
-        $this->db->where("user_id", $uid);
-        $p['exams'] =  $this->db->get("exam")->result();
-        $this->load->view('admin/index', $p);
+        $p['profile'] = $this->db->get("prospective_students", 1)->row();
+        // var_dump($p['details']);exit;
+        $this->load->view('prospective/index', $p);
     }
     public function password(){
         if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
@@ -29,8 +28,20 @@ class Admin extends CI_Controller
         $p["title"] = "Change Password";
         $uid = $this->session->userdata("user_id");
         $this->db->where("user_id", $uid);
-        $p['details'] = $this->db->get("applicants", 1)->row();
-        $this->load->view('admin/password', $p);
+        $p['profile'] = $this->db->get("prospective_students", 1)->row();
+        $this->load->view('prospective/password', $p);
+    }
+    public function profile(){
+        $p["active"] = "profile";
+        $p["title"] = "My Profile";
+        $uid = $this->session->userdata("user_id");
+        $this->db->where("user_id", $uid);
+        $p['profile'] = $this->db->get("prospective_students", 1)->row();
+        $this->db->where("id", $p['profile']->department);
+        $p['program'] = $this->db->get("departments", 1)->row()->program;
+        $this->db->where("id", $p['profile']->department);
+        $p['school'] = $this->db->get("departments", 1)->row()->school_id;
+        $this->load->view('prospective/profile', $p);
     }
     private function change_password(){
         $uid = $this->session->userdata("user_id");
@@ -43,10 +54,10 @@ class Admin extends CI_Controller
         $result = $this->login_model->change_password($data);
         if($result > 0){
             $this->session->set_flashdata('success_msg', "Password successfully changed");
-			redirect("admin");
+			redirect("prospective");
         }else{
             $this->session->set_flashdata('error_msg', $result);
-			redirect("admin/password");
+			redirect("prospective/password");
         }
     }
 }

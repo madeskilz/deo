@@ -1,11 +1,11 @@
-<?php $this->load->view("applicant/inc/header") ?>
+<?php $this->load->view("admin/inc/header") ?>
 <div id="main-content">
     <div class="container">
         <div class="block-header">
             <div class="row">
                 <div class="col-lg-6 col-md-8 col-sm-12">
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="<?=base_url("applicant")?>"><i class="icon-home"></i></a></li>
+                        <li class="breadcrumb-item"><a href="javascript:;"><i class="icon-home"></i></a></li>
                         <li class="breadcrumb-item active">Change Password</li>
                     </ul>
                 </div>
@@ -45,4 +45,4 @@
 </div>
 </div>
 </div>
-<?php $this->load->view("applicant/inc/footer") ?>
+<?php $this->load->view("admin/inc/footer") ?>
