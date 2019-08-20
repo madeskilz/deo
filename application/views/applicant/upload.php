@@ -25,7 +25,7 @@
                     <h3 style="color:#<?= ($details->uploaded_birth_cert) ? "326f37" : "f34" ?>;" class="col-md-12">
                         Uploaded Birth Certificate:
                         <span>
-                            <?= ($details->uploaded_birth_cert) ? "Yes" : "No" ?>
+                            <?= ($details->uploaded_birth_cert) ? "<i class='fa fa-check m-r-5'></i>" : "<i class='fa fa-remove m-r-5'></i>"?>
                         </span>
                         <?php if (!$details->uploaded_birth_cert) : ?>
                             <a style="font-size:18px;" href="<?= base_url("applicant/upload_birth_cert") ?>">Upload Birth Your Certificate Now</a>

@@ -19,7 +19,7 @@
                     <div class="body">
                         <div class="profile-image">
                             <?php if ($profile->image) : ?>
-                            <img src="<?= base_url("sitefiles/applicants/images/" . $profile->image) ?>" class="rounded-circle" style="width:150px;" />
+                            <img src="<?= base_url("sitefiles/applicants/images/" . $profile->image) ?>" class="rounded-circle"/>
                             <?php else : ?>
                             <img src="<?= base_url("assets/images/user-blank.png") ?>" class="rounded-circle" />
                             <?php endif; ?>

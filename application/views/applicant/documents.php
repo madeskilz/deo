@@ -49,10 +49,10 @@
                     </div>
                 <?php else : ?>
                     <h1 style="color:#f34" class="col-md-12">Ensure you fufilled all requirements before proceeding</h1>
-                    <h3 style="color:#<?= ($details->confirm_details) ? "326f37" : "f34" ?>;" class="col-md-12">Confirmed Details: <span><?= ($details->confirm_details) ? "Yes" : "No" ?></span></h3>
-                    <h3 style="color:#<?= ($details->uploaded_result) ? "326f37" : "f34" ?>;" class="col-md-12">Uploaded O'Level Result: <span><?= ($details->uploaded_result) ? "Yes" : "No" ?></span></h3>
-                    <h3 style="color:#<?= ($details->uploaded_birth_cert) ? "326f37" : "f34" ?>;" class="col-md-12">Uploaded Documents: <span><?= ($details->uploaded_birth_cert) ? "Yes" : "No" ?></span></h3>
-                    <h3 style="color:#<?= ($details->paid_application_fee) ? "326f37" : "f34" ?>;" class="col-md-12">Paid Application Fee: <span><?= ($details->paid_application_fee) ? "Yes" : "No" ?></span></h3>
+                    <h3 style="color:#<?= ($details->confirm_details) ? "326f37" : "f34" ?>;" class="col-md-12">Confirmed Details: <span><?= ($details->confirm_details) ? "<i class='fa fa-check m-r-5'></i>" : "<i class='fa fa-remove m-r-5'></i>" ?></span></h3>
+                    <h3 style="color:#<?= ($details->uploaded_result) ? "326f37" : "f34" ?>;" class="col-md-12">Uploaded O'Level Result: <span><?= ($details->uploaded_result) ? "<i class='fa fa-check m-r-5'></i>" : "<i class='fa fa-remove m-r-5'></i>" ?></span></h3>
+                    <h3 style="color:#<?= ($details->uploaded_birth_cert) ? "326f37" : "f34" ?>;" class="col-md-12">Uploaded Documents: <span><?= ($details->uploaded_birth_cert) ? "<i class='fa fa-check m-r-5'></i>" : "<i class='fa fa-remove m-r-5'></i>" ?></span></h3>
+                    <h3 style="color:#<?= ($details->paid_application_fee) ? "326f37" : "f34" ?>;" class="col-md-12">Paid Application Fee: <span><?= ($details->paid_application_fee) ? "<i class='fa fa-check m-r-5'></i>" : "<i class='fa fa-remove m-r-5'></i>" ?></span></h3>
                 <?php endif; ?>
             </div>
         </div>

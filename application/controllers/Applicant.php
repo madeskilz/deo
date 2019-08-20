@@ -47,6 +47,10 @@ class Applicant extends CI_Controller
         $uid = $this->session->userdata("user_id");
         $this->db->where("user_id", $uid);
         $profile = $this->db->get("applicants", 1)->row();
+        if($profile->admission_status != "admitted"){
+            $this->session->set_flashdata('error_msg', "Not Admitted");
+            return redirect("applicant/checkresult");
+        }
         $this->db->trans_start();
         $this->db->where("user_id", $uid);
         $this->db->set(array("user_level" => 4));
@@ -193,7 +197,11 @@ class Applicant extends CI_Controller
         $p["title"] = "Application Exam Result";
         $uid = $this->session->userdata("user_id");
         $this->db->where("user_id", $uid);
-        $p['details'] = $this->db->get("applicants", 1)->row();
+        $p['details'] = $det = $this->db->get("applicants", 1)->row();
+        if($det->done_exam != 1){
+            $this->session->set_flashdata('error_msg', "No exam record found.");
+            return redirect("applicant");
+        }
         $this->load->view('applicant/checkresult', $p);
     }
     public function password()

@@ -20,6 +20,23 @@ class Prospective extends CI_Controller
         // var_dump($p['details']);exit;
         $this->load->view('prospective/index', $p);
     }
+    public function payment()
+    {
+        $p["active"] = "payment";
+        $p["title"] = "Make Payments";
+        $uid = $this->session->userdata("user_id");
+        $this->db->where("user_id", $uid);
+        $p['profile'] = $this->db->get("prospective_students", 1)->row();
+        $this->db->where("user_id", $uid);
+        $this->db->where("type", 3);
+        $this->db->or_where("type", 2);
+        $p['payments'] = $this->db->get("payments")->result();
+        $this->db->where("code", 1002);
+        $this->db->or_where("code", 1003);
+        $p['payment_type'] = $this->db->get("payment_type")->result();
+        // var_dump($p['details']);exit;
+        $this->load->view('prospective/payment', $p);
+    }
     public function password(){
         if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
             $this->change_password();
