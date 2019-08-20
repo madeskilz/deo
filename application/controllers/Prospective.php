@@ -34,7 +34,6 @@ class Prospective extends CI_Controller
         $this->db->where("code", 1002);
         $this->db->or_where("code", 1003);
         $p['payment_type'] = $this->db->get("payment_type")->result();
-        // var_dump($p['details']);exit;
         $this->load->view('prospective/payment', $p);
     }
     public function password(){
