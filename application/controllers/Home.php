@@ -29,6 +29,7 @@ class Home extends CI_Controller
 				$this->load->view('home/structure', $p);
 				break;
 			case "committee":
+			    redirect(base_url());exit;
 				$p["title"] = "Committee";
 				$this->load->view('home/committee', $p);
 				break;

@@ -1,6 +1,6 @@
 <?php $this->load->view("home/inc/header") ?>
 <section class="banner inner-page">
-    <div class="banner-img"><img src="<?= base_url("assets/images/banner/contact-us.jpg") ?>" alt=""></div>
+    <div class="banner-img"><img src="<?=base_url("assets/images/banner/register-bannerImg.jpg")?>" alt=""></div>
     <div class="page-title">
         <div class="container">
             <h1>Contact Us</h1>

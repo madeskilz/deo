@@ -1,86 +1,45 @@
+<script>
+    $(".paymentsTable").DataTable();
+    toastr.options.closeButton = true;
+    toastr.options.positionClass = 'toast-top-right';
+</script>
 <?php if (!$details->paid_application_fee) : ?>
-    <script src="https://js.paystack.co/v1/inline.js"></script>
     <script>
-        $(".paymentsTable").DataTable();
-        toastr.options.closeButton = true;
-        toastr.options.positionClass = 'toast-top-right';
-        $('#payOnline').on('click', function(e) {
-            e.preventDefault();
+        $('#btnPayOnline').on('click', function(e) {
+            // e.preventDefault();
             let _this = $(this);
+            let pid = _this.data("pid");
             _this.prop('disabled', true);
             $.ajax({
-                url: base_url + 'ajax/pay_application_fee/',
+                url: base_url + 'ajax/interswitchWebpay/',
                 method: "POST",
-                data: {},
+                data: {
+                    'pid': pid
+                },
                 success: function(response) {
                     if (response.status === 'success') {
-                        let data = {
-                            'amount': response.amount,
-                            'ref': response.message,
-                            'key': response.key
-                        };
-                        console.log(data);
-                        payWithPaystack(data);
+                        $("#product_id").val(response.product_id);
+                        $("#pay_item_id").val(response.pay_item_id);
+                        $("#amount").val(response.amount);
+                        $("#site_redirect_url").val(response.site_redirect_url);
+                        $("#txn_ref").val(response.txn_ref);
+                        $("#cust_id").val(response.cust_id);
+                        $("#hash").val(response.hash);
+                        $("#paymentForm").submit();
+                        return true;
                     } else {
                         toastr['success'](response.message);
                         console.log(response.message);
+                        return false;
                         _this.prop('disabled', false);
                     }
                 },
                 error: function(response) {
                     console.log(response.responseText);
+                    _this.prop('disabled', false);
                 }
             });
-
+            return false;
         });
-
-        function payWithPaystack(data) {
-            var handler = PaystackPop.setup({
-                key: data.key,
-                email: "<?= $this->session->userdata("email") ?>",
-                amount: data.amount,
-                currency: "NGN",
-                ref: '' + data.ref,
-                metadata: {
-                    custom_fields: [{
-                        display_name: "",
-                        variable_name: "user",
-                        value: "<?= explode("@", $this->session->userdata("email"))[0] ?>"
-                    }]
-                },
-                callback: function(response) {
-                    verifyPaystack(response.reference, data.ref);
-                },
-                onClose: function() {
-                    toastr['info']("You closed the window, and for this reason we could'nt validate your payment");
-                }
-            });
-            handler.openIframe();
-        }
-
-        function verifyPaystack(pref, ref) {
-            $.ajax({
-                url: base_url + 'ajax/verifyPaystack/',
-                method: "POST",
-                cache: false,
-                data: {
-                    'reference': pref,
-                    'ref': ref
-                },
-                success: function(response) {
-                    if (response.status === 'success') {
-                        toastr['success'](response.message);
-                        console.log(response.message);
-                    } else {
-                        toastr['error'](response.message);
-                        console.log(response.message);
-                    }
-                    window.location.reload();
-                },
-                error: function(response) {
-                    console.log(response.responseText);
-                }
-            });
-        }
     </script>
 <?php endif; ?>

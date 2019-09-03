@@ -70,51 +70,39 @@ class Ajax extends CI_Controller
             return_response($response);
         }
     }
-
     function interswitchWebpay()
     {
-        if ($this->input->is_ajax_request()) {
-            if (!empty($item_left) && !empty($total)) {
-
-                //do the normal datainit, and insert to payments table 
-                if ($this->product->insert_batch('orders', $data)) {
-                    // Remove the product quantity Item
-                    $this->product->set_field('product_variation', 'quantity', "quantity-{$product['qty']}", array('id' => $product['options']['variation_id']));
-                    unset($data); // Fore data leaching...
-                    // check the payment method, if Interswitch (2) compile the array session
-                    $token = simple_crypt($txn_ref, 'e');
-                    $amt = $total * 100;
-                    if ((int) $payment_method == 2) {
-                        $redirect_url =  base_url('interswitch/response/?t=' . $token);
-                        $hash = hash('SHA512', $txn_ref . INTERSWITCH_PRODUCT_ID . INTERSWITCH_PAY_ITEM_ID . $amt . $redirect_url . INTERSWITCH_MAC_KEY);
-                        $profile = $this->product->get_row('users', 'first_name, last_name', array('id' => $buyer_id));
-                        $name = $profile->first_name . ' ' . $profile->last_name;
-                        $interswitch_session = array(
-                            'product_id'    =>  INTERSWITCH_PRODUCT_ID,
-                            'pay_item_id'   =>  INTERSWITCH_PAY_ITEM_ID,
-                            'amount'        =>  $amt,
-                            'currency'      =>  566,
-                            'site_redirect_url' => $redirect_url,
-                            'txn_ref'       =>  $txn_ref,
-                            'cust_id'       => $buyer_id,
-                            'cust_name'     => $name,
-                            'hash'          => $hash
-                        );
-                        $this->session->set_userdata(array('inter' => $interswitch_session));
-                    }
-                    // Send mail to admin
-                    $this->session->set_userdata(array('order_code' => $order_code, 'txn_ref' => $txn_ref, 'amount' => $amt));
-                    $return['status'] = 'success';
-                    echo json_encode($return);
-                    exit;
-                } else {
-                    $return['message'] = 'There was an error processing your order.';
-                    echo json_encode($return);
-                    exit;
-                }
-            }
+        $response = array('status' => 'error');
+        $data = array();
+        $pid =  cleanit($this->input->post('pid'));
+        $this->db->where('id', $pid);
+        $p_item = $this->db->get("payment_type", 1)->row();
+        $txn_ref = $data["reference"] = generate_code('payments', 'reference');
+        $data["user_id"] = $this->session->userdata('user_id');
+        $this->session->set_userdata("txn_ref", $txn_ref);
+        $this->session->set_userdata("payment_id", $p_item->code);
+        $token = simple_crypt($txn_ref);
+        $data["type"] = $p_item->id;
+        $data["status"] = "pending";
+        $data["payment_status"] = "pending";
+        $data["amount"] = $p_item->amount;
+        $data["amount_paid"] = 0;
+        $data["charge"] = $p_item->process_charge;
+        $data["total"] = $p_item->total;
+        $amt = $p_item->total * 100;
+        $this->session->set_userdata("amount", $amt);
+        if ($this->db->insert("payments", $data)) {
+            $response["status"] = "success";
+            $rUrl = $response["site_redirect_url"] = base_url('payment/interswitch/?t=' . $token);
+            $response["hash"] = hash('SHA512', $txn_ref . $p_item->product_id . $p_item->code . $amt . $rUrl . MAC_TEST);
+            $response["cust_id"] = $this->session->userdata("email");
+            $response['txn_ref'] = $data["reference"];
+            $response['amount'] = $amt; //payment uses kobo
+            $response['product_id'] = $p_item->product_id;
+            $response['pay_item_id'] = $p_item->code;
+            return_response($response);
         } else {
-            redirect(base_url());
+            $response['message'] = 'There was an error registering transaction';
         }
     }
     public function verifyPaystack()

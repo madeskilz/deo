@@ -1,0 +1,51 @@
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
+/*
+ * A general site library .
+ * */
+class Sitelib
+{
+    public function __construct()
+    { }
+
+    /*
+     * Interswitch requery and API query
+     * @param : array - Necessary credentials for curl
+     * */
+    function interswitch_curl($data = array())
+    {
+        $parameters = array(
+            "productid" => $data['product_id'],
+            "transactionreference"  =>  $data['txn_ref'],
+            "amount"    =>  $data['amount']
+        );
+        // $hash = hash('SHA512', $txn_ref.INTERSWITCH_PRODUCT_ID.INTERSWITCH_PAY_ITEM_ID.$amt.$redirect_url.INTERSWITCH_MAC_KEY) ;
+        $thash = hash('SHA512', $data['product_id'] . $data['txn_ref'] . MAC_TEST);
+        $ponmo = http_build_query($parameters);
+        $url = INTERSWITCH_TEST_RESPONSE_URL . '?' . $ponmo; // json
+        $host = INTERSWITCH_TEST_HOST_URL;
+        $headers = array(
+            "GET /HTTP/1.1",
+            "Host: $host",
+            "User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.1) Gecko/2008070208 Firefox/3.0.1",
+            "Accept: */* ",
+            "Accept-Language: en-us,en;q=0.5",
+            "Keep-Alive: 300",
+            "Connection: keep-alive",
+            "Hash: " . $thash
+        );
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+        curl_setopt($ch, CURLOPT_POST, false);
+        $response = curl_exec($ch);
+        $response = json_decode($response, TRUE);
+        curl_close($ch);
+        return $response;
+    }
+}

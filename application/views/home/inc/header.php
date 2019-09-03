@@ -87,8 +87,8 @@
                             <span class="icon-bar"></span>
                         </button>
                     </div>
-                    <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
+                    <div class="navbar-collapse collapse" style="float:left;">
+                        <ul class="nav navbar-nav" style="margin-left:100px;">
                             <li class="<?= ($active == "home") ? "active" : "" ?>">
                                 <a href="<?= base_url() ?>">Home </a>
                             </li>
@@ -101,17 +101,20 @@
                                     <li><a href="<?= base_url("gallery") ?>">Gallery</a></li>
                                 </ul>
                             </li>
-                            <li class="sub-menu <?= ($active == "admission") ? "active" : "" ?>">
-                                <a href="#">Admission</a>
+                            <li class="sub-menu <?= ($active == "admission" || $active == "application") ? "active" : "" ?>">
+                                <a href="#!">Admission</a>
                                 <ul>
                                     <li><a href="<?= base_url("admission-requirements") ?>">Requirements</a></li>
-                                    <li><a href="<?= base_url("admission-nd") ?>">National Diploma</a></li>
-                                    <li><a style="font-size:14px;" href="<?= base_url("admission-hnd") ?>">Higher National Diploma</a></li>
+<!--                                    <li><a href="--><?//= base_url("admission-nd") ?><!--">National Diploma</a></li>-->
+<!--                                    <li><a style="font-size:14px;" href="--><?//= base_url("admission-hnd") ?><!--">Higher National Diploma</a></li>-->
+                                    <li><a href="<?= base_url("application-procedure") ?>">Application Procedure</a></li>
+                                    <li><a href="<?= base_url("application-form") ?>">Application Form</a></li>
+                                    <li><a href="<?= base_url("login") ?>">Login</a></li>
                                 </ul>
                             </li>
                             <?php $schools = $this->db->get('schools')->result(); ?>
                             <li class="mega-menu sub-menu <?= ($active == "schools") ? "active" : "" ?>">
-                                <a href="courses-list.html">Schools</a>
+                                <a href="#!">Schools</a>
                                 <div class="menu-view">
                                     <div class="row">
                                         <?php foreach ($schools as $school) : ?>
@@ -130,36 +133,34 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="sub-menu <?= ($active == "application") ? "active" : "" ?>">
-                                <a href="#">Application</a>
-                                <ul>
-                                    <li><a href="<?= base_url("application-procedure") ?>">Application Procedure</a></li>
-                                    <li><a href="<?= base_url("application-form") ?>">Application Form</a></li>
-                                    <li><a href="<?= base_url("login") ?>">Login</a></li>
-                                </ul>
-                            </li>
-                            <li class="<?= ($active == "campus") ? "active" : "" ?>">
-                                <a href="<?= base_url("campus-life") ?>">Campus Life</a>
-                            </li>
+<!--                            <li class="sub-menu --><?//= ($active == "application") ? "active" : "" ?><!--">-->
+<!--                                <a href="#">Application</a>-->
+<!--                                <ul>-->
+<!--                                    <li><a href="--><?//= base_url("application-procedure") ?><!--">Application Procedure</a></li>-->
+<!--                                    <li><a href="--><?//= base_url("application-form") ?><!--">Application Form</a></li>-->
+<!--                                    <li><a href="--><?//= base_url("login") ?><!--">Login</a></li>-->
+<!--                                </ul>-->
+<!--                            </li>-->
                             <li class="sub-menu <?= ($active == "students") ? "active" : "" ?>">
-                                <a href="#">Students</a>
+                                <a href="#!">Students</a>
                                 <ul>
                                     <li><a href="<?= base_url("login") ?>">Returning Student</a></li>
                                     <li><a href="<?= base_url("login") ?>">Prospective Student</a></li>
                                     <li><a href="<?= base_url("login") ?>">Alumni</a></li>
                                 </ul>
                             </li>
-                            <li class="sub-menu <?= ($active == "support") ? "active" : "" ?>">
-                                <a href="#">Support</a>
+                            <li class="sub-menu <?= ($active == "media" || $active == "campus") ? "active" : "" ?>">
+                                <a href="#!">Media</a>
                                 <ul>
-                                    <li><a href="<?= base_url("contact") ?>">Contact Us </a></li>
+                                    <li><a href="<?= base_url("campus-life") ?>">Campus Life</a></li>
+                                    <li><a href="<?= base_url("events") ?>">News & Events</a></li>
+                                    <li><a href="<?= base_url("rectors-desk") ?>">Rectors Desk</a></li>
                                 </ul>
                             </li>
-                            <li class="sub-menu <?= ($active == "media") ? "active" : "" ?>">
-                                <a href="#">Media</a>
+                            <li class="sub-menu <?= ($active == "support") ? "active" : "" ?>">
+                                <a href="#!">Support</a>
                                 <ul>
-                                    <li><a href="<?= base_url("rectors-desk") ?>">Rectors Desk</a></li>
-                                    <li><a href="<?= base_url("events") ?>">News & Events</a></li>
+                                    <li><a href="<?= base_url("contact") ?>">Contact Us </a></li>
                                 </ul>
                             </li>
                         </ul>

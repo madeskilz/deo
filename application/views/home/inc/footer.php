@@ -37,6 +37,9 @@
                         <div class="contact-slide">
                             <p><i class="fa fa-envelope"></i><a href="mailto:info@deogratiaspoly.edu.ng">info@deogratiaspoly.edu.ng</a></p>
                         </div>
+                        <div class="contact-slide">
+                            <a class="btn btn-danger btn-sm" href="http://webmail.deogratiaspoly.edu.ng"><i class="fa fa-envelope-open"></i> Webmail</a></p>
+                        </div>
 
                     </div>
                 </div>
