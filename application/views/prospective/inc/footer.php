@@ -12,34 +12,9 @@
 <script src="<?= base_url("inassets/bundles/knob.bundle.js") ?>"></script> <!-- Jquery Knob-->
 
 <script src="<?= base_url("inassets/bundles/mainscripts.bundle.js") ?>"></script>
-<?php if ($title === "Payment") : ?>
+<?php if ($active == "payment") : ?>
     <script src="<?= base_url("inassets/bundles/datatablescripts.bundle.js") ?>"></script>
-    <?php $this->load->view("applicant/inc/payment_script"); ?>
-<?php endif; ?>
-<?php if ($active === "edit") : ?>
-    <?php $this->load->view("applicant/inc/edit_script"); ?>
-<?php endif; ?>
-<?php if ($active === "password") : ?>
-    <?php $this->load->view("applicant/inc/password_script"); ?>
-<?php endif; ?>
-<!-- <script src="<?= base_url("inassets/js/index.js") ?>"></script> -->
-<?php if ($active === "result") : ?>
-    <script>
-        $("#sittings").on("change", () => {
-            let sit = $("#sittings").val();
-            if (sit == 1) {
-                $("#sit2").hide();
-                $(".sit_name").hide();
-                $("#sit1").removeClass("col-md-6");
-                $("#sit1").addClass("col-md-12");
-            } else {
-                $("#sit2").show();
-                $(".sit_name").show();
-                $("#sit1").removeClass("col-md-12");
-                $("#sit1").addClass("col-md-6");
-            }
-        });
-    </script>
+    <?php $this->load->view("prospective/inc/payment_script"); ?>
 <?php endif; ?>
 <script>
     function loadname(img, previewName, incFileSize) {

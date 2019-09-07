@@ -1,9 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-/*
- * A general site library .
- * */
-class Sitelib
+class Deolib
 {
     public function __construct()
     { }
@@ -12,7 +9,7 @@ class Sitelib
      * Interswitch requery and API query
      * @param : array - Necessary credentials for curl
      * */
-    function interswitch_curl($data = array())
+    public function interswitch_curl($data = array())
     {
         $parameters = array(
             "productid" => $data['product_id'],
@@ -47,5 +44,34 @@ class Sitelib
         $response = json_decode($response, TRUE);
         curl_close($ch);
         return $response;
+    }
+    public function send_email($data = array())
+    {
+        $_this = &get_instance();
+        $_this->load->library('email');
+        $config['protocol'] = 'smtp';
+        $config['smtp_host'] = 'smtp.mailgun.org';
+        $config['mailpath'] = "/usr/sbin/sendmail";
+        $config['smtp_port'] = '587';
+        $config['smtp_timeout'] = '30';
+        $config['smtp_user'] = 'postmaster@sandbox6c152daa0163468591f652a72e914428.mailgun.org';
+        $config['smtp_pass'] = 'fad1028f1956509c275ee722454c7081-4167c382-d0d9d1aa';
+        $config['charset'] = 'utf-8';
+        $config['newline'] = "\r\n";
+        $config['wordwrap'] = TRUE;
+        $config['mailtype'] = 'text';
+        $config['send_multipart'] = FALSE;
+        $_this->email->initialize($config);
+
+        $_this->email->from($data["from"], 'Deo Gratias Polytechnic', 'info@deogratiaspoly.edu.ng');
+        $_this->email->reply_to($data["reply_to"], 'Deo Gratias Polytechnic');
+        $_this->email->to($data["mail_to"]);
+
+        $_this->email->subject($data["subject"]);
+        $_this->email->message($data["message"]);
+        if ($_this->email->send()) {
+            return "message sent";
+        }
+        return $_this->email->print_debugger();
     }
 }

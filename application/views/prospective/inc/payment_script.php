@@ -3,10 +3,9 @@
     toastr.options.closeButton = true;
     toastr.options.positionClass = 'toast-top-right';
 </script>
-<?php if (!$details->paid_application_fee) : ?>
+<?php if (!$profile->paid_acceptance_fee || !$profile->paid_school_fee) : ?>
     <script>
-        $('#btnPayOnline').on('click', function(e) {
-            // e.preventDefault();
+        $('.btnPayOnline').on('click', function(e) {
             let _this = $(this);
             let pid = _this.data("pid");
             _this.prop('disabled', true);
@@ -14,20 +13,21 @@
                 url: base_url + 'ajax/interswitchWebpay/',
                 method: "POST",
                 data: {
-                    'pid': pid
+                    'pid': pid,
+                    'type':"prospective_students"
                 },
                 success: function(response) {
                     if (response.status === 'success') {
-                        $("#product_id").val(response.product_id);
-                        $("#pay_item_id").val(response.pay_item_id);
-                        $("#amount").val(response.amount);
-                        $("#site_redirect_url").val(response.site_redirect_url);
-                        $("#txn_ref").val(response.txn_ref);
-                        $("#cust_id").val(response.cust_id);
-                        $("#cust_name").val(response.cust_name);
-                        $("#hash").val(response.hash);
-                        $("#xml_data").val(response.xml_data);
-                        $("#paymentForm").submit();
+                        $("#product_id" + pid).val(response.product_id);
+                        $("#pay_item_id" + pid).val(response.pay_item_id);
+                        $("#amount" + pid).val(response.amount);
+                        $("#site_redirect_url" + pid).val(response.site_redirect_url);
+                        $("#txn_ref" + pid).val(response.txn_ref);
+                        $("#cust_id" + pid).val(response.cust_id);
+                        $("#cust_name" + pid).val(response.cust_name);
+                        $("#hash" + pid).val(response.hash);
+                        $("#xml_data" + pid).val(response.xml_data);
+                        $("#paymentForm" + pid).submit();
                         return true;
                     } else {
                         toastr['success'](response.message);

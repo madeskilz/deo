@@ -21,6 +21,13 @@ class Admin extends CI_Controller
         $p['exams'] =  $this->db->get("exam")->result();
         $this->load->view('admin/index', $p);
     }
+    public function payments()
+    {
+        $p["active"] = "payment";
+        $p["title"] = "All Payments";
+        $p['payments'] =  $this->db->get("payments")->result();
+        $this->load->view('admin/payments', $p);
+    }
     public function password(){
         if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
             $this->change_password();

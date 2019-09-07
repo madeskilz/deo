@@ -20,106 +20,110 @@
                     <p>
                         This is a payment which can be made on line using verve or master Card (ATM card).
                     </p>
-                    <p>Alternatetively, you can pay into:</p>
-
-                    <h6>Account Name: DEO GRATIAS INSTITUTE</h6>
-                    <h6>Account NO: 1015208263</h6>
-                    <h6>BANK: Zenith Bank</h6>
-
                 </div>
                 <?php foreach ($payment_type as $type) { ?>
-                <div class="col-md-6" style="margin-bottom:50px;">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <th>
-                                    Payment Details:
-                                </th>
-                                <td style="text-transform:uppercase;">
-                                    <?= $type->name ?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    Amount:
-                                </th>
-                                <td>
-                                    &#8358; <?= number_format((int) $type->amount, 2, ".", ",") ?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    Processing Fee:
-                                </th>
-                                <td>
-                                    &#8358; <?= number_format((int) $type->process_charge, 2, ".", ",") ?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    Total:
-                                </th>
-                                <td>
-                                    &#8358; <?= number_format((int) $type->total, 2, ".", ",") ?>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-md-6 row">
-                    <div class="col-md-6">
-                        <img src="<?= base_url("assets/logo/images.png") ?>" class="img-responsive" />
-                    </div>
-                    <div class="text-center col-md-6">
-                        <img src="<?= base_url("assets/logo/mam.png") ?>" class="img-responsive" /><br />
-                        <button class="btn btn-success btn-lg" id="payOnline">Pay <?= $type->name ?> Online</button>
-                        <button class="btn btn-info btn-lg d-none">Pay in Bank</button>
-                    </div>
-                </div>
-                <?php } ?>
+                    <?php if (($type->id == "2" && !$profile->paid_acceptance_fee) || ($type->id == "3" && !$profile->paid_school_fee)) { ?>
+                        <div class="col-md-6" style="margin-bottom:50px;">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <th>
+                                            Payment Details:
+                                        </th>
+                                        <td style="text-transform:uppercase;">
+                                            <?= $type->name ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            Amount:
+                                        </th>
+                                        <td>
+                                            &#8358; <?= number_format((int) $type->amount, 2, ".", ",") ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            Processing Fee:
+                                        </th>
+                                        <td>
+                                            &#8358; <?= number_format((int) $type->process_charge, 2, ".", ",") ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            Total:
+                                        </th>
+                                        <td>
+                                            &#8358; <?= number_format((int) $type->total, 2, ".", ",") ?>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 row">
+                            <div class="col-md-6">
+                                <img src="<?= base_url("assets/logo/images.png") ?>" class="img-responsive" />
+                            </div>
+                            <div class="text-center col-md-6">
+                                <form method="post" id="paymentForm<?= $type->id ?>" action="<?= INTERSWITCH_TEST_ACTION_URL ?>">
+                                    <img src="<?= base_url("assets/logo/mam.png") ?>" class="img-responsive" /><br />
+                                    <input name="product_id" id="product_id<?= $type->id ?>" type="hidden" />
+                                    <input name="pay_item_id" id="pay_item_id<?= $type->id ?>" type="hidden" />
+                                    <input name="amount" id="amount<?= $type->id ?>" type="hidden" />
+                                    <input name="currency" id="currency<?= $type->id ?>" type="hidden" value="566" />
+                                    <input name="site_redirect_url" id="site_redirect_url<?= $type->id ?>" type="hidden" />
+                                    <input name="txn_ref" id="txn_ref<?= $type->id ?>" type="hidden" />
+                                    <input name="cust_id" id="cust_id<?= $type->id ?>" type="hidden" />
+                                    <input name="cust_name" id="cust_name<?= $type->id ?>" type="hidden" />
+                                    <input name="hash" id="hash<?= $type->id ?>" type="hidden" />
+                                    <input name="payment_params" id="payment_params<?= $type->id ?>" type="hidden" value="college_split" />
+                                    <input name="xml_data" id="xml_data<?= $type->id ?>" type="hidden" value='' />
+                                    <button class="btn btnPayOnline btn-success btn-lg" data-pid="<?= $type->id ?>">Pay <?= $type->name ?> Online</button>
+                                </form>
+                            </div>
+                        </div>
+                <?php };
+                } ?>
                 <?php if (count($payments) > 0) : ?>
-                <div class="col-md-12" style="margin-top:20px;">
-                    <h4>Payment History</h4>
-                    <table class="paymentsTable table">
-                        <thead>
-                            <tr>
-                                <th>S/N</th>
-                                <th>Payment</th>
-                                <th>Amount</th>
-                                <th>Date Initiated</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $cc = 1;
-                                foreach ($payments as $payment) : ?>
-                            <tr>
-                                <td><?= $cc ?></td>
-                                <td><?= get_payment_type($payment->type) ?></td>
-                                <td><?= $payment->amount + $payment->charge ?></td>
-                                <td><?= neatDate($payment->date_initiated) ?></td>
-                                <td>
-                                    <?php if ($payment->status === "pending") : ?>
-                                    <?php if ($payment->method === "online") : ?>
-                                    <?= $payment->payment_status ?> <a href="<?= base_url("payment/verifyOnlinePayment/$payment->id") ?>">Verify</a>
-                                    <?php else : ?>
-                                    <?= $payment->payment_status ?> <a href="<?= base_url("payment/verifyBankPayment/$payment->id") ?>">Verify</a>
-                                    <?php endif; ?>
-                                    <?php elseif ($payment->status === "approved") : ?>
-                                    <?= $payment->payment_status ?>
-                                    <a target="_blank" href="<?= base_url("printer/printReceipt/$payment->reference") ?>" class="btn btn-outline-info" title="Print">
-                                        <i class="fa fa-print"></i> Print Receipt
-                                    </a>
-                                    <?php else : ?>
-                                    <?= $payment->payment_status ?>
-                                    <?php endif; ?>
-                                </td>
-                            </tr>
-                            <?php $cc++;
-                                endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
+                    <div class="col-md-12" style="margin-top:20px;">
+                        <h4>Payment History</h4>
+                        <table class="paymentsTable table">
+                            <thead>
+                                <tr>
+                                    <th>S/N</th>
+                                    <th>Payment</th>
+                                    <th>Amount</th>
+                                    <th>Date Initiated</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $cc = 1;
+                                    foreach ($payments as $payment) : ?>
+                                    <tr>
+                                        <td><?= $cc ?></td>
+                                        <td><?= get_payment_type($payment->type) ?></td>
+                                        <td><?= $payment->amount + $payment->charge ?></td>
+                                        <td><?= neatDate($payment->date_initiated) ?></td>
+                                        <td>
+                                            <?php if ($payment->status === "pending") : ?>
+                                                <span class="badge badge-warning"><?= $payment->payment_status ?></span> <a href="<?= base_url("payment/verifyPayment/$payment->reference") ?>">Verify</a>
+                                            <?php elseif ($payment->status === "approved") : ?>
+                                                <span class="badge badge-success"><?= $payment->payment_status ?></span>
+                                                <a target="_blank" href="<?= base_url("printer/printReceipt/$payment->reference") ?>" class="btn btn-outline-info" title="Print">
+                                                    <i class="fa fa-print"></i> Print Receipt
+                                                </a>
+                                            <?php else : ?>
+                                                <span class="badge badge-danger"><?= $payment->payment_status ?></span>
+                                            <?php endif; ?>
+                                        </td>
+                                    </tr>
+                                <?php $cc++;
+                                    endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 <?php endif; ?>
             </div>
         </div>

@@ -90,5 +90,5 @@ defined('PUBLIC_KEY') or define("PUBLIC_KEY", "pk_live_969c1a7b9568c069b31679f76
 //INTERSWITCH
 defined('INTERSWITCH_TEST_RESPONSE_URL') or define('INTERSWITCH_TEST_RESPONSE_URL', 'https://sandbox.interswitchng.com/webpay/api/v1/gettransaction.json'); // Live : https://webpay.interswitchng.com/collections/api/v1/gettransaction.json
 defined('INTERSWITCH_TEST_HOST_URL') or define('INTERSWITCH_TEST_HOST_URL', 'sandbox.interswitchng.com'); // webpay.interswitchng.com
-defined('MAC_TEST') or define("MAC_TEST", "D3D1D05AFE42AD50818167EAC73C109168A0F108F32645C8B59E897FA930DA44F9230910DAC9E20641823799A107A02068F7BC0F4CC41D2952E249552255710F");
+defined('MAC_TEST') or define("MAC_TEST", "CEF793CBBE838AA0CBB29B74D571113B4EA6586D3BA77E7CFA0B95E278364EFC4526ED7BD255A366CDDE11F1F607F0F844B09D93B16F7CFE87563B2272007AB3");
 defined('INTERSWITCH_TEST_ACTION_URL') or define("INTERSWITCH_TEST_ACTION_URL", "https://sandbox.interswitchng.com/webpay/pay");

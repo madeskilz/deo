@@ -72,15 +72,20 @@ class Ajax extends CI_Controller
     }
     function interswitchWebpay()
     {
+        $table_type = ($this->input->post('type')) ? cleanit($this->input->post('type')) : "applicants";
         $response = array('status' => 'error');
         $data = array();
+        $uid = $this->session->userdata('user_id');
         $pid =  cleanit($this->input->post('pid'));
         $this->db->where('id', $pid);
         $p_item = $this->db->get("payment_type", 1)->row();
         $txn_ref = $data["reference"] = generate_code('payments', 'reference');
-        $data["user_id"] = $this->session->userdata('user_id');
+        $data["user_id"] = $uid;
         $this->session->set_userdata("txn_ref", $txn_ref);
-        $this->session->set_userdata("payment_id", $p_item->code);
+        $this->session->set_userdata("table_type", $table_type);
+        // var_dump($table_type);exit;
+        //todo
+        $this->session->set_userdata("payment_id", 6207/*$p_item->code*/);
         $token = simple_crypt($txn_ref);
         $data["type"] = $p_item->id;
         $data["status"] = "pending";
@@ -89,21 +94,36 @@ class Ajax extends CI_Controller
         $data["amount_paid"] = 0;
         $data["charge"] = $p_item->process_charge;
         $data["total"] = $p_item->total;
-        $amt = $p_item->total * 100;
+        $amt = $p_item->total * 100; //payment uses kobo
         $this->session->set_userdata("amount", $amt);
         if ($this->db->insert("payments", $data)) {
             $response["status"] = "success";
-            $rUrl = $response["site_redirect_url"] = base_url('payment/interswitch/?t=' . $token);
-            $response["hash"] = hash('SHA512', $txn_ref . $p_item->product_id . $p_item->code . $amt . $rUrl . MAC_TEST);
+            $response["xml_data"] = "";
+            $response["xml_data"] .= '<pay_item_detail>' . "\r\n";
+            $response["xml_data"] .= '<item_details detail_ref="' . $txn_ref
+                . '" payment_name="' . $p_item->name
+                . '" college="DeoGratias">' . "\r\n";
+            //todo svl acc num
+            $response["xml_data"] .= '<item_detail item_id="1" item_name="Schoolvile" item_amt="'
+                . (((float) $p_item->process_charge - 300) * 100) . '" bank_id="117" acct_num="1014006596" />' . "\r\n";
+            $response["xml_data"] .= '<item_detail item_id="2" item_name="Deo_Gratias" item_amt="'
+                . (((float) $p_item->amount) * 100) . '" bank_id="117" acct_num="1015208263" />' . "\r\n";
+            $response["xml_data"] .= '</item_details>' . "\r\n";
+            $response["xml_data"] .= '</pay_item_detail>';
+            $rUrl = $response["site_redirect_url"] = base_url("payment/interswitch/?t=$token");
+            $response["hash"] = hash('SHA512', $txn_ref . 6207 /*$p_item->code*/ . 101 /*$p_item->product_id*/ . $amt . $rUrl . MAC_TEST);
             $response["cust_id"] = $this->session->userdata("email");
-            $response['txn_ref'] = $data["reference"];
-            $response['amount'] = $amt; //payment uses kobo
-            $response['product_id'] = $p_item->product_id;
-            $response['pay_item_id'] = $p_item->code;
-            return_response($response);
+            $this->db->where("user_id", $uid);
+            $profile = $this->db->get($table_type, 1)->row();
+            $response["cust_name"] = $profile->firstname . " " . $profile->lastname;
+            $response['txn_ref'] = $txn_ref;
+            $response['amount'] = $amt;
+            $response['product_id'] = 6207; //$p_item->code;
+            $response['pay_item_id'] = 101; //$p_item->product_id;
         } else {
             $response['message'] = 'There was an error registering transaction';
         }
+        return_response($response);
     }
     public function verifyPaystack()
     {

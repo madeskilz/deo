@@ -3,6 +3,12 @@
     .sit_name {
         display: none;
     }
+
+    div#DataTables_Table_0_wrapper>.row:first-child>.col-sm-12:last-child,
+    div#DataTables_Table_0_wrapper>.row:last-child>.col-sm-12:last-child ul.pagination {
+        text-align: right !important;
+        float: right;
+    }
 </style>
 <div id="main-content">
     <div class="container">
@@ -22,12 +28,10 @@
                     <?php $this->load->view("err-inc/msg") ?>
                 </div>
                 <?php if (!$details->paid_application_fee) : $totAm = 0.00;  ?>
-                    <?php foreach ($payment_type as $type) {
-                            $totAm += $type->total;
-                        } ?>
+                    <?php foreach ($payment_type as $type) $totAm += $type->total; ?>
                     <div class="col-md-12">
                         <p>
-                            This is a payment of a nonrefundable fee of &#8358; <?= number_format((int) $totAm, 2, ".", ",") ?> only made on line with verve or master Card (ATM card).
+                            This is a payment of a non-refundable fee of &#8358; <?= number_format((int) $totAm, 2, ".", ",") ?> only made on line with verve or master Card (ATM card).
                         </p>
                     </div>
                     <div class="col-md-6">
@@ -82,9 +86,12 @@
                                 <input name="amount" id="amount" type="hidden" />
                                 <input name="currency" id="currency" type="hidden" value="566" />
                                 <input name="site_redirect_url" id="site_redirect_url" type="hidden" />
-                                <input name=" txn_ref" id=" txn_ref" type="hidden" />
+                                <input name="txn_ref" id="txn_ref" type="hidden" />
                                 <input name="cust_id" id="cust_id" type="hidden" />
+                                <input name="cust_name" id="cust_name" type="hidden" />
                                 <input name="hash" id="hash" type="hidden" />
+                                <input name="payment_params" id="payment_params" type="hidden" value="college_split" />
+                                <input name="xml_data" id="xml_data" type="hidden" value='' />
                                 <button class="btn btn-success btn-lg" id="btnPayOnline" data-pid="<?= $type->id ?>">Pay Online</button>
                             </form>
                         </div>
@@ -113,14 +120,14 @@
                                         <td><?= neatDate($payment->date_initiated) ?></td>
                                         <td>
                                             <?php if ($payment->status === "pending") : ?>
-                                                <?= $payment->payment_status ?> <a href="<?= base_url("payment/verifyOnlinePayment/$payment->id") ?>">Verify</a>
+                                                <span class="badge badge-warning"><?= $payment->payment_status ?></span> <a href="<?= base_url("payment/verifyPayment/$payment->reference") ?>">Verify</a>
                                             <?php elseif ($payment->status === "approved") : ?>
-                                                <?= $payment->payment_status ?>
+                                                <span class="badge badge-success"><?= $payment->payment_status ?></span>
                                                 <a target="_blank" href="<?= base_url("printer/printReceipt/$payment->reference") ?>" class="btn btn-outline-info" title="Print">
                                                     <i class="fa fa-print"></i> Print Receipt
                                                 </a>
                                             <?php else : ?>
-                                                <?= $payment->payment_status ?>
+                                                <span class="badge badge-danger"><?= $payment->payment_status ?></span>
                                             <?php endif; ?>
                                         </td>
                                     </tr>

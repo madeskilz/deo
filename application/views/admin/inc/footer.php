@@ -12,17 +12,10 @@
 <script src="<?= base_url("inassets/bundles/knob.bundle.js") ?>"></script> <!-- Jquery Knob-->
 
 <script src="<?= base_url("inassets/bundles/mainscripts.bundle.js") ?>"></script>
-<?php if ($title === "Payment") : ?>
+<?php if ($active === "payment") : ?>
     <script src="<?= base_url("inassets/bundles/datatablescripts.bundle.js") ?>"></script>
-    <?php $this->load->view("applicant/inc/payment_script"); ?>
+    <?php $this->load->view("admin/inc/payment_script"); ?>
 <?php endif; ?>
-<?php if ($active === "edit") : ?>
-    <?php $this->load->view("applicant/inc/edit_script"); ?>
-<?php endif; ?>
-<?php if ($active === "password") : ?>
-    <?php $this->load->view("applicant/inc/password_script"); ?>
-<?php endif; ?>
-<!-- <script src="<?= base_url("inassets/js/index.js") ?>"></script> -->
 <?php if ($active === "result") : ?>
     <script>
         $("#sittings").on("change", () => {

@@ -83,6 +83,9 @@
                                 <li><a href="page-lockscreen.html">Lockscreen</a></li>
                             </ul>
                             </li>
+                            <li style="margin:auto" class="nav-item <?= ($active == "payment") ? "active" : "" ?>">
+                                <a href="<?= base_url("admin/payments") ?>" class="nav-link"><i class="icon-credit-card"></i> <span>Payments</span></a>
+                            </li>
                             <li style="margin:auto" class="nav-item <?= ($active == "admission") ? "active" : "" ?>">
                                 <a href="<?= base_url("admin/admission") ?>" class="nav-link"><i class="icon-note"></i> <span>Admission</span></a>
                             </li>

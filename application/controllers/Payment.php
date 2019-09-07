@@ -9,6 +9,7 @@ class Payment extends CI_Controller
         if (!$this->session->userdata("logged_in")) {
             redirect(base_url("login"));
         }
+        $this->load->library("deolib");
     }
     public function index()
     {
@@ -116,33 +117,106 @@ class Payment extends CI_Controller
             }
         }
     }
+    public function verifyPayment($ref = "")
+    {
+        $uid = $this->session->userdata("user_id");
+        $q = "SELECT * FROM payments WHERE reference = '$ref'";
+        $q .= ($this->session->userdata("level") == "1") ? "" : " AND user_id = '$uid'";
+        // var_dump($q);exit;
+        $row = $this->db->query($q, 1)->row();
+        $table['type'] = "";
+        $table['txn_ref'] = $ref;
+        if (!$row) {
+            $this->session->set_flashdata('error_msg', "Transaction not found");
+            redirect($_SERVER["HTTP_REFERER"]);
+        } else {
+            if ($row->type == "1") {
+                $table['type'] = "applicants";
+            } elseif ($row->type == "2") {
+                $table['type'] = "prospective_students";
+            } elseif ($row->type == "3") {
+                $table['type'] = "prospective_students";
+            }
+            $this->db->where("id", $row->type);
+            $pay_item = $this->db->get("payment_type", 1)->row();
+            //todo
+            $product_id = 6207; //$pay_item->code;
+            $amount = $pay_item->total;
+            $curl_info_data  = array('txn_ref'   => $ref, 'amount'    => $amount, 'product_id' =>  $product_id);
+            $response = $this->deolib->interswitch_curl($curl_info_data); // return a JSON
+            // var_dump($response);
+            // exit;
+            switch ($response['ResponseCode']) {
+                case '00':
+                    // Confirm. Payment made successfully. :)
+                    $this->update_payment_status($table, $response);
+                    break;
+                case 'Z0':
+                    // Transaction not completed status - Requery
+                    $response = $this->deolib->interswitch_curl($curl_info_data);
+                    if ($response['ResponseCode'] == 'Z0' || $response['ResponseCode'] == '10001') {
+                        $this->update_payment_status($table, $response, false);
+                    } else {
+                        $this->update_payment_status($table, $response);
+                    }
+                    break;
+                case '10001':
+                    // Transaction not completed status - Requery
+                    $response = $this->deolib->interswitch_curl($curl_info_data);
+                    if ($response['ResponseCode'] == '10001' || $response['ResponseCode'] == 'Z0') {
+                        $this->update_payment_status($table, $response, false);
+                    } else {
+                        $this->update_payment_status($table, $response);
+                    }
+                    break;
+                default:
+                    $this->update_payment_status($table, $response, false);
+                    break;
+            }
+        }
+    }
     public function interswitch()
     {
         // Check the txn_ref session and validate the token
         $token = $this->input->get('t', true);
-        $txn_ref = $this->session->userdata('txn_ref');
+        $student_type['txn_ref'] = $txn_ref = $this->session->userdata('txn_ref');
+        $student_type['type'] = $this->session->userdata('table_type');
+        // var_dump($student_type['type']);exit;
         $is_token = simple_crypt($token, 'd');
         if ($txn_ref && ($txn_ref == $is_token)) {
             $amount = $this->session->userdata('amount');
             $product_id = $this->session->userdata('payment_id');
             $curl_info_data  = array('txn_ref'   => $txn_ref, 'amount'    => $amount, 'product_id' =>  $product_id);
-            $response = $this->sitelib->interswitch_curl($curl_info_data); // return a JSON
+            $response = $this->deolib->interswitch_curl($curl_info_data); // return a JSON
+            // var_dump($_POST);
+            // var_dump($_GET);
+            // var_dump($response);
+            // exit;
             switch ($response['ResponseCode']) {
                 case '00':
                     // Confirm. Payment made successfully. :)
-                    $this->update_payment_status($response);
+                    $this->update_payment_status($student_type, $response);
                     break;
                 case 'Z0':
                     // Transaction not completed status - Requery
-                    $response = $this->sitelib->interswitch_curl($curl_info_data);
-                    if ($response['ResponseCode'] == 'Z0') {
-                        $this->update_payment_status($response, false);
+                    $response = $this->deolib->interswitch_curl($curl_info_data);
+                    if ($response['ResponseCode'] == 'Z0' || $response['ResponseCode'] == '10001') {
+                        $this->update_payment_status($student_type, $response, false);
                     } else {
-                        $this->update_payment_status($response);
+                        $this->update_payment_status($student_type, $response);
+                    }
+                    break;
+                case '10001':
+                    // Transaction not completed status - Requery
+                    $response = $this->deolib->interswitch_curl($curl_info_data);
+                    if ($response['ResponseCode'] == '10001' || $response['ResponseCode'] == 'Z0') {
+                        $this->update_payment_status($student_type, $response, false);
+                    } else {
+                        $this->update_payment_status($student_type, $response);
                     }
                     break;
                 default:
-                    $this->update_payment_status($response, false);
+                    $this->update_payment_status($student_type, $response, false);
                     break;
             }
         } else {
@@ -150,80 +224,142 @@ class Payment extends CI_Controller
             redirect(base_url("applicant/payment"));
         }
     }
-    private function update_payment_status($response, $status = true)
+    private function testmail()
     {
+        $mail_data = array(
+            'from' => 'payment@deogratiaspoly.edu.ng',
+            'reply_to' => 'info@deogratiaspoly.edu.ng',
+            'subject' => "Payment 1020 Successful",
+        );
+        $msg = "";
+        $mail_data['mail_to'] = array("michaeladekoniye@gmail.com");
+        $msg .= "Dear Lukas Grayham, \r\n"
+            . "Your payment of Panadol \r\n"
+            . "with the total amount of $12 \r\n"
+            . "via Quickteller was successful. \r\n"
+            . "your payment reference number is 1020\r\n"
+            . "contact info@deogratiaspoly.edu.ng for any enquiries. \r\n"
+            . "\r\n\r\n Thanks, \r\n Deogratias Polytecnic";
+        $mail_data['message'] = $msg;
+        var_dump($this->deolib->send_email($mail_data));
+        exit;
+    }
+    private function update_payment_status($data, $response, $status = true)
+    {
+        $ret = array('status' => 'error');
         $uid = $this->session->userdata('user_id');
-        $this->db->where('user_id', $uid);
-        $profile = $this->db->get('applicants',1)->row();
+        $ref = $data["txn_ref"];
+        $controller = "";
+        $this->db->where("reference", $ref);
+        $payment = $this->db->get("payments", 1)->row();
+        $payment_paid = ($payment->type == "3") ? "paid_school_fee" : "paid_acceptance_fee";
+        if ($data['type'] == "applicants") {
+            $controller = "applicant";
+        } elseif ($data['type'] == "prospective_students") {
+            $controller = "prospective";
+        }
         if ($status) {
             // Success
             $PaymentReference = (isset($response['PaymentReference'])) ? $response['PaymentReference'] : null;
             $RetrievalReferenceNumber = (isset($response['RetrievalReferenceNumber'])) ? $response['RetrievalReferenceNumber'] : null;
-            $row = $this->product->get_row('orders', 'status', array('order_code' => $order_code));
-            $json_array = json_decode($row->status, true);
-            $array = array("success" => array('msg' => "Order payment was successful: {$response['ResponseDescription']}", 'datetime' => get_now()));
-            $status_array = array_merge($json_array, $array);
-            $status_array = json_encode($status_array);
             $update_data = array(
-                'active_status' => 'certified',
-                'payment_made' => 'success',
-                'status'  => $status_array,
-                'paymentDesc'   => $response['ResponseDescription'],
-                'payRef'        => $PaymentReference,
-                'retRef'        => $RetrievalReferenceNumber,
-                'apprAmt'       => $response['Amount'] / 100,
-                'responseCode'  => $response['ResponseCode']
+                'status' => 'approved',
+                'payment_status' => $response['ResponseDescription'],
+                'payment_reference' => $PaymentReference,
+                'response_description' => $RetrievalReferenceNumber,
+                'amount_paid' => $response['Amount'] / 100,
+                'response_code' => $response['ResponseCode']
             );
-            // Insert the record to payment table
-
-            // show order complete page
-            try {
-                $this->product->update_items($order_code, $update_data);
-                $this->session->set_flashdata('success_msg', 'Thank you for shopping with us, your order has been received.');
-                redirect('order_completed');
-            } catch (Exception $e) { }
+            // var_dump("wale",$data['type']);exit;
+            // update the record to payment table
+            $table = "";
+            $cell = "";
+            if ($data['type'] == "applicants") {
+                $table = "applicants";
+                $cell = "paid_application_fee";
+            } else if ($data['type'] == "prospective_students") {
+                $table = "prospective_students";
+                $cell = $payment_paid;
+            }
+            $this->db->where("user_id", $uid);
+            $pers = $this->db->get($table, 1)->row();
+            $this->db->where("id", $payment->type);
+            $p_item = $this->db->get("payment_type", 1)->row();
+            $mail_data = array(
+                'from' => 'payment@deogratiaspoly.edu.ng',
+                'reply_to' => 'info@deogratiaspoly.edu.ng',
+                'subject' => "Payment $ref Successful",
+            );
+            $msg = "";
+            $mail_data['mail_to'] = array($this->session->userdata("email"));
+            $msg .= "Dear $pers->lastname $pers->firstname, \r\n"
+                . "Your payment of $p_item->name \r\n"
+                . "with the total amount of $p_item->total \r\n"
+                . "via Quickteller was successful. \r\n"
+                . "your payment reference number is $ref \r\n"
+                . "contact info@deogratiaspoly.edu.ng for any enquiries. \r\n"
+                . "\r\n\r\n Thanks, \r\n Deogratias Polytecnic";
+            $mail_data['message'] = $msg;
+            $this->db->trans_start();
+            $this->db->where("reference", $ref);
+            $this->db->set($update_data);
+            $this->db->update("payments");
+            /////
+            $this->db->where("user_id", $uid);
+            $this->db->set(array($cell => 1));
+            $this->db->update($table);
+            $this->db->trans_complete();
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                $ret['message'] = "There was an error updating your payment. Please contact us if debited.";
+                $this->session->set_flashdata('error_msg', $ret['message']);
+                if ($this->session->userdata("level") == "1") {
+                    redirect("admin/payments");
+                } else {
+                    redirect("$controller/payment");
+                }
+            } else {
+                $this->db->trans_commit();
+                $this->deolib->send_email($mail_data);
+                $ret['status'] = 'success';
+                $ret['message'] = "Payment successfull "
+                    . "<br>Status: " . $response['ResponseDescription']
+                    . "<br>Please proceed to print your payment receipt."
+                    . "<br>Your transaction Reference is : " . $_POST['txnref'];
+                $this->session->set_flashdata('msg', $ret['message']);
+                if ($this->session->userdata("level") == "1") {
+                    redirect("admin/payments");
+                } else {
+                    redirect("$controller/payment");
+                }
+            }
         } else {
+            // Failure
             $PaymentReference = (isset($response['PaymentReference'])) ? $response['PaymentReference'] : null;
             $RetrievalReferenceNumber = (isset($response['RetrievalReferenceNumber'])) ? $response['RetrievalReferenceNumber'] : null;
-            $row = $this->product->get_row('orders', 'status', array('order_code' => $order_code));
-            $json_array = json_decode($row->status, true);
-            $array = array("cancelled" => array('msg' => "Order was marked as cancelled : {$response['ResponseDescription']}", 'datetime' => get_now()));
-            $status_array = array_merge($json_array, $array);
-            $status_array = json_encode($status_array);
             $update_data = array(
-                'active_status' => 'cancelled',
-                'status'  => $status_array,
-                'payment_made' => 'fail',
-                'paymentDesc'   => $response['ResponseDescription'],
-                'payRef'        => $PaymentReference,
-                'retRef'        => $RetrievalReferenceNumber,
-                'apprAmt'       => $response['Amount'] / 100,
-                'responseCode'  => $response['ResponseCode']
+                'status' => 'failed',
+                'payment_status' => $response['ResponseDescription'],
+                'payment_reference' => $PaymentReference,
+                'response_description' => $RetrievalReferenceNumber,
+                'amount_paid' => $response['Amount'] / 100,
+                'response_code' => $response['ResponseCode']
             );
-            try {
-                $this->product->update_items($order_code, $update_data);
-                $buyer['name'] = $profile->first_name . ' ' . $profile->last_name;
-                $buyer['email'] = $profile->email;
-
-                $this->myemail->paymentUncompleted($order_code, $buyer);
-
-                // Release the order quantity
-                $orders = $this->product->get_result('orders', 'qty,product_variation_id', "(order_code = '{$order_code}')");
-                foreach ($orders as $order) {
-                    $this->product->set_field('product_variation', 'quantity', "quantity+{$order->qty}", array('id' => $order->product_variation_id));
-                }
-                // Lets also send a message
-                if (SMS_FOR_ORDERS) {
-                    $buyer_message = "Dear " . ucfirst($profile->first_name) . ", your order {$order_code} payment was not successful: {$response['ResponseDescription']}. check your email for complete details. Thank you!";
-                    $sms_array = array($profile->phone => $buyer_message);
-                    $this->load->library('AfricaSMS', $sms_array);
-                    $this->africasms->sendsms();
-                }
-            } catch (Exception $e) { }
-            $txn_ref = $this->session->userdata('txn_ref');
-            $this->session->set_flashdata('error_msg', "We couldn't validate the payment, please try again. Reason: {$response['ResponseDescription']}, Transaction Reference: {$txn_ref}. If error persist please contact us.");
-            $this->session->unset_userdata(array('inter', 'order_code', 'txn_ref', 'amount'));
-            redirect(base_url());
+            $this->db->where("reference", $ref);
+            $this->db->set($update_data);
+            $this->db->update("payments");
+            $ret['message'] = /*"Server responded with code "
+                . $response['ResponseCode']
+                . */ "Error: " . $response['ResponseDescription']
+                . "<br>Transaction failed Due to " . (!isset($_POST['desc']) ? $response['ResponseDescription'] : $_POST['desc'])
+                . "<br>Please try again or contact us if persist."
+                . "<br>Transaction Reference is : " . $ref;
+            $this->session->set_flashdata('error_msg', $ret['message']);
+            if ($this->session->userdata("level") == "1") {
+                redirect("admin/payments");
+            } else {
+                redirect("$controller/payment");
+            }
         }
     }
 }

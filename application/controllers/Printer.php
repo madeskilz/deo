@@ -24,16 +24,24 @@ class Printer extends CI_Controller
         $this->db->where("status", "approved");
         $payment_details = $this->db->get("payments", 1)->result();
         if (count($payment_details) > 0) {
-            $p['payment'] = $payment_details[0];
+            $pd = $p['payment'] = $payment_details[0];
+            $p["pay_type"] = $this->db->query("SELECT * FROM payment_type WHERE id = $pd->type LIMIT 1")->row()->name;
             $this->db->where("user_id", $uid);
-            $p['details'] = $this->db->get("applicants", 1)->row();
+            $table = "";
+            if ($pd->type == "1") {
+                $table = "applicants";
+            } elseif ($pd->type == "2" || $pd->type == "3") {
+                $table = "prospective_students";
+            }
+            $p['table'] = $table;
+            $p['details'] = $this->db->get($table, 1)->row();
             if (!$payment_details[0]->qr_code) {
-                $datat = "Payment Reference: " . $payment_details[0]->payment_reference . "\n";
-                $datat .= "Amount: " . $payment_details[0]->amount_paid . "\n";
+                $datat = "Payment Reference: " . $payment_details[0]->payment_reference . "\r\n";
+                $datat .= "Amount: " . $payment_details[0]->amount_paid . "\r\n";
                 $datat .= "Full Name: "
                     . $p['details']->lastname . " "
-                    . $p['details']->firstname . "\n";
-                $datat .= "ID: " . $p["details"]->admission_no . "\n";
+                    . $p['details']->firstname . "\r\n";
+                $datat .= "ID: " . $p["details"]->admission_no . "\r\n";
                 $params['data'] = $datat;
                 $qr_image = rand() . '.png';
                 $params['level'] = 'H';
@@ -47,7 +55,7 @@ class Printer extends CI_Controller
                     $this->db->where("status", "approved");
                     $this->db->update("payments", array("qr_code" => $qr_image));
                 }
-            }else{
+            } else {
                 $p["qr_image"] = $payment_details[0]->qr_code;
             }
         } else {
@@ -56,10 +64,11 @@ class Printer extends CI_Controller
         }
         $this->load->view('printer/print-receipt', $p);
     }
-    public function applicationForm($ad = ""){
+    public function applicationForm($ad = "")
+    {
         $user_id = simple_crypt($ad, "d");
         $uid = $this->session->userdata("user_id");
-        if(!$user_id == $uid){
+        if (!$user_id == $uid) {
             $this->session->set_flashdata('error_msg', "User not found");
             return redirect($_SERVER['HTTP_REFERER']);
         }
