@@ -26,34 +26,49 @@
                     <?php $this->load->view("err-inc/msg") ?>
                 </div>
                 <div class="col-md-12">
-                    Clearance Procedure
-                    All newly admitted students should take note of these procedures for successful clearance and
-                    proper registration into the school.
-                    The admitted candidates are to go to admissions office with the following documents.
-                    Check your result and ensure that your ADMISSION STATUS is ADMITTED
-                    Click on Make Payment and login from here with your Applicant ID and password and make
-                    payment for your acceptance fee.
-                    Proceed to the admission office with your credential/document:
-                     Two (2) photocopies of the following, WAEC / NECO / NABTEB O'Level results
-                     Two (2) copies of UTME Score(JAMB Print Out) – For ND Applicants
-                     Two (2) copies of A’ Level/NCE/ND/HND Results – For HN DApplicants
-                     Two (2) copies of Transfer documents – For Transfer Applicants
-                     Two (2) copies of Payment Receipt printed online for online application
-                     Two (2) copies of Acknowledgement Card printed online
-                     Two (2) copies of Certificate of Local Government Origin
-                     Five (5) recent passport photographs
-                     Two (2) copies of Payment Receipt printed online for admission acceptance fee (Ensure you
-                    are admitted before making this non-refundable payment)
-                     Two (2) copies of Clearance Form printed online
-                     A letter from parents or reputable person in the society attesting to candidate's behaviour
-                    and who can be held responsible if the student misbehave.
-                     A letter of undertaking to be of good behaviour.
-                     Obtain Clearance Code from the ICT Centre (Ensure that you print and go with your
-                    Clearance Form to ICT Centre)
-                     Proceed to the web portal (PROSPECTIVE STUDENTS) with your Clearance Code and
-                    Password to obtain your matriculation number and admission letter. Thereafter you can
-                    login as a returning student.
-                    Note: You are advice to go with all the original of your credential/document for citation.
+                    <h5 style="font-weight:600;">Clearance Procedure</h4>
+                        <p>All newly admitted students should take note of these procedures for successful clearance and
+                            proper registration into the school.</p>
+                        <p>The admitted candidates are to go to admissions office with the following documents.
+                            Check your result and ensure that your ADMISSION STATUS is <b>ADMITTED</b>
+                            <p>
+                                <p>Click on Make Payment to make payment for your <b>acceptance fee</b>.</p>
+                                <p>Proceed to the admission office with your credential/document (NB: come with original for verificatuion):
+                                    <ul>
+                                        <li>Two (2) photocopies of the following, WAEC / NECO / NABTEB O'Level results
+                                        </li>
+                                        <li>Two (2) copies of UTME Score(JAMB Print Out) – <b>For ND Applicants</b>
+                                        </li>
+                                        <li>Two (2) copies of A’ Level/NCE/ND/HND Results – <b>For HND Applicants</b>
+                                        </li>
+                                        <li>Two (2) copies of Transfer documents – <b>For Transfer Applicants</b>
+                                        </li>
+                                        <li>Two (2) copies of Payment Receipt printed online for online application
+                                        </li>
+                                        <li>Two (2) copies of Acknowledgement Card printed online
+                                        </li>
+                                        <li>Two (2) copies of Certificate of Local Government Origin
+                                        </li>
+                                        <li>Five (5) recent passport photographs
+                                        </li>
+                                        <li>Two (2) copies of Payment Receipt printed online for admission acceptance fee (Ensure you
+                                            are admitted before making this non-refundable payment)
+                                        </li>
+                                        <li>Two (2) copies of Clearance Form printed online
+                                        </li>
+                                        <li>A letter from parents or reputable person in the society attesting to candidate's behaviour
+                                            and who can be held responsible if the student misbehave.
+                                        </li>
+                                        <li>A letter of undertaking to be of good behaviour.
+                                        </li>
+                                        <li>Obtain Clearance Code from the ICT Centre (Ensure that you print and go with your
+                                            Clearance Form to ICT Centre)
+                                        </li>
+                                        <li>Login to the web portal (PROSPECTIVE STUDENTS) to pay your school fee and use your Clearance Code to 
+                                            obtain your matriculation number and admission letter.</li>
+                                    </ul>
+                                </p>
+                                <p style="font-weight:500">Note: You are advice to go with all the original of your credential/document for citation.</p>
                 </div>
             </div>
         </div>
