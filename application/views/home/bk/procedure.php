@@ -52,7 +52,7 @@
             <p> Deo Gratias Polytechnic is into a collaboration with ST Vincent and the Grenadines for
                 courses leading to a proficiency in leadership and diplomacy (PLD) certificate with a membership and an additional
                 certificate from chartered management institute (CMI) in the UK.</p>
-            <p>Deogratias Polytechnic also has a memorandum of understanding with Ecole Superietaure
+            <p>Deo Gratias Polytechnic also has a memorandum of understanding with Ecole Superietaure
                 De Commerce Et U' Administration Des Enterprises Du Benin (ESCAE), Cotonou, Benin republic, for a three-year course
                 leading to a Barchelor’s Degree, B2 Certificate.</p>
             <p>The range of courses and target audience will be found on our website.</p>

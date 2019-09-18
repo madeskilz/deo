@@ -44,7 +44,7 @@
                 </h2>
                 <h2 class="h2 text-center text-uppercase">Deo Gratias Polytechnic</h2>
                 <h5 class="h5" style="text-align:center;">55, Obi Ikechukwu Road, Agbor, Delta State, NG</h5>
-                <h4 class="h4 text-center text-uppercase" style="font-weight:700;">Application Form</h4>
+                <h4 class="h4 text-center text-uppercase" style="font-weight:700;">Admission Slip</h4>
                 <hr style="border:1px solid darkgoldenrod;" />
             </div>
             <table class="table" style="border:none;margin-left:50px">
@@ -89,6 +89,22 @@
                 </tr>
                 <tr>
                     <td>
+                        <h4 class="h5" style="font-weight:600;">Exam Score: </h4>
+                    </td>
+                    <td>
+                        <h4 class="h5" style="font-weight:600;"><?= get_exam_score($details->user_id)?></h4>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h4 class="h5" style="font-weight:600;">Admission Status: </h4>
+                    </td>
+                    <td>
+                        <h4 class="h5" style="font-weight:600;">ADMITTED</h4>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         <h4 class="h5" style="font-weight:600;">School: </h4>
                     </td>
                     <td>
@@ -109,38 +125,6 @@
                     </td>
                     <td>
                         <h4 class="h5" style="font-weight:600;"><?= get_department($details->department)->name ?></h4>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <h4 class="h5" style="font-weight:600;">Date Of birth: </h4>
-                    </td>
-                    <td>
-                        <h4 class="h5" style="font-weight:600;"><?= neatDate($details->dateofbirth) ?></h4>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <h4 class="h5" style="font-weight:600;">Gender: </h4>
-                    </td>
-                    <td>
-                        <h4 class="h5" style="font-weight:600;"><?= $details->gender ?></h4>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <h4 class="h5" style="font-weight:600;">Marital Status: </h4>
-                    </td>
-                    <td>
-                        <h4 class="h5" style="font-weight:600;"><?= $details->marital_status ?></h4>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <h4 class="h5" style="font-weight:600;">Email: </h4>
-                    </td>
-                    <td>
-                        <h4 class="h5" style="font-weight:600;"><?= $this->session->userdata("email") ?></h4>
                     </td>
                 </tr>
                 <tr>

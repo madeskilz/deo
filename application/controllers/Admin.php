@@ -28,6 +28,14 @@ class Admin extends CI_Controller
         $p['payments'] =  $this->db->get("payments")->result();
         $this->load->view('admin/payments', $p);
     }
+    public function applicant_exam($batch = "")
+    {
+        if ($batch == "batch") {var_dump($batch);exit;}
+        $p["active"] = "applicant";
+        $p["title"] = "Applicant Exam";
+        $p['applicants'] =  $this->db->get("applicants")->result();
+        $this->load->view('admin/applicant-exam', $p);
+    }
     public function password(){
         if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
             $this->change_password();

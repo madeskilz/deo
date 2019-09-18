@@ -12,8 +12,8 @@
 <script src="<?= base_url("inassets/bundles/knob.bundle.js") ?>"></script> <!-- Jquery Knob-->
 
 <script src="<?= base_url("inassets/bundles/mainscripts.bundle.js") ?>"></script>
+<script src="<?= base_url("inassets/bundles/datatablescripts.bundle.js") ?>"></script>
 <?php if ($active === "payment") : ?>
-    <script src="<?= base_url("inassets/bundles/datatablescripts.bundle.js") ?>"></script>
     <?php $this->load->view("admin/inc/payment_script"); ?>
 <?php endif; ?>
 <?php if ($active === "result") : ?>

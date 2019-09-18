@@ -74,14 +74,14 @@
                             <li style="margin:auto" class="nav-item <?= ($active == "payment") ? "active" : "" ?>">
                                 <a href="<?= base_url("prospective/payment") ?>" class="nav-link"><i class="icon-credit-card"></i> <span>Make Payments</span></a>
                             </li>
+                            <!-- <li style="margin:auto" class="nav-item <?= ($active == "check_result") ? "active" : "" ?>">
+                                <a href="<?= base_url("prospective/medical") ?>" class="nav-link"><i class="icon-note"></i> <span>Medical Form</span></a>
+                            </li> -->
                             <li style="margin:auto" class="nav-item <?= ($active == "documents") ? "active" : "" ?>">
                                 <a href="<?= base_url("prospective/documents") ?>" class="nav-link"><i class="icon-printer"></i> <span>Print Documents</span></a>
                             </li>
-                            <li style="margin:auto" class="nav-item <?= ($active == "check_result") ? "active" : "" ?>">
-                                <a href="<?= base_url("prospective/checkresult") ?>" class="nav-link"><i class="icon-note"></i> <span>Medical Form</span></a>
-                            </li>
-                            <li style="margin:auto" class="nav-item <?= ($active == "check_result") ? "active" : "" ?>">
-                                <a href="<?= base_url("prospective/checkresult") ?>" class="nav-link"><i class="icon-info"></i> <span>Get Matric No</span></a>
+                            <li style="margin:auto" class="nav-item <?= ($active == "matric") ? "active" : "" ?>">
+                                <a href="<?= base_url("prospective/matric") ?>" class="nav-link"><i class="icon-info"></i> <span>Get Matric No</span></a>
                             </li>
                             <li style="margin:auto" class="nav-item <?= ($active == "password") ? "active" : "" ?>">
                                 <a href="<?= base_url("prospective/password") ?>" class="nav-link"><i class="icon-lock"></i> <span>Change Password</span></a>

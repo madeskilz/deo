@@ -35,17 +35,11 @@
             <p>Please wait...</p>
         </div>
     </div>
-    <!-- Overlay For Sidebars -->
-    <?php
-    $uid = $this->session->userdata("user_id");
-    $this->db->where("user_id", $uid);
-    $details = $this->db->get("applicants", 1)->row();
-    ?>
     <div id="wrapper">
         <nav class="navbar navbar-fixed-top">
             <div class="container">
                 <div class="navbar-brand">
-                    <a href="<?=base_url()?>" class="row">
+                    <a href="<?= base_url() ?>" class="row">
                         <img src="<?= base_url("assets/logo/pp.jpg") ?>" alt="Lucid Logo" class="logo" style="width:30px;height:30px;">
                         <h3 class="hidden-xs hidden-sm poly_name" style="font-size:18px;margin-top:7px;margin-left:10px;font-weight:600;">
                             Deo Gratias Polytechnic
@@ -55,7 +49,7 @@
                 <div class="navbar-right">
                     <div id="navbar-menu">
                         <ul class="nav navbar-nav">
-                            <li><a class="icon-menu d-none d-sm-none d-md-block d-lg-block"><span style="font-size:14px;">welcome, <?=$this->session->userdata("email")?></span></a></li>
+                            <li><a class="icon-menu d-none d-sm-none d-md-block d-lg-block"><span style="font-size:14px;">welcome, <?= $this->session->userdata("email") ?></span></a></li>
                             <li><a href="<?= base_url("logout") ?>" class="icon-menu d-sm-block d-md-block d-lg-block"><span style="font-size:20px;">Logout</span><i class="icon-login"></i></a></li>
                         </ul>
                     </div>
@@ -75,19 +69,17 @@
                             <li style="margin:auto" class="nav-item <?= ($active == "dashboard") ? "active" : "" ?>">
                                 <a href="<?= base_url("admin") ?>" class="nav-link"><i class="icon-speedometer"></i> <span> Dashboard</span></a>
                             </li>
-                            <li style="margin:auto" class="dropdown nav-item <?= ($active == "upload") ? "active" : "" ?>">
-                                <a href="<?= base_url("admin/upload") ?>" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="icon-users"></i> <span>Users</span></a>
-                                <ul class="dropdown-menu animated headShake">                                    
-                                <li><a href="page-login.html">Login</a></li>
-                                <li><a href="page-register.html">Register</a></li>
-                                <li><a href="page-lockscreen.html">Lockscreen</a></li>
-                            </ul>
+                            <li style="margin:auto" class="dropdown nav-item <?= ($active == "applicant") ? "active" : "" ?>">
+                                <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="icon-users"></i> <span>Applicants</span></a>
+                                <ul class="dropdown-menu animated headShake">
+                                    <li><a href="<?= base_url("admin/applicant_exam") ?>">Examination</a></li>
+                                </ul>
+                            </li>
+                            <li style="margin:auto" class="nav-item <?= ($active == "admission") ? "active" : "" ?>">
+                                <a href="<?= base_url("admin/prospective") ?>" class="nav-link"><i class="icon-note"></i> <span>Prospective</span></a>
                             </li>
                             <li style="margin:auto" class="nav-item <?= ($active == "payment") ? "active" : "" ?>">
                                 <a href="<?= base_url("admin/payments") ?>" class="nav-link"><i class="icon-credit-card"></i> <span>Payments</span></a>
-                            </li>
-                            <li style="margin:auto" class="nav-item <?= ($active == "admission") ? "active" : "" ?>">
-                                <a href="<?= base_url("admin/admission") ?>" class="nav-link"><i class="icon-note"></i> <span>Admission</span></a>
                             </li>
                             <li style="margin:auto" class="nav-item <?= ($active == "password") ? "active" : "" ?>">
                                 <a href="<?= base_url("admin/password") ?>" class="nav-link"><i class="icon-lock"></i> <span>Change Password</span></a>

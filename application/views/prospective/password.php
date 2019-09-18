@@ -17,7 +17,7 @@
                     <?php $this->load->view("err-inc/msg") ?>
                 </div>
                 <div class="col-md-3"></div>
-                <form method="post">
+                <form method="post" class=" col-md-6">
                     <div class="col-md-12 row">
                         <div class="form-group col-md-12">
                             <label>Current Password</label>

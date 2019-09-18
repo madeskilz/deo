@@ -16,12 +16,14 @@
                 <div class="col-md-12" id="errorDiv">
                     <?php $this->load->view("err-inc/msg") ?>
                 </div>
-                <div class="col-md-12">
-                    <p>
-                        This is a payment which can be made on line using verve or master Card (ATM card).
-                    </p>
-                </div>
-                <?php foreach ($payment_type as $type) { ?>
+                <?php if (!$profile->paid_acceptance_fee) { ?>
+                    <div class="col-md-12">
+                        <p>
+                            This is a payment which can be made on line using verve or master Card (ATM card).
+                        </p>
+                    </div>
+                <?php }
+                foreach ($payment_type as $type) { ?>
                     <?php if (($type->id == "2" && !$profile->paid_acceptance_fee) || ($type->id == "3" && !$profile->paid_school_fee)) { ?>
                         <div class="col-md-6" style="margin-bottom:50px;">
                             <table class="table">

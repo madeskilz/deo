@@ -44,6 +44,34 @@ if (!function_exists('get_exam_type')) {
         return $res->name;
     }
 }
+if (!function_exists('get_exam_score')) {
+    function get_exam_score($id)
+    {
+        $ci = &get_instance();
+        $ci->db->where("user_id", $id);
+        $res = $ci->db->get("application_exam", 1)->row();
+        return $res->score;
+    }
+}
+if (!function_exists('getNextSession')) {
+    function getNextSession()
+    {
+        $ci = &get_instance();
+        $ci->db->where("status", "next");
+        $res = $ci->db->get("school_session", 1)->row();
+        return $res->session;
+    }
+}
+if (!function_exists('getAppExamScore')) {
+    function getAppExamScore($id)
+    {
+        $ci = &get_instance();
+        $ci->db->where("user_id", $id);
+        $res = $ci->db->get("application_exam", 1)->row();
+        if($res == null)return 0;
+        return $res->score;
+    }
+}
 if (!function_exists('get_payment_type')) {
     function get_payment_type($id)
     {

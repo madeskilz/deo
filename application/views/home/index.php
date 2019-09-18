@@ -3,7 +3,7 @@
         <div class="banner-img"><img src="<?= base_url("assets/slider/one.jpeg") ?>" alt=""></div>
         <div class="banner-text">
             <div class="container">
-                <h1>219/2020 Admission is On</h1>
+                <h1>2019/2020 Admission is On</h1>
                 <p>Apply today and secure yourself a brighter future </p>
                 <div class="learning-btn">
                     <a href="<?= base_url("application-procedure") ?>" class="btn">Apply Now</a>

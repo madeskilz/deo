@@ -17,8 +17,25 @@ class Prospective extends CI_Controller
         $uid = $this->session->userdata("user_id");
         $this->db->where("user_id", $uid);
         $p['profile'] = $this->db->get("prospective_students", 1)->row();
-        // var_dump($p['details']);exit;
         $this->load->view('prospective/index', $p);
+    }
+    public function documents()
+    {
+        $p["active"] = "documents";
+        $p["title"] = "Print Documents";
+        $uid = $this->session->userdata("user_id");
+        $this->db->where("user_id", $uid);
+        $p['profile'] = $this->db->get("prospective_students", 1)->row();
+        $this->load->view('prospective/documents', $p);
+    }
+    public function matric()
+    {
+        $p["active"] = "matric";
+        $p["title"] = "Get Matric Number";
+        $uid = $this->session->userdata("user_id");
+        $this->db->where("user_id", $uid);
+        $p['profile'] = $this->db->get("prospective_students", 1)->row();
+        $this->load->view('prospective/matric', $p);
     }
     public function payment()
     {

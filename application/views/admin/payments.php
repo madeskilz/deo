@@ -28,7 +28,7 @@
                     <?php $this->load->view("err-inc/msg") ?>
                 </div>
                 <?php if (count($payments) > 0) : ?>
-                    <div class="col-md-12" style="margin-top:20px;">
+                    <div class="col-md-12 table-responsive" style="margin-top:20px;">
                         <h4>Payment History</h4>
                         <table class="paymentsTable table">
                             <thead>
@@ -40,6 +40,7 @@
                                     <th>Amount</th>
                                     <th>Approved Amount</th>
                                     <th>Date Initiated</th>
+                                    <th>Txn Time</th>
                                     <th>Status</th>
                                     <th>Response Code</th>
                                     <th>Action</th>
@@ -56,6 +57,7 @@
                                         <td><?= $payment->total ?></td>
                                         <td><?= $payment->amount_paid ?></td>
                                         <td><?= neatDate($payment->date_initiated) ?></td>
+                                        <td><?= neatTime($payment->date_initiated) ?></td>
                                         <td>
                                             <?php if ($payment->status === "pending") : ?>
                                                 <span class="badge badge-warning"><?= $payment->payment_status ?></span>

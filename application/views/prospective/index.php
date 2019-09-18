@@ -43,9 +43,9 @@
                                         </li>
                                         <li>Two (2) copies of Transfer documents – <b>For Transfer Applicants</b>
                                         </li>
-                                        <li>Two (2) copies of Payment Receipt printed online for online application
+                                        <li>Two (2) copies of Application Fee Payment Receipt printed online for online application
                                         </li>
-                                        <li>Two (2) copies of Acknowledgement Card printed online
+                                        <li>Two (2) copies of Application Form printed online
                                         </li>
                                         <li>Two (2) copies of Certificate of Local Government Origin
                                         </li>

@@ -236,7 +236,7 @@ class Payment extends CI_Controller
         $msg .= "Dear Lukas Grayham, \r\n"
             . "Your payment of Panadol \r\n"
             . "with the total amount of $12 \r\n"
-            . "via Quickteller was successful. \r\n"
+            . "via Interswitch webpay was successful. \r\n"
             . "your payment reference number is 1020\r\n"
             . "contact info@deogratiaspoly.edu.ng for any enquiries. \r\n"
             . "\r\n\r\n Thanks, \r\n Deogratias Polytecnic";

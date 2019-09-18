@@ -68,7 +68,7 @@ class Printer extends CI_Controller
     {
         $user_id = simple_crypt($ad, "d");
         $uid = $this->session->userdata("user_id");
-        if (!$user_id == $uid) {
+        if ($user_id != $uid) {
             $this->session->set_flashdata('error_msg', "User not found");
             return redirect($_SERVER['HTTP_REFERER']);
         }
@@ -76,5 +76,59 @@ class Printer extends CI_Controller
         $this->db->where("user_id", $uid);
         $p['details'] = $this->db->get("applicants", 1)->row();
         $this->load->view('printer/application-form', $p);
+    }
+    public function admissionSlip($ad = "")
+    {
+        $user_id = simple_crypt($ad, "d");
+        $uid = $this->session->userdata("user_id");
+        if ($user_id != $uid) {
+            $this->session->set_flashdata('error_msg', "User not found");
+            return redirect($_SERVER['HTTP_REFERER']);
+        }
+        $p['title'] = "Admission Slip $ad";
+        $this->db->where("user_id", $uid);
+        $p['details'] = $this->db->get("prospective_students", 1)->row();
+        $this->load->view('printer/admission-slip', $p);
+    }
+    public function acceptLetter($ad = "")
+    {
+        $user_id = simple_crypt($ad, "d");
+        $uid = $this->session->userdata("user_id");
+        if ($user_id != $uid) {
+            $this->session->set_flashdata('error_msg', "User not found");
+            return redirect($_SERVER['HTTP_REFERER']);
+        }
+        $p['title'] = "Acceptance Letter $ad";
+        $this->db->where("user_id", $uid);
+        $p['details'] = $this->db->get("prospective_students", 1)->row();
+        $this->load->view('printer/accept-letter', $p);
+    }
+    public function admissionLetter($ad = "")
+    {
+        $user_id = simple_crypt($ad, "d");
+        $uid = $this->session->userdata("user_id");
+        if ($user_id != $uid) {
+            $this->session->set_flashdata('error_msg', "User not found");
+            return redirect($_SERVER['HTTP_REFERER']);
+        }
+        $p['title'] = "Admission Letter $ad";
+        $this->db->where("user_id", $uid);
+        $p['details'] = $this->db->get("prospective_students", 1)->row();
+        $this->load->view('printer/admission-letter', $p);
+    }
+    public function clearanceForm($ad = "")
+    {
+        $user_id = simple_crypt($ad, "d");
+        $uid = $this->session->userdata("user_id");
+        if ($user_id != $uid) {
+            $this->session->set_flashdata('error_msg', "User not found");
+            return redirect($_SERVER['HTTP_REFERER']);
+        }
+        $p['title'] = "Clearance Form $ad";
+        $this->db->where("user_id", $uid);
+        $p['olevel'] =  $this->db->get("exam")->result();
+        $this->db->where("user_id", $uid);
+        $p['details'] = $this->db->get("prospective_students", 1)->row();
+        $this->load->view('printer/clearance-form', $p);
     }
 }
