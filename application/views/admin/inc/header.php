@@ -75,8 +75,11 @@
                                     <li><a href="<?= base_url("admin/applicant_exam") ?>">Examination</a></li>
                                 </ul>
                             </li>
-                            <li style="margin:auto" class="nav-item <?= ($active == "admission") ? "active" : "" ?>">
-                                <a href="<?= base_url("admin/prospective") ?>" class="nav-link"><i class="icon-note"></i> <span>Prospective</span></a>
+                            <li style="margin:auto" class="dropdown nav-item <?= ($active == "prospective") ? "active" : "" ?>">
+                                <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="icon-note"></i> <span>Prospective</span></a>
+                                <ul class="dropdown-menu animated headShake">
+                                    <li><a href="<?= base_url("admin/prospective_clearance") ?>">Clearance</a></li>
+                                </ul>
                             </li>
                             <li style="margin:auto" class="nav-item <?= ($active == "payment") ? "active" : "" ?>">
                                 <a href="<?= base_url("admin/payments") ?>" class="nav-link"><i class="icon-credit-card"></i> <span>Payments</span></a>
