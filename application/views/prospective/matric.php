@@ -27,8 +27,8 @@
                         <form class="col-md-6" method="post">
                             <div class="form-group">
                                 <label>Clearance Code</label><br />
-                                <small style="color:#f34;">Please provide the cleanrance code given to you from the clearance office</small>
-                                <input class="form-control" type="text" required />
+                                <small style="color:#f34;">Please provide the clearance code given to you from the clearance office (Note: code is case sensitive)</small>
+                                <input class="form-control" name="code" type="text" required />
                             </div>
                             <div class="form-group text-right">
                                 <button class="btn btn-primary"> Get Matric Number </button>

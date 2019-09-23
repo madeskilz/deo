@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Staff extends CI_Controller
+class Lecturer extends CI_Controller
 {
     public function __construct()
     {
@@ -13,6 +13,6 @@ class Staff extends CI_Controller
     public function index()
     {
         $p["active"] = "dashboard";
-        $this->load->view('staff/index', $p);
+        $this->load->view('lecturer/index', $p);
     }
 }

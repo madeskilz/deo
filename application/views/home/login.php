@@ -28,7 +28,7 @@
                 </div>
                 <form method="post" id="loginForm">
                     <div class="input-box">
-                        <input type="email" placeholder="Email" name="email" id="email" required>
+                        <input type="text" placeholder="Email or Matric No" name="email" id="email" required>
                     </div>
                     <div class="input-box">
                         <input type="password" placeholder="Password" name="password" id="password"  required>

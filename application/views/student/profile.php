@@ -1,4 +1,4 @@
-<?php $this->load->view("prospective/inc/header") ?>
+<?php $this->load->view("student/inc/header") ?>
 <div id="main-content" class="profilepage_2 blog-page">
     <div class="container">
         <div class="block-header">
@@ -26,11 +26,7 @@
                         </div>
                         <div>
                             <h4 class="m-b-5"><strong><?= $profile->lastname ?></strong> <?= $profile->firstname ?> <?= $profile->middlename ?></h4>
-                            <?php if ($profile->matric_no) : ?>
                             <p><?= $profile->matric_no ?></p>
-                            <?php else : ?>
-                            <p><?= $profile->admission_no ?></p>
-                            <?php endif; ?>
                             <p><?= $profile->phone ?></p>
                             <p><?= $this->session->userdata("email") ?></p>
                             <p><?= $profile->address ?></p>
@@ -48,8 +44,8 @@
                     </div>
                     <div class="body row">
                         <div class="col-md-6">
-                            <small class="text-muted">Status: </small>
-                            <p class="badge badge-info bg-info text-white">Fresher</p>
+                            <small class="text-muted">Current Level: </small>
+                            <p class="badge badge-info bg-info text-white"><?=getStudentLevel($level->current_level)?></p>
                             <hr>
                         </div>
                         <div class="col-md-6">
@@ -87,12 +83,12 @@
                             <p class="m-b-0"><?= neatDate($profile->dateofbirth) ?></p>
                             <hr>
                         </div>
-                        <div class="col-md-12">
+                        <!-- <div class="col-md-12">
                             <small class="text-muted">Clearance: </small>
                             <p> Paid Acceptance Fee: <span><?= ($profile->paid_acceptance_fee) ? "<i class='fa fa-check m-r-5'></i>" : "<i class='fa fa-remove m-r-5'></i>" ?></p>
                             <p> Paid School Fee: <span><?= ($profile->paid_school_fee) ? "<i class='fa fa-check m-r-5'></i>" : "<i class='fa fa-remove m-r-5'></i>" ?></p>
                             <p> Has Matric Number: <span><?= ($profile->matric_no) ? "<i class='fa fa-check m-r-5'></i>" : "<i class='fa fa-remove m-r-5'></i>" ?></p>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
@@ -103,7 +99,7 @@
 </div>
 
 </div>
-<?php $this->load->view("prospective/inc/footer") ?>
+<?php $this->load->view("student/inc/footer") ?>
 <script>
     $(function() {
         $('.knob').knob({

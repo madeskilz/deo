@@ -28,6 +28,53 @@ class Admin extends CI_Controller
         $p['payments'] =  $this->db->get("payments")->result();
         $this->load->view('admin/payments', $p);
     }
+    public function session()
+    {
+        if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
+            $this->update_session();
+        }
+        $p["active"] = "session";
+        $p["title"] = "All Session";
+        $this->db->where("status", "current");
+        $p['c_session'] =  $this->db->get("school_session", 1)->row();
+        $this->db->where("status", "next");
+        $p['n_session'] =  $this->db->get("school_session", 1)->row();
+        $this->db->where("item_type", "session");
+        $t = $p['settings'] =  $this->db->get("settings", 1)->result();
+        $this->load->view('admin/session', $p);
+    }
+    private function update_session()
+    {
+        $id = cleanit($this->input->post('id'));
+        $session = cleanit($this->input->post('session'));
+        $this->db->where("id", $id);
+        $this->db->set("session", $session);
+        if (!$this->db->update("school_session")) {
+            $this->session->set_flashdata('error_msg', "Error Updating Session");
+            return redirect("admin/session");
+        }
+        $this->session->set_flashdata('success_msg', "Session changed successfully");
+        return redirect("admin/session");
+    }
+    public function toggle_settings()
+    {
+        if (!$this->input->is_ajax_request()) {
+            redirect(base_url());
+        }
+        $rr = (cleanit($this->input->post('act')) == "on") ? 1 : 0;
+        $id = cleanit($this->input->post('item_id'));
+        // return_response(array($rr,$id));exit;
+        $this->db->where("id", $id);
+        $this->db->set("item_setting", $rr);
+        if ($this->db->update("settings")) {
+            $this->session->set_flashdata('success_msg', "Settings changed successfully");
+            $response["status"] = "success";
+        } else {
+            $this->session->set_flashdata('error_msg', "Error Updating Setting");
+            $response["status"] = "error";
+        }
+        return_response($response);
+    }
     public function prospective_clearance()
     {
         if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
@@ -35,8 +82,34 @@ class Admin extends CI_Controller
         }
         $p["active"] = "prospective";
         $p["title"] = "Student Clearance";
+        $this->db->where("paid_acceptance_fee", "1");
         $p['prospectives'] =  $this->db->get("prospective_students")->result();
         $this->load->view('admin/prospective-clearance', $p);
+    }
+    private function single_clearance()
+    {
+        $user_id = cleanit($this->input->post('user_id'));
+        $matric_no = cleanit($this->input->post('matric_no'));
+        $code = generate_code('student_clearance', 'code');
+        $this->db->where("user_id", $user_id);
+        $clr = $this->db->get("student_clearance", 1)->row();
+        if ($clr == null) {
+            $data = array(
+                "user_id" => $user_id,
+                "matric_no" => $matric_no,
+                "code" => $code
+            );
+            if ($this->db->insert("student_clearance", $data)) {
+                $this->session->set_flashdata('success_msg', "Student successfully cleared");
+                redirect("admin/prospective_clearance");
+            } else {
+                $this->session->set_flashdata('error_msg', "Error clearing student");
+                redirect("admin/prospective_clearance");
+            }
+        } else {
+            $this->session->set_flashdata('error_msg', "Student already cleared");
+            redirect("admin/prospective_clearance");
+        }
     }
     public function applicant_exam($batch = "")
     {
@@ -46,6 +119,7 @@ class Admin extends CI_Controller
             }
             $p["active"] = "applicant";
             $p["title"] = "Batch Update Applicant Exam";
+            $this->db->where("paid_application_fee", "1");
             $p['applicants'] =  $this->db->get("applicants")->result();
             $this->load->view('admin/applicant-exam-batch', $p);
         } else {
@@ -54,7 +128,9 @@ class Admin extends CI_Controller
             }
             $p["active"] = "applicant";
             $p["title"] = "Applicant Exam";
-            $p['applicants'] =  $this->db->get("applicants")->result();
+            $this->db->where("paid_application_fee", "1");
+            $t = $p['applicants'] =  $this->db->get("applicants")->result();
+            // var_dump($t);exit;
             $this->load->view('admin/applicant-exam', $p);
         }
     }

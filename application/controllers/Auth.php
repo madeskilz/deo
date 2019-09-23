@@ -11,34 +11,11 @@ class Auth extends CI_Controller
     {
         redirect("auth/login");
     }
-    private function isLoggedIn(){
-        if ($this->session->userdata("logged_in")){
-            $active = $this->session->userdata("active");
-            $level = $this->session->userdata("level");
-            if ($active == 1) {
-                //1 = admin
-                //2 = lecturer/staff
-                //3 = returning-student
-                //4 = prospective-students
-                if ($level === '1') {
-                    redirect('admin');
-                } elseif ($level === '2') {
-                    redirect('staff');
-                } elseif ($level === '3') {
-                    redirect('returning');
-                }elseif ($level === '4') {
-                    redirect('prospective');
-                } else{
-                    redirect('applicant');
-                }
-            }
-        }
-    }
     public function login()
     {
         if ($this->uri->uri_string() == 'auth/login')
             show_404();
-        $this->isLoggedIn();
+        isLoggedIn();
         if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
             $this->auth();
         }
@@ -64,28 +41,8 @@ class Auth extends CI_Controller
                 'active'     => $active,
                 'logged_in' => TRUE
             );
-            if ($active == 1) {
-                //1 = admin
-                //2 = lecturer/staff
-                //3 = returning-student
-                //4 = prospective-students
-                //5 = applicant
-                $this->session->set_userdata($sesdata);
-                if ($level === '1') {
-                    redirect('admin');
-                } elseif ($level === '2') {
-                    redirect('staff');
-                } elseif ($level === '3') {
-                    redirect('returning');
-                } elseif ($level === '4') {
-                    redirect('prospective');
-                } else{
-                    redirect('applicant');
-                }
-            }else {
-                echo $this->session->set_flashdata('msg', 'Account Suspended');
-                redirect('login');
-            }
+            $this->session->set_userdata($sesdata);
+            isLoggedIn();
         } else {
             $this->session->set_flashdata('error_msg', 'Username or Password is Wrong');
             redirect('login');

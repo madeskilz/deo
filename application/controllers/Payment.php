@@ -224,26 +224,6 @@ class Payment extends CI_Controller
             redirect(base_url("applicant/payment"));
         }
     }
-    private function testmail()
-    {
-        $mail_data = array(
-            'from' => 'payment@deogratiaspoly.edu.ng',
-            'reply_to' => 'info@deogratiaspoly.edu.ng',
-            'subject' => "Payment 1020 Successful",
-        );
-        $msg = "";
-        $mail_data['mail_to'] = array("michaeladekoniye@gmail.com");
-        $msg .= "Dear Lukas Grayham, \r\n"
-            . "Your payment of Panadol \r\n"
-            . "with the total amount of $12 \r\n"
-            . "via Interswitch webpay was successful. \r\n"
-            . "your payment reference number is 1020\r\n"
-            . "contact info@deogratiaspoly.edu.ng for any enquiries. \r\n"
-            . "\r\n\r\n Thanks, \r\n Deogratias Polytecnic";
-        $mail_data['message'] = $msg;
-        var_dump($this->deolib->send_email($mail_data));
-        exit;
-    }
     private function update_payment_status($data, $response, $status = true)
     {
         $ret = array('status' => 'error');
@@ -286,9 +266,9 @@ class Payment extends CI_Controller
             $this->db->where("id", $payment->type);
             $p_item = $this->db->get("payment_type", 1)->row();
             $mail_data = array(
-                'from' => 'payment@deogratiaspoly.edu.ng',
+                'from' => 'payments@deogratiaspoly.edu.ng',
                 'reply_to' => 'info@deogratiaspoly.edu.ng',
-                'subject' => "Payment $ref Successful",
+                'subject' => "Payment with Reference Code: $ref Successful",
             );
             $msg = "";
             $mail_data['mail_to'] = array($this->session->userdata("email"));

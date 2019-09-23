@@ -17,6 +17,37 @@ if (!function_exists('get_lga')) {
         return $lga;
     }
 }
+if (!function_exists('get_clearance')) {
+    function get_clearance($id)
+    {
+        $ci = &get_instance();
+        $ci->db->where("user_id", $id);
+        $clr = $ci->db->get("student_clearance", 1)->row();
+        if ($clr == null) return "not cleared";
+        return $clr->code;
+    }
+}
+if (!function_exists('admission_open')) {
+    function admission_open()
+    {
+        $ci = &get_instance();
+        $ci->db->where("id", 1);
+        $ci->db->where("item_type", "session");
+        $clr = $ci->db->get("settings", 1)->row();
+        if ($clr == null) return false;
+        return ($clr->item_setting == 1) ? true : false;
+    }
+}
+if (!function_exists('get_matric')) {
+    function get_matric($id)
+    {
+        $ci = &get_instance();
+        $ci->db->where("user_id", $id);
+        $clr = $ci->db->get("student_clearance", 1)->row();
+        if ($clr == null) return "not cleared";
+        return $clr->matric_no;
+    }
+}
 if (!function_exists('get_exam_result')) {
     function get_exam_result($id)
     {
@@ -44,6 +75,52 @@ if (!function_exists('get_exam_type')) {
         return $res->name;
     }
 }
+if (!function_exists('getStudentLevel')) {
+    function getStudentLevel($id)
+    {
+        $ci = &get_instance();
+        $ci->db->where("id", $id);
+        $res = $ci->db->get("level", 1)->row();
+        return $res->name;
+    }
+}
+if (!function_exists('isLoggedIn')) {
+    function isLoggedIn()
+    {
+        $_this = &get_instance();
+        //1 = admin
+        //2 = lecturer
+        //3 = student
+        //4 = prospective-students
+        //5 = applicant
+        //6 = burser
+        //7 = hod
+        if ($_this->session->userdata("logged_in")) {
+            $active = $_this->session->userdata("active");
+            $level = $_this->session->userdata("level");
+            if ($active == 1) {
+                if ($level === '1') {
+                    redirect('admin');
+                } elseif ($level === '2') {
+                    redirect('lecturer');
+                } elseif ($level === '3') {
+                    redirect('student');
+                } elseif ($level === '4') {
+                    redirect('prospective');
+                }elseif ($level === '5') {
+                    redirect('applicant');
+                } elseif ($level === '6') {
+                    redirect('burser');
+                } elseif ($level === '7') {
+                    redirect('hod');
+                }
+            } else {
+                echo $_this->session->set_flashdata('msg', 'Account Suspended');
+                redirect('logout');
+            }
+        }
+    }
+}
 if (!function_exists('get_exam_score')) {
     function get_exam_score($id)
     {
@@ -68,7 +145,7 @@ if (!function_exists('getAppExamScore')) {
         $ci = &get_instance();
         $ci->db->where("user_id", $id);
         $res = $ci->db->get("application_exam", 1)->row();
-        if($res == null)return 0;
+        if ($res == null) return 0;
         return $res->score;
     }
 }
@@ -98,12 +175,6 @@ if (!function_exists('get_student_name')) {
         $res = $ci->db->get("users", 1)->row();
         if ($res != null) {
             $table = "";
-            //user_levels
-            //1 = admin
-            //2 = lecturer/staff
-            //3 = returning-student
-            //4 = prospective-students
-            //5 = applicant
             if ($res->user_level == "3") {
                 $table = "students";
             } elseif ($res->user_level == "4") {

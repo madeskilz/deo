@@ -29,7 +29,8 @@ class Home extends CI_Controller
 				$this->load->view('home/structure', $p);
 				break;
 			case "committee":
-			    redirect(base_url());exit;
+				redirect(base_url());
+				exit;
 				$p["title"] = "Committee";
 				$this->load->view('home/committee', $p);
 				break;
@@ -91,7 +92,7 @@ class Home extends CI_Controller
 	}
 	public function application()
 	{
-		//redirect(base_url());exit;
+		if (!admission_open()) redirect(base_url());
 		$this->isLoggedIn();
 		if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
 			$this->apply();
@@ -109,10 +110,6 @@ class Home extends CI_Controller
 			$active = $this->session->userdata("active");
 			$level = $this->session->userdata("level");
 			if ($active == 1) {
-				//1 = admin
-				//2 = lecturer/staff
-				//3 = returning-student
-				//4 = prospective-students
 				if ($level === '1') {
 					redirect('admin');
 				} elseif ($level === '2') {
@@ -167,7 +164,7 @@ class Home extends CI_Controller
 		if ($result > 0) {
 			$data['user_id'] = $result;
 		} else {
-            $this->session->set_flashdata('error_msg', $result);
+			$this->session->set_flashdata('error_msg', $result);
 			redirect("application-form");
 		}
 		$data['title'] = cleanit($this->input->post('title'));

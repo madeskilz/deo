@@ -3,7 +3,6 @@
     .sit_name {
         display: none;
     }
-
     div#DataTables_Table_0_wrapper>.row:first-child>.col-sm-12:last-child,
     div#DataTables_Table_0_wrapper>.row:last-child>.col-sm-12:last-child ul.pagination {
         text-align: right !important;

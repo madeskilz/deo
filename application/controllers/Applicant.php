@@ -90,9 +90,8 @@ class Applicant extends CI_Controller
             redirect("applicant/checkresult");
         } else {
             $response = "You have successfully accepted your admission, login to continue with clearance.";
-            $this->session->sess_destroy();
-            $this->session->set_flashdata('success_msg', $response);
-            redirect('login');
+            $this->session->set_flashdata('error_msg', $response);
+            redirect('logout');
         }
     }
     private function upload_result()

@@ -40,6 +40,9 @@
                                     <th>S/N</th>
                                     <th>Full Name</th>
                                     <th>Application No</th>
+                                    <th>Program</th>
+                                    <th>School</th>
+                                    <th>Department</th>
                                     <th>Clearance Code</th>
                                     <th>Matric Number</th>
                                     <th>Action</th>
@@ -52,14 +55,19 @@
                                         <td><?= $cc ?></td>
                                         <td><?= "$ap->lastname $ap->firstname $ap->middlename" ?></td>
                                         <td><?= $ap->admission_no ?></td>
-                                        <td>clearance code</td>
+                                        <td><?= get_program(get_department($ap->department)->program)->name ?></td>
+                                        <td><?= get_school(get_department($ap->department)->school_id)->name ?></td>
+                                        <td><?= get_department($ap->department)->name ?></td>
+                                        <td><?= get_clearance($ap->user_id) ?></td>
+                                        <td><?= get_matric($ap->user_id) ?></td>
                                         <td>
-                                            not cleared
-                                        </td>
-                                        <td>
-                                            <a data-sch="<?= get_school(get_department($ap->department)->school_id)->name ?>" data-prog="<?= get_program(get_department($ap->department)->program)->name ?>" data-dept="<?= get_department($ap->department)->name ?>" data-app_no="<?= $ap->admission_no ?>" data-user_name="<?= "$ap->lastname $ap->firstname $ap->middlename" ?>" href="javascript:;" data-user_id="<?= $ap->user_id ?>" class="clear_student">
-                                                Clear Applicant
-                                            </a>
+                                            <?php if ("not cleared" == get_clearance($ap->user_id)) { ?>
+                                                <a data-sch="<?= get_school(get_department($ap->department)->school_id)->name ?>" data-prog="<?= get_program(get_department($ap->department)->program)->name ?>" data-dept="<?= get_department($ap->department)->name ?>" data-app_no="<?= $ap->admission_no ?>" data-user_name="<?= "$ap->lastname $ap->firstname $ap->middlename" ?>" href="javascript:;" data-user_id="<?= $ap->user_id ?>" class="clear_student">
+                                                    Clear Applicant
+                                                </a>
+                                            <?php } else { ?>
+                                                <span class="badge badge-info">Student Cleared</span>
+                                            <?php } ?>
                                         </td>
                                     </tr>
                                 <?php $cc++;
@@ -126,6 +134,7 @@
         let prog = $(this).data("prog");
         $('#updateModal').find("#user_name").text(user_name).end()
             .find("#app_no").text(app_no).end()
+            .find("#user_id").val(user_id).end()
             .find("#prog").text(prog).end()
             .find("#sch").text(sch).end()
             .find("#dept").text(dept).end()

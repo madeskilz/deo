@@ -84,6 +84,12 @@
                             <li style="margin:auto" class="nav-item <?= ($active == "payment") ? "active" : "" ?>">
                                 <a href="<?= base_url("admin/payments") ?>" class="nav-link"><i class="icon-credit-card"></i> <span>Payments</span></a>
                             </li>
+                            <li style="margin:auto" class="dropdown nav-item <?= ($active == "session") ? "active" : "" ?>">
+                                <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="icon-settings"></i> <span>Settings</span></a>
+                                <ul class="dropdown-menu animated headShake">
+                                    <li><a href="<?= base_url("admin/session") ?>">Session</a></li>
+                                </ul>
+                            </li>
                             <li style="margin:auto" class="nav-item <?= ($active == "password") ? "active" : "" ?>">
                                 <a href="<?= base_url("admin/password") ?>" class="nav-link"><i class="icon-lock"></i> <span>Change Password</span></a>
                             </li>
