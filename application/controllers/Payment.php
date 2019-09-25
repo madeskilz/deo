@@ -140,7 +140,7 @@ class Payment extends CI_Controller
             $this->db->where("id", $row->type);
             $pay_item = $this->db->get("payment_type", 1)->row();
             //todo
-            $product_id = 6207; //$pay_item->code;
+            $product_id = PRODUCT_ID;
             $amount = $pay_item->total;
             $curl_info_data  = array('txn_ref'   => $ref, 'amount'    => $amount, 'product_id' =>  $product_id);
             $response = $this->deolib->interswitch_curl($curl_info_data); // return a JSON

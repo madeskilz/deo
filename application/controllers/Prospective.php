@@ -88,7 +88,7 @@ class Prospective extends CI_Controller
             redirect("prospective");
         } else {
             $response = "You have successfully completed your clearance process, login to continue with course registration.";
-            $this->session->set_flashdata('error_msg', $response);
+            $this->session->set_flashdata('success_msg', $response);
             redirect('logout');
         }
     }

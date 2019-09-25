@@ -85,7 +85,7 @@ class Ajax extends CI_Controller
         $this->session->set_userdata("table_type", $table_type);
         // var_dump($table_type);exit;
         //todo
-        $this->session->set_userdata("payment_id", 6207/*$p_item->code*/);
+        $this->session->set_userdata("payment_id", PRODUCT_ID);
         $token = simple_crypt($txn_ref);
         $data["type"] = $p_item->id;
         $data["status"] = "pending";
@@ -105,21 +105,21 @@ class Ajax extends CI_Controller
                 . '" college="DeoGratias">' . "\r\n";
             //todo svl acc num
             $response["xml_data"] .= '<item_detail item_id="1" item_name="Schoolvile" item_amt="'
-                . (((float) $p_item->process_charge - 300) * 100) . '" bank_id="117" acct_num="1014006596" />' . "\r\n";
+                . (((float) $p_item->process_charge - INTERSWITCH_CHARGE) * 100) . '" bank_id="117" acct_num="1014006596" />' . "\r\n";
             $response["xml_data"] .= '<item_detail item_id="2" item_name="Deo_Gratias" item_amt="'
                 . (((float) $p_item->amount) * 100) . '" bank_id="117" acct_num="1015208263" />' . "\r\n";
             $response["xml_data"] .= '</item_details>' . "\r\n";
             $response["xml_data"] .= '</pay_item_detail>';
             $rUrl = $response["site_redirect_url"] = base_url("payment/interswitch/?t=$token");
-            $response["hash"] = hash('SHA512', $txn_ref . 6207 /*$p_item->code*/ . 101 /*$p_item->product_id*/ . $amt . $rUrl . MAC_TEST);
+            $response["hash"] = hash('SHA512', $txn_ref . PRODUCT_ID . PAYMENT_ITEM_ID . $amt . $rUrl . MAC_LIVE);
             $response["cust_id"] = $this->session->userdata("email");
             $this->db->where("user_id", $uid);
             $profile = $this->db->get($table_type, 1)->row();
             $response["cust_name"] = $profile->firstname . " " . $profile->lastname;
             $response['txn_ref'] = $txn_ref;
             $response['amount'] = $amt;
-            $response['product_id'] = 6207; //$p_item->code;
-            $response['pay_item_id'] = 101; //$p_item->product_id;
+            $response['product_id'] = PRODUCT_ID;
+            $response['pay_item_id'] = PAYMENT_ITEM_ID;
         } else {
             $response['message'] = 'There was an error registering transaction';
         }

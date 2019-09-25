@@ -92,3 +92,12 @@ defined('INTERSWITCH_TEST_RESPONSE_URL') or define('INTERSWITCH_TEST_RESPONSE_UR
 defined('INTERSWITCH_TEST_HOST_URL') or define('INTERSWITCH_TEST_HOST_URL', 'sandbox.interswitchng.com'); // webpay.interswitchng.com
 defined('MAC_TEST') or define("MAC_TEST", "CEF793CBBE838AA0CBB29B74D571113B4EA6586D3BA77E7CFA0B95E278364EFC4526ED7BD255A366CDDE11F1F607F0F844B09D93B16F7CFE87563B2272007AB3");
 defined('INTERSWITCH_TEST_ACTION_URL') or define("INTERSWITCH_TEST_ACTION_URL", "https://sandbox.interswitchng.com/webpay/pay");
+
+//INTERSWITCH LIVE DETAILS
+defined('INTERSWITCH_LIVE_RESPONSE_URL') or define('INTERSWITCH_LIVE_RESPONSE_URL', 'https://sandbox.interswitchng.com/webpay/api/v1/gettransaction.json'); // Live : https://webpay.interswitchng.com/collections/api/v1/gettransaction.json
+defined('INTERSWITCH_LIVE_HOST_URL') or define('INTERSWITCH_LIVE_HOST_URL', 'sandbox.interswitchng.com'); // webpay.interswitchng.com
+defined('MAC_LIVE') or define("MAC_LIVE", "CEF793CBBE838AA0CBB29B74D571113B4EA6586D3BA77E7CFA0B95E278364EFC4526ED7BD255A366CDDE11F1F607F0F844B09D93B16F7CFE87563B2272007AB3");
+defined('INTERSWITCH_LIVE_ACTION_URL') or define("INTERSWITCH_LIVE_ACTION_URL", "https://sandbox.interswitchng.com/webpay/pay");
+defined('PRODUCT_ID') or define("PRODUCT_ID", "7909");
+defined('PAYMENT_ITEM_ID') or define("PAYMENT_ITEM_ID", "101");
+defined('INTERSWITCH_CHARGE') or define("INTERSWITCH_CHARGE", 300);

@@ -68,7 +68,7 @@
                                 <img src="<?= base_url("assets/logo/images.png") ?>" class="img-responsive" />
                             </div>
                             <div class="text-center col-md-6">
-                                <form method="post" id="paymentForm<?= $type->id ?>" action="<?= INTERSWITCH_TEST_ACTION_URL ?>">
+                                <form method="post" id="paymentForm<?= $type->id ?>" action="<?= INTERSWITCH_LIVE_ACTION_URL ?>">
                                     <img src="<?= base_url("assets/logo/mam.png") ?>" class="img-responsive" /><br />
                                     <input name="product_id" id="product_id<?= $type->id ?>" type="hidden" />
                                     <input name="pay_item_id" id="pay_item_id<?= $type->id ?>" type="hidden" />
