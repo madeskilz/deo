@@ -21,6 +21,12 @@ class Admin extends CI_Controller
         $p['exams'] =  $this->db->get("exam")->result();
         $this->load->view('admin/index', $p);
     }
+    public function courses(){
+        
+    }
+    public function add_course(){
+        
+    }
     public function payments()
     {
         $p["active"] = "payment";
@@ -118,7 +124,7 @@ class Admin extends CI_Controller
                 $this->batch_application_update();
             }
             $p["active"] = "applicant";
-            $p["title"] = "Batch Update Applicant Exam";
+            $p["title"] = "Batch Update Applicant Admission";
             $this->db->where("paid_application_fee", "1");
             $p['applicants'] =  $this->db->get("applicants")->result();
             $this->load->view('admin/applicant-exam-batch', $p);
@@ -127,12 +133,19 @@ class Admin extends CI_Controller
                 $this->single_application_update();
             }
             $p["active"] = "applicant";
-            $p["title"] = "Applicant Exam";
+            $p["title"] = "Applicant Admission";
             $this->db->where("paid_application_fee", "1");
             $t = $p['applicants'] =  $this->db->get("applicants")->result();
             // var_dump($t);exit;
             $this->load->view('admin/applicant-exam', $p);
         }
+    }
+    public function all_applicants() {
+        $p["active"] = "applicant";
+        $p["title"] = "All Applicants";
+        $t = $p['applicants'] =  $this->db->get("applicants")->result();
+        // var_dump($t);exit;
+        $this->load->view('admin/all-applicant', $p);
     }
     private function batch_application_update()
     {

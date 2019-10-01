@@ -22,20 +22,24 @@
                     <?php $this->load->view("err-inc/msg") ?>
                 </div>
                 <?php if ($profile->paid_acceptance_fee) : ?>
-                    <div class="col-md-12 row">
-                        <div class="col-md-3"></div>
-                        <form class="col-md-6" method="post">
-                            <div class="form-group">
-                                <label>Clearance Code</label><br />
-                                <small style="color:#f34;">Please provide the clearance code given to you from the clearance office (Note: code is case sensitive)</small>
-                                <input class="form-control" name="code" type="text" required />
-                            </div>
-                            <div class="form-group text-right">
-                                <button class="btn btn-primary"> Get Matric Number </button>
-                            </div>
-                        </form>
-                    </div>
-                <?php else : ?>
+                    <?php if ($profile->matric_no) : ?>
+                        <h5 class="titlte">Your Matric Number is <?= "$profile->matric_no" ?></h5>
+                    <?php else : ?>
+                        <div class="col-md-12 row">
+                            <div class="col-md-3"></div>
+                            <form class="col-md-6" method="post">
+                                <div class="form-group">
+                                    <label>Clearance Code</label><br />
+                                    <small style="color:#f34;">Please provide the clearance code given to you from the clearance office (Note: code is case sensitive)</small>
+                                    <input class="form-control" name="code" type="text" required />
+                                </div>
+                                <div class="form-group text-right">
+                                    <button class="btn btn-primary"> Get Matric Number </button>
+                                </div>
+                            </form>
+                        </div>
+                    <?php endif;
+                    else : ?>
                     <h1 style="color:#f34" class="col-md-12">Ensure you fufilled all requirements before proceeding</h1>
                     <h3 style="color:#<?= ($profile->paid_acceptance_fee) ? "326f37" : "f34" ?>;" class="col-md-12">Paid Acceptance Fee: <span><?= ($profile->paid_acceptance_fee) ? "<i class='fa fa-check m-r-5'></i>" : "<i class='fa fa-remove m-r-5'></i>" ?></span></h3>
                 <?php endif; ?>

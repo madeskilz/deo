@@ -42,24 +42,28 @@
                 <hr style="border:1px solid darkgoldenrod;" />
             </div>
             <table class="table" style="border:none;margin-left:50px">
-                <tr>
-                    <td style="width:25%;">
-                        <h4 class="h5" style="font-weight:600;">Application ID: </h4>
-                    </td>
-                    <td style="width:25%;">
-                        <h4 class="h5" style="font-weight:600;"><?= $details->admission_no ?></h4>
-                    </td>
-                    <td style="width:50%;" rowspan="7" class="text-center">
-                        <img src="<?= base_url("sitefiles/qrcodes/$qr_image") ?>" style="width:180px;" />
-                    </td>
-                </tr>
                 <?php if ($table != "applicants") { ?>
                     <tr>
-                        <td>
+                        <td style="width:25%;">
                             <h4 class="h5" style="font-weight:600;">Matric No: </h4>
                         </td>
-                        <td>
+                        <td style="width:25%;">
                             <h4 class="h5" style="font-weight:600;"><?= $details->matric_no ?></h4>
+                        </td>
+                        <td style="width:50%;" rowspan="7" class="text-center">
+                            <img src="<?= base_url("sitefiles/qrcodes/$qr_image") ?>" style="width:180px;" />
+                        </td>
+                    </tr>
+                <?php } else { ?>
+                    <tr>
+                        <td style="width:25%;">
+                            <h4 class="h5" style="font-weight:600;">Application ID: </h4>
+                        </td>
+                        <td style="width:25%;">
+                            <h4 class="h5" style="font-weight:600;"><?= $details->admission_no ?></h4>
+                        </td>
+                        <td style="width:50%;" rowspan="7" class="text-center">
+                            <img src="<?= base_url("sitefiles/qrcodes/$qr_image") ?>" style="width:180px;" />
                         </td>
                     </tr>
                 <?php } ?>

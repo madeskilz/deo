@@ -14,7 +14,7 @@
 <script src="<?= base_url("inassets/bundles/mainscripts.bundle.js") ?>"></script>
 <?php if ($active == "payment") : ?>
     <script src="<?= base_url("inassets/bundles/datatablescripts.bundle.js") ?>"></script>
-    <?php $this->load->view("prospective/inc/payment_script"); ?>
+    <?php $this->load->view("student/inc/payment_script"); ?>
 <?php endif; ?>
 <script>
     function loadname(img, previewName, incFileSize) {

@@ -19,6 +19,7 @@ class Printer extends CI_Controller
         $p = array();
         $p['title'] = "Print Receipt $reference";
         $uid = $this->session->userdata("user_id");
+        $ulevel = $this->session->userdata("level");
         $this->db->where("reference", $reference);
         $this->db->where("user_id", $uid);
         $this->db->where("status", "approved");
@@ -26,11 +27,16 @@ class Printer extends CI_Controller
         if (count($payment_details) > 0) {
             $pd = $p['payment'] = $payment_details[0];
             $p["pay_type"] = $this->db->query("SELECT * FROM payment_type WHERE id = $pd->type LIMIT 1")->row()->name;
-            $this->db->where("user_id", $uid);
-            $table = "";
-            if ($pd->type == "1") {
-                $table = "applicants";
-            } elseif ($pd->type == "2" || $pd->type == "3") {
+            $this->db->where("id", $pd->type);
+            $plevel = $this->db->get("payment_type", 1)->row()->level;
+            $table = "students";
+            if ($plevel < 1) {
+                if ($pd->type == "1") {
+                    $table = "applicants";
+                } elseif ($pd->type == "2") {
+                    $table = "prospective_students";
+                }
+            } elseif ($plevel == 1 && $ulevel == 4) {
                 $table = "prospective_students";
             }
             $p['table'] = $table;

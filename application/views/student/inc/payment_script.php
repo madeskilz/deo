@@ -3,7 +3,7 @@
     toastr.options.closeButton = true;
     toastr.options.positionClass = 'toast-top-right';
 </script>
-<?php if (!$profile->paid_acceptance_fee || !$profile->paid_school_fee) : ?>
+<?php if (!$profile->paid_school_fee_2 || !$profile->paid_school_fee_2) : ?>
     <script>
         $('.btnPayOnline').on('click', function(e) {
             let _this = $(this);

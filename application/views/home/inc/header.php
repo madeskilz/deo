@@ -65,11 +65,11 @@
             <div class="loader-section section-right"></div>
         </div>
         <div class="quck-nav style2">
-            <div class="contact-no"><a href="#"><i class="fa fa-map-marker"></i>55, Obi Ikechukwu Road, Agbor, Delta State, NG</a></div>
-            <div class="contact-no"><a href="#"><i class="fa fa-phone"></i>+234 901 958 4559</a></div>
+            <div class="contact-no"><a href="javascript:;"><i class="fa fa-map-marker"></i>55, Obi Ikechukwu Road, Agbor, Delta State, NG</a></div>
+            <div class="contact-no"><a href="tel:+2349019584559"><i class="fa fa-phone"></i>+234 901 958 4559</a></div>
             <div class="contact-no"><a href="#"><i class="fa fa-globe"></i>deogratiaspoly.edu.ng</a></div>
             <div class="quck-right">
-                <div class="right-link"><a href="#"><i class="fa fa-headphones"></i>Online Support</a></div>
+                <div class="right-link"><a href="<?=base_url("contact")?>"><i class="fa fa-headphones"></i>Online Support</a></div>
                 <div class="right-link"><a href="<?= base_url("login") ?>"><i class="fa  fa-sign-in"></i>Login</a></div>
             </div>
         </div>

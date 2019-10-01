@@ -93,7 +93,7 @@ class Home extends CI_Controller
 	public function application()
 	{
 		if (!admission_open()) redirect(base_url());
-		$this->isLoggedIn();
+		isLoggedIn();
 		if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
 			$this->apply();
 		}
@@ -103,26 +103,6 @@ class Home extends CI_Controller
 		$p["schools"] = $this->db->get('schools')->result();
 		$p["states"] = $this->db->get('states')->result();
 		$this->load->view('home/application', $p);
-	}
-	private function isLoggedIn()
-	{
-		if ($this->session->userdata("logged_in")) {
-			$active = $this->session->userdata("active");
-			$level = $this->session->userdata("level");
-			if ($active == 1) {
-				if ($level === '1') {
-					redirect('admin');
-				} elseif ($level === '2') {
-					redirect('staff');
-				} elseif ($level === '3') {
-					redirect('returning');
-				} elseif ($level === '4') {
-					redirect('prospective');
-				} else {
-					redirect('applicant');
-				}
-			}
-		}
 	}
 	private function apply()
 	{

@@ -91,9 +91,9 @@ if (!function_exists('isLoggedIn')) {
         //1 = admin
         //2 = lecturer
         //3 = student
-        //4 = prospective-students
+        //4 = prospective-student
         //5 = applicant
-        //6 = burser
+        //6 = bursar
         //7 = hod
         if ($_this->session->userdata("logged_in")) {
             $active = $_this->session->userdata("active");

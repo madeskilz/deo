@@ -13,7 +13,7 @@
         <?php } else { ?>
             <div class="container">
                 <h1>Welcome to Deo Gratias Polytechnic, Agbor</h1>
-                <p>Where your education is  our number 1 priority</p>
+                <p>Where your education is our number 1 priority</p>
                 <div class="learning-btn">
                     <a href="<?= base_url("about") ?>" class="btn">Learn More</a>
                 </div>
@@ -98,17 +98,19 @@
         </div>
     </div>
 </section>
-<section class="sign-upBox" style="background-image:url(<?= base_url("assets/images/parallax/sign-upBg.jpg") ?>);">
-    <img src="<?= base_url("assets/images/parallax/sign-upBg.jpg") ?>" alt="">
-    <div class="sign-upText">
-        <h3><span>Admission in progress</span>Register Now!</h3>
-        <p>This is to inform the general public, particularly interested candidates that the 2019/2020 admission
-            into Deo Gratias Polytechnic, Agbor, Delta State, has commenced. </p>
-        <div class="sign-btn">
-            <a href="<?= base_url("application-procedure") ?>">Register</a>
+<?php if (admission_open()) { ?>
+    <section class="sign-upBox" style="background-image:url(<?= base_url("assets/images/parallax/sign-upBg.jpg") ?>);">
+        <img src="<?= base_url("assets/images/parallax/sign-upBg.jpg") ?>" alt="">
+        <div class="sign-upText">
+            <h3><span>Admission in progress</span>Register Now!</h3>
+            <p>This is to inform the general public, particularly interested candidates that the <?= getNextSession() ?> admission
+                into Deo Gratias Polytechnic, Agbor, Delta State, has commenced. </p>
+            <div class="sign-btn">
+                <a href="<?= base_url("application-procedure") ?>">Register</a>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+<?php } ?>
 <!-- <section class="news-section">
     <div class="container">
         <div class="section-title2">

@@ -112,7 +112,7 @@ class Prospective extends CI_Controller
         $this->db->where("user_id", $uid);
         $p['profile'] = $profile = $this->db->get("prospective_students", 1)->row();
         if (!$profile->paid_acceptance_fee && !$profile->paid_school_fee) {
-            $this->session->set_flashdata('error_msg', "Error getting matric number");
+            $this->session->set_flashdata('error_msg', "Error getting matric number, please ensure you have paid your acceptance fee and gone through clearance before getting a matric number.");
             redirect("prospective");
         }
         $this->load->view('prospective/matric', $p);
@@ -156,8 +156,10 @@ class Prospective extends CI_Controller
         $this->db->where("user_id", $uid);
         $p['profile'] = $this->db->get("prospective_students", 1)->row();
         $this->db->where("user_id", $uid);
+        $this->db->group_start();
         $this->db->where("type", 3);
         $this->db->or_where("type", 2);
+        $this->db->group_end();
         $p['payments'] = $this->db->get("payments")->result();
         $this->db->where("code", 1002);
         $this->db->or_where("code", 1003);
