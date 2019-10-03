@@ -16,6 +16,7 @@
 
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="<?= base_url("inassets/css/main.css") ?>">
+    <link rel="stylesheet" href="<?= base_url("inassets/css/all.min.css") ?>">
     <link rel="stylesheet" href="<?= base_url("inassets/css/color_skins.css") ?>">
     <style>
         @media screen and (width:1024px) {

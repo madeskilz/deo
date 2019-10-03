@@ -19,7 +19,7 @@
                 <?php if ((($level->current_level == 1) && !$profile->paid_school_fee_1) || (($level->current_level == 2)&& !$profile->paid_school_fee_2)) { ?>
                     <div class="col-md-12">
                         <p>
-                            This is a payment which can be made on line using verve or master Card (ATM card).
+                            Payments can be made on line using verve or master Card (ATM card).
                         </p>
                     </div>
                 <?php }

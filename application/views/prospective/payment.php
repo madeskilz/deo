@@ -19,7 +19,7 @@
                 <?php if (!$profile->paid_acceptance_fee) { ?>
                     <div class="col-md-12">
                         <p>
-                            This is a payment which can be made on line using verve or master Card (ATM card).
+                            Payments can be made on line using verve or master Card (ATM card).
                         </p>
                     </div>
                 <?php }

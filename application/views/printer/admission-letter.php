@@ -101,7 +101,8 @@
                 <p class="text-justify">
                     Accept our hearty congratulations
                 </p>
-                <p class="text-justify">Signaturehere</p>
+                <p class="text-justify"><img src="<?=base_url()."sitefiles/registrar/reg_sig.png"?>" style="width:120px;"/></p>
+                <p class="text-justify">Wande Akindiose</p>
                 <p class="text-justify">The Registrar</p>
             </div>
         </div>

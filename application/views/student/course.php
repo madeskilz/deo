@@ -1,13 +1,4 @@
 <?php $this->load->view("student/inc/header") ?>
-<style>
-    .ac{
-        list-style: none;
-        padding:0;
-    }
-    .ac-item{
-        
-    }
-</style>
 <div id="main-content">
     <div class="container">
         <div class="block-header">
@@ -28,12 +19,13 @@
                         office on which courses you are to register for your current level
                     </small>
                 </span>
-                <div class="col-md-3">
-                    <ul class="ac">
-                        <li><a href="<?=base_url("student/course/register")?>" class="ac-item">Register Courses</a></li>
-                        <li><a href="<?=base_url("student/course/update")?>" class="ac-item">Update Course List</a></li>
-                        <li><a href="<?=base_url("student/course/print")?>" class="ac-item">Print Exam Clearance</a></li>
-</ul>
+                <div class="col-xs-12 text-center">
+                    <div class="row">
+                        <div class="col-md-3 col-xs-6"><a href="<?= base_url("student/course/register") ?>"><i class="fa-3x fa fa-book "></i><br /><span>Register Courses</span></a></div>
+                        <div class="col-md-3 col-xs-6"><a href="<?= base_url("student/course/update") ?>"><i class="fa-3x fa fa-list"></i><br /><span>Update Course List</span></a></div>
+                        <div class="col-md-3 col-xs-6"><a href="<?= base_url("student/course/print/course-form") ?>"><i class="fa-3x fa fa-print"></i><br /><span>Print <?= getStudentLevel($level->current_level) ?> Course Form</span></a></div>
+                        <div class="col-md-3 col-xs-6"><a href="<?= base_url("student/course/print/exam-clearance") ?>"><i class="fa-3x fa fa-print"></i><br /><span>Print Exam Clearance</span></a></div>
+                    </div>
                 </div>
                 <div class="col-md-9"></div>
             </div>
