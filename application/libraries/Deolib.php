@@ -17,7 +17,7 @@ class Deolib
             "amount"    =>  $data['amount']
         );
         // $hash = hash('SHA512', $txn_ref.INTERSWITCH_PRODUCT_ID.INTERSWITCH_PAY_ITEM_ID.$amt.$redirect_url.INTERSWITCH_MAC_KEY) ;
-        $thash = hash('SHA512', $data['product_id'] . $data['txn_ref'] . MAC_TEST);
+        $thash = hash('SHA512', $data['product_id'] . $data['txn_ref'] . MAC_LIVE);
         $ponmo = http_build_query($parameters);
         $url = INTERSWITCH_LIVE_RESPONSE_URL . '?' . $ponmo; // json
         $host = INTERSWITCH_LIVE_HOST_URL;

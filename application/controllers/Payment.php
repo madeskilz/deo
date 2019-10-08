@@ -124,9 +124,9 @@ class Payment extends CI_Controller
         $q .= ($this->session->userdata("level") == "1") ? "" : " AND user_id = '$uid'";
         // var_dump($q);exit;
         $row = $this->db->query($q, 1)->row();
-        $table['type'] = "";
+        $table['type'] = "students";
         $table['txn_ref'] = $ref;
-        if (!$row) {
+        if ($row == null) {
             $this->session->set_flashdata('error_msg', "Transaction not found");
             redirect($_SERVER["HTTP_REFERER"]);
         } else {
@@ -141,7 +141,7 @@ class Payment extends CI_Controller
             $pay_item = $this->db->get("payment_type", 1)->row();
             //todo
             $product_id = PRODUCT_ID;
-            $amount = $pay_item->total;
+            $amount = $pay_item->total * 100;
             $curl_info_data  = array('txn_ref'   => $ref, 'amount'    => $amount, 'product_id' =>  $product_id);
             $response = $this->deolib->interswitch_curl($curl_info_data); // return a JSON
             // var_dump($response);
@@ -227,11 +227,11 @@ class Payment extends CI_Controller
     private function update_payment_status($data, $response, $status = true)
     {
         $ret = array('status' => 'error');
-        $uid = $this->session->userdata('user_id');
         $ref = $data["txn_ref"];
         $controller = "";
         $this->db->where("reference", $ref);
         $payment = $this->db->get("payments", 1)->row();
+        $uid = $payment->user_id;
         $payment_paid = ($payment->type == "3") ? "paid_school_fee" : "paid_acceptance_fee";
         if ($data['type'] == "applicants") {
             $controller = "applicant";

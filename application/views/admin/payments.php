@@ -69,7 +69,7 @@
                                         </td>
                                         <td><?= $payment->response_code ?></td>
                                         <td>
-                                            <?php if ($payment->status === "pending") { ?>
+                                            <?php if ($payment->status != "approved") { ?>
                                                 <a href="<?= base_url("payment/verifyPayment/$payment->reference") ?>">Re-Query Status</a>
                                             <?php } ?>
                                         </td>

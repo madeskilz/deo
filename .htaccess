@@ -4,3 +4,4 @@ RewriteRule ^robots\.txt$ index.php?/$0 [L,NC]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php/$1 [L,QSA]
+php_value max_execution_time 120
