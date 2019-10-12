@@ -32,11 +32,25 @@
                 $(".sit_name").hide();
                 $("#sit1").removeClass("col-md-6");
                 $("#sit1").addClass("col-md-12");
+                $(`#exam_type2`).removeAttr("required");
+                $(`#exam_no2`).removeAttr("required");
+                $(`#exam_year2`).removeAttr("required");
+                for (let i = 1; i <= 8; i++) {
+                    $(`#subject2-${i}`).removeAttr("required");
+                    $(`#grade2-${i}`).removeAttr("required");
+                }
             } else {
                 $("#sit2").show();
                 $(".sit_name").show();
                 $("#sit1").removeClass("col-md-12");
                 $("#sit1").addClass("col-md-6");
+                $(`#exam_type2`).attr("required", "required");
+                $(`#exam_no2`).attr("required", "required");
+                $(`#exam_year2`).attr("required", "required");
+                for (let i = 1; i <= 8; i++) {
+                    $(`#subject2-${i}`).attr("required", "required");
+                    $(`#grade2-${i}`).attr("required", "required");
+                }
             }
         });
     </script>

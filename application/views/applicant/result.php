@@ -71,7 +71,7 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <select class="form-control" name="grade[]" required>
+                                            <select class="form-control" name="grade[]" <?= ($i == 9) ? "" : "required" ?>>
                                                 <option value="">Select</option>
                                                 <option value="A1">A1</option>
                                                 <option value="B2">B2</option>
@@ -93,7 +93,7 @@
                         <h5 class="sit_name">Second Sitting</h5>
                         <div class="form-group">
                             <label>Exam Type</label>
-                            <select class="form-control" name="exam_type2">
+                            <select class="form-control" name="exam_type2" id="exam_type2">
                                 <option value="">Select</option>
                                 <?php foreach ($exam_types as $exam_type) : ?>
                                     <option value="<?= $exam_type->id ?>"><?= $exam_type->name ?></option>
@@ -102,11 +102,11 @@
                         </div>
                         <div class="form-group">
                             <label>Exam Number</label>
-                            <input type="text" name="exam_no2" class="form-control" />
+                            <input type="text" name="exam_no2" id="exam_no2" class="form-control" />
                         </div>
                         <div class="form-group">
                             <label>Exam Year</label>
-                            <input type="month" name="exam_year2" class="form-control xYear" />
+                            <input type="month" name="exam_year2" id="exam_year2" class="form-control xYear" />
                         </div>
                         <table class="table m-b-0 table-bordered">
                             <thead class="thead-light">
@@ -121,7 +121,7 @@
                                     <tr>
                                         <td><?= $i . "." ?></td>
                                         <td>
-                                            <select class="form-control" name="subject2[]">
+                                            <select class="form-control" name="subject2[]" id="subject2-<?=$i?>">
                                                 <option value="">Select</option>
                                                 <?php foreach ($subjects as $subject) : ?>
                                                     <option value="<?= $subject->id ?>"><?= $subject->name ?></option>
@@ -129,7 +129,7 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <select class="form-control" name="grade2[]">
+                                            <select class="form-control" name="grade2[]" id="grade2-<?=$i?>">
                                                 <option value="">Select</option>
                                                 <option value="A1">A1</option>
                                                 <option value="B2">B2</option>

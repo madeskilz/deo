@@ -108,6 +108,15 @@ class Home extends CI_Controller
 	{
 		$data = array();
 		$login_data = array();
+		$login_data['user_email'] = cleanit($this->input->post('email'));
+		$login_data['user_password'] = md5(cleanit($this->input->post('password')));
+		$result = $this->login_model->create_account($login_data);
+		if ($result > 0) {
+			$data['user_id'] = $result;
+		} else {
+			$this->session->set_flashdata('error_msg', $result);
+			redirect("application-form");
+		}
 		$data['firstname'] = cleanit($this->input->post('firstname'));
 		$data['lastname'] = cleanit($this->input->post('lastname'));
 		$data['middlename'] = cleanit($this->input->post('middlename'));
@@ -138,15 +147,6 @@ class Home extends CI_Controller
 		if (count($upload_data) > 0) :
 			$data["image"] = ($upload_data['file_name']);
 		endif;
-		$login_data['user_email'] = cleanit($this->input->post('email'));
-		$login_data['user_password'] = md5(cleanit($this->input->post('password')));
-		$result = $this->login_model->create_account($login_data);
-		if ($result > 0) {
-			$data['user_id'] = $result;
-		} else {
-			$this->session->set_flashdata('error_msg', $result);
-			redirect("application-form");
-		}
 		$data['title'] = cleanit($this->input->post('title'));
 		$data['dateofbirth'] = cleanit($this->input->post('dateofbirth'));
 		$data['phone'] = cleanit($this->input->post('phone'));

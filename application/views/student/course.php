@@ -19,7 +19,7 @@
                         office on which courses you are to register for your current level
                     </small>
                 </span>
-                <div class="col-xs-12 text-center">
+                <div class="col-xs-12 text-center" style="margin-top:10px;">
                     <div class="row">
                         <div class="col-md-3 col-xs-6"><a href="<?= base_url("student/course/register") ?>"><i class="fa-3x fa fa-book "></i><br /><span>Register Courses</span></a></div>
                         <div class="col-md-3 col-xs-6"><a href="<?= base_url("student/course/update") ?>"><i class="fa-3x fa fa-list"></i><br /><span>Update Course List</span></a></div>

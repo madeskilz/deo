@@ -115,9 +115,12 @@ class Applicant extends CI_Controller
                 $result_data['exam_id'] = $result;
                 $result_data['subject'] = $subject[$i];
                 $result_data['grade'] = $grade[$i];
-                $this->login_model->create_result($result_data);
+                if ($grade[$i] != '' && $subject[$i] != '') {
+                    $this->login_model->create_result($result_data);
+                }
             }
         } else {
+            $this->session->set_flashdata('error_msg', "Error uploading your o' level result, please try again.");
             redirect("applicant/result");
         }
         if ($exam_sitting == 2) {
@@ -137,13 +140,16 @@ class Applicant extends CI_Controller
                     $result_data['exam_id'] = $result;
                     $result_data['subject'] = $subject[$i];
                     $result_data['grade'] = $grade[$i];
-                    $this->login_model->create_result($result_data);
+                    if ($grade[$i] != '' && $subject[$i] != '') {
+                        $this->login_model->create_result($result_data);
+                    }
                 }
             }
         }
         $this->db->where("user_id", $uid);
         $this->db->set(array("uploaded_result" => 1, "exam_sitting" => $exam_sitting));
         $this->db->update("applicants");
+        $this->session->set_flashdata('success_msg', "Result uploaded successfully.");
         redirect(base_url("applicant"));
     }
     public function payment()
