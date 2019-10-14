@@ -40,6 +40,7 @@ class Printer extends CI_Controller
                 $table = "prospective_students";
             }
             $p['table'] = $table;
+            $this->db->where("user_id", $uid);
             $p['details'] = $this->db->get($table, 1)->row();
             if (!$payment_details[0]->qr_code) {
                 $datat = "Payment Reference: " . $payment_details[0]->payment_reference . "\r\n";
@@ -47,7 +48,7 @@ class Printer extends CI_Controller
                 $datat .= "Full Name: "
                     . $p['details']->lastname . " "
                     . $p['details']->firstname . "\r\n";
-                $datat .= "ID: " . $p["details"]->admission_no . "\r\n";
+                $datat .= "ID: " . (($p["details"]->matric_no) ? $p["details"]->matric_no : $p["details"]->admission_no) . "\r\n";
                 $params['data'] = $datat;
                 $qr_image = rand() . '.png';
                 $params['level'] = 'H';
