@@ -40,9 +40,10 @@
                                     <th>S/N</th>
                                     <th>Full Name</th>
                                     <th>Application No</th>
-                                    <th>Exam Score</th>
+                                    <th>Phone No</th>
+                                    <th>Email</th>
                                     <th>Admission Status</th>
-                                    <th>Action | <a href="<?= base_url("admin/applicant_exam/batch") ?>" class="btn btn-info">Batch Update</a></th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -52,7 +53,8 @@
                                         <td><?= $cc ?></td>
                                         <td><?= "$ap->lastname $ap->firstname $ap->middlename" ?></td>
                                         <td><?= $ap->admission_no ?></td>
-                                        <td><?= getAppExamScore($ap->user_id) ?></td>
+                                        <td><?= $ap->phone ?></td>
+                                        <td><?= $ap->email ?></td>
                                         <td>
                                             <?php if ($ap->admission_status === "processing") : ?>
                                                 <span class="badge badge-warning"><?= $ap->admission_status ?></span>
@@ -63,8 +65,8 @@
                                             <?php endif; ?>
                                         </td>
                                         <td>
-                                            <a data-app_no="<?= $ap->admission_no ?>" data-user_name="<?= "$ap->lastname $ap->firstname $ap->middlename" ?>" href="javascript:;" data-status="<?= $ap->admission_status ?>" data-user_id="<?= $ap->user_id ?>" data-score="<?= getAppExamScore($ap->user_id) ?>" class="update_score">
-                                                Update Score and Admission Status
+                                            <a data-app_no="<?= $ap->admission_no ?>" data-user_name="<?= "$ap->lastname $ap->firstname $ap->middlename" ?>" href="javascript:;" data-status="<?= $ap->admission_status ?>" data-user_id="<?= $ap->user_id ?>" data-score="<?= getAppExamScore($ap->user_id) ?>" class="view">
+                                                View
                                             </a>
                                         </td>
                                     </tr>
@@ -74,7 +76,7 @@
                         </table>
                     </div>
                 <?php else : ?>
-                    <h5>No Apllication for processing</h5>
+                    <h5>No Records Available</h5>
                 <?php endif; ?>
             </div>
         </div>

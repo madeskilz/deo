@@ -72,7 +72,7 @@
                             <li style="margin:auto" class="dropdown nav-item <?= ($active == "applicant") ? "active" : "" ?>">
                                 <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="icon-users"></i> <span>Applicants</span></a>
                                 <ul class="dropdown-menu animated headShake">
-                                    <li><a href="<?= base_url("admin/all_applicant") ?>">All Applicants</a></li>
+                                    <li><a href="<?= base_url("admin/all_applicants") ?>">All Applicants</a></li>
                                     <li><a href="<?= base_url("admin/applicant_exam") ?>">Admission Processing</a></li>
                                 </ul>
                             </li>
